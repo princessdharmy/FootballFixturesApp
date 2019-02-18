@@ -19,7 +19,7 @@ but the app is built on a free plan. Therefore, it is limited to some data conte
 1. [Android Support Libraries](https://developer.android.com/topic/libraries/support-library/)
 2. [Constraint Layout](https://developer.android.com/training/constraint-layout/): for better way of presenting views and layouts.
 3. [Dagger 2](https://github.com/google/dagger) for Dependency Injection.
-4. [Retrofit](https://square.github.io/retrofit/) and RxJava2(https://github.com/ReactiveX/RxJava) for making network calls.
+4. [Retrofit](https://square.github.io/retrofit/) and [RxJava2](https://github.com/ReactiveX/RxJava) for making network calls.
 5. [OkHttp](https://square.github.io/okhttp/) for Network Logging Interceptor
 6. [Moshi](https://github.com/square/moshi): modern JSON library for Kotlin and Java.
 7. [Glide](https://github.com/bumptech/glide): image loading library.
