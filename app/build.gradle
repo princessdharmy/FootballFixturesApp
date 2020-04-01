@@ -17,6 +17,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         dataBinding.enabled = true
+
+        Properties properties = new Properties()
+        if (project.rootProject.file('local.properties').canRead())
+            properties.load(new FileInputStream(project.rootProject.file('local.properties')))
+        else throw new GradleException("Could not read local.properties!")
+
+        buildConfigField("String", "API_KEY", properties["API_KEY"])
     }
     buildTypes {
         release {
