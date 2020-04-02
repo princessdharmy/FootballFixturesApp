@@ -1,8 +1,7 @@
 package com.app.footballfixtures.core.data.network
 
+import com.app.footballfixtures.BuildConfig.API_KEY
 import com.app.footballfixtures.core.data.models.*
-import com.app.footballfixtures.utils.API_KEY
-import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.GET
