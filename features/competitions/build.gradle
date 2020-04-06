@@ -1,0 +1,24 @@
+apply plugin: 'com.android.library'
+apply from: '../../commons.gradle'
+
+
+dependencies {
+    implementation project(Modules.core)
+    implementation project(Modules.common)
+    implementation project(Modules.domain)
+    implementation project(Modules.presentation)
+
+    implementation AndroidLibraries.appCompat
+    implementation AndroidLibraries.constraintLayout
+    implementation AndroidLibraries.materialDesign
+    implementation AndroidLibraries.recyclerView
+    implementation AndroidLibraries.navigation
+    implementation AndroidLibraries.navigationFrag
+
+    implementation Libraries.dagger2
+    kapt Libraries.daggerCompiler
+
+    implementation Libraries.rxJava
+    implementation Libraries.rxJavaAndroid
+    implementation Libraries.rxJavaKotlin
+}

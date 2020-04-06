@@ -49,7 +49,7 @@
             android:background="?android:attr/windowBackground"
             app:itemIconTint="@drawable/bottom_navigation_icon_color"
             app:labelVisibilityMode="unlabeled"
-            app:layout_behavior="com.app.footballfixtures.utils.CustomBottomNavigation"
+            app:layout_behavior="com.example.common.utils.CustomBottomNavigation"
             app:menu="@menu/navigation" />
 
     </android.support.design.widget.CoordinatorLayout>

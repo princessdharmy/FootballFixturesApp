@@ -1,0 +1,35 @@
+apply plugin: 'com.android.library'
+apply from: '../commons.gradle'
+
+android {
+    defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+}
+
+dependencies {
+    implementation project(Modules.common)
+    implementation project(Modules.domain)
+
+    implementation AndroidLibraries.lifecycleViewModel
+    implementation AndroidLibraries.lifecycleExtensions
+    implementation AndroidLibraries.lifecycleReactiveStreams
+    kapt AndroidLibraries.lifecycleCompile
+
+    implementation AndroidLibraries.room
+    kapt AndroidLibraries.roomCompiler
+    implementation AndroidLibraries.roomExtension
+    implementation AndroidLibraries.roomRxJava
+
+    implementation Libraries.dagger2
+    kapt Libraries.daggerCompiler
+
+    implementation Libraries.rxJava
+    implementation Libraries.rxJavaAndroid
+    implementation Libraries.rxJavaKotlin
+
+    implementation TestLibraries.junit
+    implementation TestLibraries.androidTestRunner
+    implementation TestLibraries.espresso
+}

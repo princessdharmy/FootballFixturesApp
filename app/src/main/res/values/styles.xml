@@ -6,25 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-        <item name="android:fontFamily">@font/proxima_nova_semi_bold</item>
-        <item name="android:textSize">15sp</item>
-    </style>
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
-
-    <style name="ToolbarTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">@font/proxima_nova_semi_bold</item>
-        <item name="android:textSize">24sp</item>
-    </style>
-
-    <style name="TabTextAppearance" parent="TextAppearance.AppCompat.Title">
-        <item name="android:fontFamily">@font/proxima_nova_semi_bold</item>
-        <item name="android:textSize">22sp</item>
     </style>
 
 </resources>

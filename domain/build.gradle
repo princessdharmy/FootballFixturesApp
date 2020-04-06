@@ -1,0 +1,23 @@
+apply plugin: 'com.android.library'
+apply from: '../commons.gradle'
+
+android {
+    defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+}
+
+
+dependencies {
+    implementation Libraries.dagger2
+    kapt Libraries.daggerCompiler
+
+    implementation Libraries.rxJava
+    implementation Libraries.rxJavaAndroid
+    implementation Libraries.rxJavaKotlin
+
+    implementation AndroidLibraries.lifecycleExtensions
+    kapt AndroidLibraries.lifecycleCompile
+}

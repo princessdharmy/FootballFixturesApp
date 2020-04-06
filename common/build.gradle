@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+apply from: '../commons.gradle'
+
+dependencies {
+    implementation project(Modules.navigation)
+
+    implementation AndroidLibraries.appCompat
+    implementation AndroidLibraries.fragmentKtx
+    implementation AndroidLibraries.fragment
+    implementation AndroidLibraries.navigation
+    implementation AndroidLibraries.navigationFrag
+
+    implementation Libraries.moshi
+    implementation Libraries.glide
+    kapt Libraries.glideCompiler
+    implementation Libraries.svgDecoder
+    implementation Libraries.androidSvg
+
+    implementation AndroidLibraries.room
+    kapt AndroidLibraries.roomCompiler
+    implementation AndroidLibraries.roomExtension
+    implementation AndroidLibraries.roomRxJava
+    implementation AndroidLibraries.lifecycleViewModel
+
+
+    implementation Libraries.dagger2
+    kapt Libraries.daggerCompiler
+
+}

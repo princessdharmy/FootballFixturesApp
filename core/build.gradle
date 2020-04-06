@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+apply from: '../commons.gradle'
+
+android {
+    defaultConfig {
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+}
+
+dependencies {
+    implementation project(Modules.common)
+    implementation project(Modules.data)
+    implementation project(Modules.domain)
+    implementation project(Modules.presentation)
+
+    implementation Libraries.dagger2
+    kapt Libraries.daggerCompiler
+    implementation AndroidLibraries.fragment
+    implementation AndroidLibraries.fragmentKtx
+}

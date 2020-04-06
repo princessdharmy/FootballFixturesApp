@@ -12,6 +12,7 @@ import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.View
 import android.view.ViewGroup
+import com.app.footballfixtures.HomeActivity
 import com.app.footballfixtures.R
 import org.hamcrest.Description
 import org.hamcrest.Matcher

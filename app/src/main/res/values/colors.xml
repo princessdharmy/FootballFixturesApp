@@ -4,16 +4,4 @@
     <color name="colorPrimaryDark">#DBDBDB</color>
     <color name="colorAccent">#E4E1E1</color>
 
-    <color name="listBgColor">#FAFAFA</color>
-
-    <!--Text Colors-->
-    <color name="titleColor">#545454</color>
-    <color name="textColor">#333333</color>
-    <color name="scoreBoardColor">#B3B3B3</color>
-    <color name="tabActiveItemColor">#1A1A1A</color>
-
-    <!--Icon Colors-->
-    <color name="iconActiveColor">#333333</color>
-    <color name="iconInactiveColor">#767676</color>
-
 </resources>
