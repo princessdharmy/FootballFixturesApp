@@ -3,7 +3,7 @@ package com.example.presentation.viewmodels
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
-class FixturesViewModel @Inject constructor(
+class CompetitionDetailsViewModel @Inject constructor(
    // private var repository: com.example.data.Repository
 ) : ViewModel() {
 

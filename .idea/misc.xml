@@ -6,13 +6,6 @@
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
-  <component name="SuppressABINotification">
-    <option name="modulesWithSuppressedNotConfigured">
-      <set>
-        <option value="core" />
-      </set>
-    </option>
-  </component>
   <component name="masterDetails">
     <states>
       <state key="ScopeChooserConfigurable.UI">

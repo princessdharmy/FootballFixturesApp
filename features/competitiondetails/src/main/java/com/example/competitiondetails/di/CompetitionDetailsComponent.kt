@@ -1,8 +1,6 @@
 package com.example.competitiondetails.di
 
-import android.app.Application
 import com.example.common.scopes.Fragment
-import com.example.competitiondetails.fixturesFragment.CompetitionDetailsModule
 import com.example.competitiondetails.fixturesFragment.FixturesFragment
 import com.example.competitiondetails.tableFragment.TableFragment
 import com.example.competitiondetails.teamFragment.TeamFragment

@@ -1,11 +1,11 @@
 package com.example.competitiondetails.fixturesFragment
 
 import android.content.Context
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,8 +17,8 @@ import com.example.competitiondetails.R
 import com.example.competitiondetails.databinding.FixturesFragmentBinding
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
+import com.example.presentation.viewmodels.CompetitionsViewModel
 
-import com.example.presentation.viewmodels.FixturesViewModel
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
@@ -29,7 +29,7 @@ class FixturesFragment : BaseFragment() {
     private lateinit var adapter: FixturesAdapter
     @Inject
     lateinit var factory: ViewModelProvider.Factory
-    private val viewModel: FixturesViewModel by viewModels { factory }
+    private val viewModel: CompetitionsViewModel by viewModels { factory }
     var disposable: Disposable? = null
 
     override fun onAttach(context: Context) {

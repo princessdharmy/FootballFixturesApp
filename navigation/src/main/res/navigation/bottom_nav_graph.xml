@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_nav_graph.xml"
+    app:startDestination="@id/todayFixtureFragment">
+
+    <fragment
+        android:id="@+id/todayFixtureFragment"
+        android:name="com.example.competitions.today.TodayFixturesFragment"
+        android:label="TodayFixtureFragment" />
+
+    <fragment
+        android:id="@+id/competitionsFragment"
+        android:name="com.example.competitions.competitions.CompetitionsFragment"
+        android:label="CompetitionsFragment">
+
+        <action android:id="@+id/action_competitionsFragment_to_competitionDetailsFragment"
+            app:destination="@id/view_pager">
+<!--            <argument android:name="login" app:argType="string"/>-->
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/view_pager"
+        android:name="com.example.competitiondetails.tableFragment.TableFragment"/>
+
+</navigation>

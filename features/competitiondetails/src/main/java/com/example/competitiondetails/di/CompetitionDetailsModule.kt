@@ -1,11 +1,11 @@
-package com.example.competitiondetails.fixturesFragment
+package com.example.competitiondetails.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.common.scopes.Fragment
 import com.example.common.scopes.ViewModelKey
 import com.example.presentation.factory.ViewModelFactory
-import com.example.presentation.viewmodels.FixturesViewModel
+import com.example.presentation.viewmodels.CompetitionDetailsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -19,8 +19,8 @@ interface CompetitionDetailsModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(FixturesViewModel::class)
-    fun bindFixturesViewModel(fixturesViewModel: FixturesViewModel): ViewModel
+    @ViewModelKey(CompetitionDetailsViewModel::class)
+    fun bindFixturesViewModel(fixturesViewModel: CompetitionDetailsViewModel): ViewModel
 
 
 //    @Provides

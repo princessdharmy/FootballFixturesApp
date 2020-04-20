@@ -17,6 +17,11 @@ dependencies {
     implementation AndroidLibraries.lifecycleReactiveStreams
     kapt AndroidLibraries.lifecycleCompile
 
+    implementation Libraries.moshi
+    implementation Libraries.glide
+    kapt Libraries.glideCompiler
+    implementation Libraries.svgDecoder
+
     implementation AndroidLibraries.room
     kapt AndroidLibraries.roomCompiler
     implementation AndroidLibraries.roomExtension

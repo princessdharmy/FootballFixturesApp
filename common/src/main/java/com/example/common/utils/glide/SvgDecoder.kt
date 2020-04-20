@@ -1,6 +1,6 @@
 package com.example.common.utils.glide
 
-import android.support.annotation.NonNull
+import androidx.annotation.NonNull
 import com.bumptech.glide.load.Options
 import com.caverock.androidsvg.SVGParseException
 import com.bumptech.glide.load.resource.SimpleResource

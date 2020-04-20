@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 apply from: '../../commons.gradle'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 
 dependencies {
@@ -19,6 +21,7 @@ dependencies {
     implementation AndroidLibraries.navigationFrag
 
     implementation Libraries.dagger2
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt Libraries.daggerCompiler
 
     implementation Libraries.rxJava

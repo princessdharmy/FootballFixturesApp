@@ -3,20 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".screens.competition.HomeActivity">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:paddingTop="@dimen/appbar_padding_top"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 style="@style/ToolbarTextAppearance"
                 android:layout_width="match_parent"
@@ -29,18 +28,22 @@
                 app:title="@string/app_name"
                 app:titleTextColor="@color/textColor">
 
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
+            </androidx.appcompat.widget.Toolbar>
 
-        <FrameLayout
-            android:id="@+id/frame_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!--        Put the fragment tag here to launch the first fragment of the bottomnav-->
+        <fragment
+            android:id="@+id/fragNavHost"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/bottom_nav_graph" />
 
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/navigation"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -52,5 +55,5 @@
             app:layout_behavior="com.example.common.utils.CustomBottomNavigation"
             app:menu="@menu/navigation" />
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

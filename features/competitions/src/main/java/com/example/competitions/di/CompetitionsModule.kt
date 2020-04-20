@@ -1,4 +1,4 @@
-package com.example.competitions.competitions
+package com.example.competitions.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

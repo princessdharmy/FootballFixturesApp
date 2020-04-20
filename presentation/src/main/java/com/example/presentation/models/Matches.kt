@@ -1,8 +1,14 @@
 package com.example.presentation.models
 
+import android.graphics.drawable.PictureDrawable
+import android.net.Uri
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
+import com.example.common.utils.glide.GlideApp
+import com.example.common.utils.glide.SvgSoftwareLayerSetter
+import com.example.presentation.R
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -128,24 +134,24 @@ data class Table(
 /**
  * Binding Adapters
  */
-//@BindingAdapter("crestUrl")
-//fun loadImage(view: ImageView, imageUrl: String) {
-//    if (imageUrl.endsWith(".svg")) {
-//        GlideApp.with(view.context)
-//            .`as`(PictureDrawable::class.java)
-//            .placeholder(R.drawable.soccer)
-//            .error(R.drawable.soccer)
-//            .transition(withCrossFade())
-//            .listener(SvgSoftwareLayerSetter())
-//            .load(Uri.parse(imageUrl))
-//            .into(view)
-//    } else {
-//        GlideApp.with(view.context)
-//            .load(imageUrl)
-//            .placeholder(R.drawable.soccer)
-//            .error(R.drawable.soccer)
-//            .transition(withCrossFade())
-//            .into(view)
-//    }
-//}
+@BindingAdapter("crestUrl")
+fun loadImage(view: ImageView, imageUrl: String) {
+    if (imageUrl.endsWith(".svg")) {
+        GlideApp.with(view.context)
+            .`as`(PictureDrawable::class.java)
+            .placeholder(R.drawable.soccer)
+            .error(R.drawable.soccer)
+            .transition(withCrossFade())
+            .listener(SvgSoftwareLayerSetter())
+            .load(Uri.parse(imageUrl))
+            .into(view)
+    } else {
+        GlideApp.with(view.context)
+            .load(imageUrl)
+            .placeholder(R.drawable.soccer)
+            .error(R.drawable.soccer)
+            .transition(withCrossFade())
+            .into(view)
+    }
+}
 

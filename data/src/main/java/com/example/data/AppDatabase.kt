@@ -10,5 +10,5 @@ import com.example.data.models.DataSeason
 @Database(entities = [DataCompetitions::class, DataSeason::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
-    abstract fun competitionsDao(): com.example.data.CompetitionsDao
+    abstract fun competitionsDao(): CompetitionsDao
 }

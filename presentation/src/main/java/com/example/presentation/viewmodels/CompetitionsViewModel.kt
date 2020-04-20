@@ -1,10 +1,13 @@
 package com.example.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
+import com.example.domain.usecases.GetCompetitionsUseCase
+import com.example.domain.usecases.GetTodayFixturesUseCase
 import javax.inject.Inject
 
 class CompetitionsViewModel @Inject constructor(
-//    private val repository: com.example.data.Repository
+    private val getTodayFixturesUseCase: GetTodayFixturesUseCase,
+    private val getCompetitionsUseCase: GetCompetitionsUseCase
 ) : ViewModel() {
 
 //    var liveData = MutableLiveData<CompetitionResponse>()
@@ -13,5 +16,6 @@ class CompetitionsViewModel @Inject constructor(
 //        liveData = repository.getCompetitions() as MutableLiveData<CompetitionResponse>
 //        return liveData
 //    }
+
 
 }

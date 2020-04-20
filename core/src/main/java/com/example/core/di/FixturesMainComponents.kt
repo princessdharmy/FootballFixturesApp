@@ -4,7 +4,6 @@ import android.content.Context
 import com.example.data.di.DataModule
 import com.example.data.di.NetworkModule
 import com.example.domain.di.modules.DomainModule
-import com.example.presentation.di.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

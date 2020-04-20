@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-            android:id="@+id/navigation_fixture"
+            android:id="@+id/todayFixtureFragment"
             android:icon="@drawable/soccer"
             android:title="@string/title_fixtures"/>
 
     <item
-            android:id="@+id/navigation_competition"
+            android:id="@+id/competitionsFragment"
             android:icon="@drawable/soccer_field"
             android:title="@string/title_competition"/>
 

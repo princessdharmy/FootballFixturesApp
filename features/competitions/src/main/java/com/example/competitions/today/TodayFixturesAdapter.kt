@@ -1,9 +1,9 @@
 package com.example.competitions.today
 
-import android.databinding.DataBindingUtil
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.competitions.R
 import com.example.competitions.databinding.FixturesListItemBinding

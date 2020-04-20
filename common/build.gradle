@@ -14,7 +14,6 @@ dependencies {
     implementation Libraries.glide
     kapt Libraries.glideCompiler
     implementation Libraries.svgDecoder
-    implementation Libraries.androidSvg
 
     implementation AndroidLibraries.room
     kapt AndroidLibraries.roomCompiler

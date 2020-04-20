@@ -1,18 +1,26 @@
 package com.app.footballfixtures
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
+import android.os.PersistableBundle
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.app.footballfixtures.databinding.ActivityHomeBinding
+import com.example.common.base.BaseActivity
 import com.example.competitions.competitions.CompetitionsFragment
 import com.example.competitions.today.TodayFixturesFragment
-import dagger.android.support.DaggerAppCompatActivity
 
-class HomeActivity : DaggerAppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
-    lateinit var binding: ActivityHomeBinding
+    private lateinit var binding: ActivityHomeBinding
+    lateinit var navController: NavController
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+    /*private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_fixture -> {
                 binding.toolbar.title = "Today\'s Fixtures"
@@ -31,16 +39,29 @@ class HomeActivity : DaggerAppCompatActivity() {
         }
         false
     }
-
+*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         initBinding()
     }
 
     fun initBinding(){
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
-        binding.navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        binding.navigation.selectedItemId = R.id.navigation_fixture
+        // Finding the Navigation Controller
+        val navController = findNavController(R.id.fragNavHost)
+
+        // Setting Navigation Controller with the BottomNavigationView
+        binding.bottomNavigation.setupWithNavController(navController)
+
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragNavHost) as NavHostFragment
+//        navController = navHostFragment.navController
+//        NavigationUI.setupWithNavController(binding.bottomNavigation, navHostFragment.navController)
+
+        // Setting Up ActionBar with Navigation Controller
+        //setupActionBarWithNavController(navController)
+//        val appBarConfiguration = AppBarConfiguration(setOf
+//            (R.id.todayFixtureFragment, R.id.competitionsFragment))
+//        setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
 
     }
 

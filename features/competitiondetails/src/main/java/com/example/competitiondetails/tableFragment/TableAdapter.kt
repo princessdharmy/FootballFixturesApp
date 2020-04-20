@@ -1,9 +1,9 @@
 package com.example.competitiondetails.tableFragment
 
-import android.databinding.DataBindingUtil
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.competitiondetails.R
 import com.example.competitiondetails.databinding.TableListBinding

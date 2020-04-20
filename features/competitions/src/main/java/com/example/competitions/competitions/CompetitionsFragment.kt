@@ -1,10 +1,11 @@
 package com.example.competitions.competitions
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -81,6 +82,7 @@ class CompetitionsFragment : BaseFragment() {
 
     private val clickListener = View.OnClickListener {
         val competitions = it.tag as Competitions
+        show("Selected", true)
 //        val intent = Intent(context, CompetitionDetailsActivity::class.java)
 //        intent.putExtra("id", competitions.id)
 //        intent.putExtra("name", competitions.name)

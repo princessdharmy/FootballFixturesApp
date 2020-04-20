@@ -94,7 +94,7 @@ object Libraries {
     val glide =  "com.github.bumptech.glide:glide:${Versions.glideVersion}"
     val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glideVersion}"
     val svgDecoder = "com.caverock:androidsvg:${Versions.svgDecoderVersion}"
-    val androidSvg = "com.caverock:androidsvg-aar:${Versions.androidSvg}"
+    //val androidSvg = "com.caverock:androidsvg-aar:${Versions.androidSvg}"
 
 }
 
