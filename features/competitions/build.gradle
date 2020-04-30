@@ -9,9 +9,12 @@ dependencies {
     implementation project(Modules.presentation)
 
     implementation AndroidLibraries.appCompat
+    implementation AndroidLibraries.fragment
+    implementation AndroidLibraries.fragmentKtx
     implementation AndroidLibraries.constraintLayout
     implementation AndroidLibraries.materialDesign
     implementation AndroidLibraries.recyclerView
+    implementation AndroidLibraries.cardView
     implementation AndroidLibraries.navigation
     implementation AndroidLibraries.navigationFrag
 

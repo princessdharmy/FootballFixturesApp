@@ -1,11 +1,11 @@
 package com.example.domain.repository
 
 import com.example.domain.entities.DomainEntities
-import io.reactivex.Observable
+import io.reactivex.Single
 
 interface CompetitionsRepository {
 
-    fun getTodayMatches(): Observable<List<DomainEntities.MatchResponse>>
+    fun getTodayMatches(date: String): Single<DomainEntities.MatchResponse>
 
-    fun getCompetitions(): Observable<List<DomainEntities.CompetitionResponse>>
+    fun getAllCompetitions(): Single<DomainEntities.CompetitionResponse>
 }

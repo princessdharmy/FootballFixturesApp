@@ -1,4 +1,4 @@
-package com.example.data.remote
+package com.example.data.remote.api
 
 import com.example.data.BuildConfig.API_KEY
 import com.example.data.models.*
@@ -15,7 +15,7 @@ interface ApiService {
     @Headers("X-Auth-Token: $API_KEY")
     fun getAllMatches(@Query("dateFrom") dateFrom: String,
                            @Query("dateTo") dateTo: String)
-            : Single<Response<DataMatchResponse>>
+            : Single<DataMatchResponse>
 
 
     @GET("competitions/{id}/matches")
@@ -23,30 +23,30 @@ interface ApiService {
     fun getMatchesByCompetition(@Path("id") id: Long,
                                 @Query("dateFrom") dateFrom: String,
                                 @Query("dateTo") dateTo: String)
-            : Single<Response<DataMatchResponse>>
+            : Single<DataMatchResponse>
 
 
     @GET("competitions")
     @Headers("X-Auth-Token: $API_KEY")
     fun getAllCompetitions(@Query("plan") plan: String)
-            : Single<Response<DataCompetitionResponse>>
+            : Single<DataCompetitionResponse>
 
 
     @GET("competitions/{id}/teams")
     @Headers("X-Auth-Token: $API_KEY")
     fun getTeamsByCompetition(@Path("id") id: Long)
-            : Single<Response<DataTeamResponse>>
+            : Single<DataTeamResponse>
 
 
     @GET("teams/{id}")
     @Headers("X-Auth-Token: $API_KEY")
     fun getTeamById(@Path("id") id: Long)
-            : Single<Response<DataPlayerResponse>>
+            : Single<DataPlayerResponse>
 
 
     @GET("competitions/{id}/standings")
     @Headers("X-Auth-Token: $API_KEY")
     fun getTablesByCompetition(@Path("id") id: Long,
                                @Query("standingType") standingType: String)
-            : Single<Response<DataStandingResponse>>
+            : Single<DataStandingResponse>
 }

@@ -23,7 +23,7 @@ class TodayFixturesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //holder.binding?.match = matchList[position]
+        holder.binding?.match = matchList[position]
     }
 
     fun updateAdapter(value: List<Match>){

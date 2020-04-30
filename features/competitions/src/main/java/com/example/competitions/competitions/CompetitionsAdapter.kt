@@ -1,5 +1,6 @@
 package com.example.competitions.competitions
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,7 @@ class CompetitionsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding?.click = listener
-        //holder.binding?.competitions = competitionsList[position]
+        holder.binding?.competitions = competitionsList[position]
     }
 
     fun updateAdapter(list: List<Competitions>){

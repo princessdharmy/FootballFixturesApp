@@ -1,5 +1,6 @@
 package com.example.competitiondetails.tableFragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import com.example.common.base.BaseFragment
 import com.example.presentation.utils.Utilities
 import com.example.competitiondetails.R
 import com.example.competitiondetails.databinding.TableFragmentBinding
+import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
+import com.example.core.coreComponent
 import com.example.presentation.viewmodels.TableViewModel
 import io.reactivex.disposables.Disposable
 
@@ -30,6 +33,11 @@ class TableFragment : BaseFragment() {
 //    internal lateinit var factory: ViewModelProvider.Factory
     private lateinit var viewModel: TableViewModel
     var disposable: Disposable? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        DaggerCompetitionDetailsComponent.factory().create(coreComponent()).inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

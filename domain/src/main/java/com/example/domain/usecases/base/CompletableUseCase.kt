@@ -7,13 +7,14 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableCompletableObserver
 
 
-abstract class CompletableUseCase<T, Input>(private val backgroundScheduler: Scheduler,
-                                            private val foregroundScheduler: Scheduler) {
+abstract class CompletableUseCase<T, in Input> constructor(
+    private val backgroundScheduler: Scheduler,
+    private val foregroundScheduler: Scheduler) {
 
-    protected abstract fun build(input: Input?): Completable
+    protected abstract fun build(vararg input: Input?): Completable
 
-    fun run(input: Input?): Completable {
-        return build(input)
+    fun run(vararg input: Input?): Completable {
+        return build(*input)
             .subscribeOn(backgroundScheduler)
             .observeOn(foregroundScheduler)
     }

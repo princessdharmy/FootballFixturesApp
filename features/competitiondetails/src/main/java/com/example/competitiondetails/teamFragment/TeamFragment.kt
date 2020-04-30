@@ -1,5 +1,6 @@
 package com.example.competitiondetails.teamFragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import com.example.common.base.BaseFragment
 import com.example.presentation.utils.Utilities
 import com.example.competitiondetails.R
 import com.example.competitiondetails.databinding.TeamFragmentBinding
+import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
+import com.example.core.coreComponent
 import com.example.presentation.models.PlayerResponse
 import com.example.presentation.models.Team
 
@@ -32,6 +35,11 @@ class TeamFragment : BaseFragment() {
 //    internal lateinit var factory: ViewModelProvider.Factory
     private lateinit var viewModel: TeamViewModel
     var disposable: Disposable? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        DaggerCompetitionDetailsComponent.factory().create(coreComponent()).inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,6 +1,6 @@
 package com.example.data.di
 
-import com.example.data.remote.ApiService
+import com.example.data.remote.api.ApiService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

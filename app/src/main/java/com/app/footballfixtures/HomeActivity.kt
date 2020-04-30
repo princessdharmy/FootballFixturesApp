@@ -20,48 +20,24 @@ class HomeActivity : BaseActivity() {
     private lateinit var binding: ActivityHomeBinding
     lateinit var navController: NavController
 
-    /*private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_fixture -> {
-                binding.toolbar.title = "Today\'s Fixtures"
-                supportFragmentManager.beginTransaction()
-                    .replace(frame_container.id, TodayFixturesFragment())
-                    .commit()
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_competition -> {
-                binding.toolbar.title = "Competitions"
-                supportFragmentManager.beginTransaction()
-                    .replace(frame_container.id, CompetitionsFragment())
-                    .commit()
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
-*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+        setSupportActionBar(binding.toolbar)
         initBinding()
     }
 
-    fun initBinding(){
+    private fun initBinding(){
         // Finding the Navigation Controller
-        val navController = findNavController(R.id.fragNavHost)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragNavHost) as NavHostFragment
+        navController = navHostFragment.navController
 
         // Setting Navigation Controller with the BottomNavigationView
-        binding.bottomNavigation.setupWithNavController(navController)
+        NavigationUI.setupWithNavController(binding.bottomNavigation, navHostFragment.navController)
 
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragNavHost) as NavHostFragment
-//        navController = navHostFragment.navController
-//        NavigationUI.setupWithNavController(binding.bottomNavigation, navHostFragment.navController)
-
-        // Setting Up ActionBar with Navigation Controller
-        //setupActionBarWithNavController(navController)
-//        val appBarConfiguration = AppBarConfiguration(setOf
-//            (R.id.todayFixtureFragment, R.id.competitionsFragment))
-//        setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
+         //Setting Up ActionBar with Navigation Controller
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.todayFixtureFragment, R.id.competitionsFragment))
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
     }
 

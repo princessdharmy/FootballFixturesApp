@@ -4,18 +4,18 @@ import com.example.domain.entities.DomainEntities
 import com.example.domain.qualifiers.Background
 import com.example.domain.qualifiers.Foreground
 import com.example.domain.repository.CompetitionsRepository
-import com.example.domain.usecases.base.ObservableUseCase
-import io.reactivex.Observable
+import com.example.domain.usecases.base.SingleUseCase
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import javax.inject.Inject
 
 class GetTodayFixturesUseCase @Inject constructor(
     private val competitionsRepository: CompetitionsRepository,
     @Background backgroundScheduler: Scheduler,
     @Foreground foregroundScheduler: Scheduler
-): ObservableUseCase<List<DomainEntities.MatchResponse>, Unit>(backgroundScheduler, foregroundScheduler) {
+): SingleUseCase<DomainEntities.MatchResponse, String>(backgroundScheduler, foregroundScheduler) {
 
-    override fun build(input: Unit?): Observable<List<DomainEntities.MatchResponse>> {
-        return competitionsRepository.getTodayMatches()
+    override fun build(input: String?): Single<DomainEntities.MatchResponse> {
+        return competitionsRepository.getTodayMatches(input.toString())
     }
 }

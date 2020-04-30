@@ -17,6 +17,7 @@ import com.example.competitiondetails.R
 import com.example.competitiondetails.databinding.FixturesFragmentBinding
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
+import com.example.presentation.utils.Utilities.hasInternetConnection
 import com.example.presentation.viewmodels.CompetitionsViewModel
 
 import io.reactivex.disposables.Disposable
@@ -52,8 +53,6 @@ class FixturesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //viewModel = ViewModelProviders.of(this, factory).get(FixturesViewModel::class.java)
-
         getSingleMatch(competitionId, Utilities.getCurrentDate())
     }
 
@@ -70,7 +69,7 @@ class FixturesFragment : BaseFragment() {
     }
 
     private fun getSingleMatch(id: Long, date: String) {
-        disposable = Utilities.hasInternetConnection().doOnSuccess {
+        disposable = hasInternetConnection().doOnSuccess {
 //            if (it)
 //                viewModel.getSingleMatch(id, date).observe(this, Observer { data ->
 //                    if (data != null && data.matches.isNotEmpty()) {
