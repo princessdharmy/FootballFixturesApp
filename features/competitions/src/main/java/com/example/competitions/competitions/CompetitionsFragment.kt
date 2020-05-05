@@ -7,10 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -109,11 +113,9 @@ class CompetitionsFragment : BaseFragment() {
 
     private val clickListener = View.OnClickListener {
         val competitions = it.tag as Competitions
-        show("Selected", true)
-//        val intent = Intent(context, CompetitionDetailsActivity::class.java)
-//        intent.putExtra("id", competitions.id)
-//        intent.putExtra("name", competitions.name)
-//        activity?.startActivity(intent)
+        show("${competitions.id} selected", true)
+        val bundle = bundleOf("id" to competitions.id, "name" to competitions.name)
+        it.findNavController().navigate(R.id.view_pager, bundle)
     }
 
     inner class MyHandler {

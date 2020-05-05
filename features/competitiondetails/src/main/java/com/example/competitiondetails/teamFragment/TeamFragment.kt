@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common.base.BaseFragment
@@ -16,24 +18,21 @@ import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
 import com.example.presentation.models.PlayerResponse
 import com.example.presentation.models.Team
+import com.example.presentation.viewmodels.CompetitionDetailsViewModel
 
 import com.example.presentation.viewmodels.TeamViewModel
 import io.reactivex.disposables.Disposable
+import javax.inject.Inject
 
 class TeamFragment : BaseFragment() {
-
-    companion object {
-        fun newInstance() = TeamFragment()
-        var competitionId: Long = 0L
-    }
 
     lateinit var binding: TeamFragmentBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TeamAdapter
     private var listener: OnFragmentInteractionListener? = null
-//    @Inject
-//    internal lateinit var factory: ViewModelProvider.Factory
-    private lateinit var viewModel: TeamViewModel
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel: CompetitionDetailsViewModel by viewModels { factory }
     var disposable: Disposable? = null
 
     override fun onAttach(context: Context) {
@@ -138,6 +137,11 @@ class TeamFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         disposable?.dispose()
+    }
+
+    companion object {
+        fun newInstance() = TeamFragment()
+        var competitionId: Long = 0L
     }
 
 }

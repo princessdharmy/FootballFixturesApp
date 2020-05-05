@@ -22,14 +22,4 @@ interface CompetitionDetailsModule {
     @ViewModelKey(CompetitionDetailsViewModel::class)
     fun bindFixturesViewModel(fixturesViewModel: CompetitionDetailsViewModel): ViewModel
 
-
-//    @Provides
-//    internal fun provideViewModel(repository: com.example.data.Repository): FixturesViewModel {
-//        return FixturesViewModel(repository)
-//    }
-//
-//    @Provides
-//    internal fun provideViewModelFactory(viewModel: FixturesViewModel): ViewModelProvider.Factory{
-//        return ViewModelProviderFactory(viewModel)
-//    }
 }

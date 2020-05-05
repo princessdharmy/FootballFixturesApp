@@ -18,6 +18,7 @@ import com.example.competitiondetails.databinding.FixturesFragmentBinding
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
 import com.example.presentation.utils.Utilities.hasInternetConnection
+import com.example.presentation.viewmodels.CompetitionDetailsViewModel
 import com.example.presentation.viewmodels.CompetitionsViewModel
 
 import io.reactivex.disposables.Disposable
@@ -30,7 +31,7 @@ class FixturesFragment : BaseFragment() {
     private lateinit var adapter: FixturesAdapter
     @Inject
     lateinit var factory: ViewModelProvider.Factory
-    private val viewModel: CompetitionsViewModel by viewModels { factory }
+    private val viewModel: CompetitionDetailsViewModel by viewModels { factory }
     var disposable: Disposable? = null
 
     override fun onAttach(context: Context) {

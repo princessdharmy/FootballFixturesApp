@@ -15,14 +15,13 @@
         android:label="Competitions">
 
         <action android:id="@+id/action_competitionsFragment_to_competitionDetailsFragment"
-            app:destination="@id/view_pager">
-<!--            <argument android:name="login" app:argType="string"/>-->
-        </action>
+            app:destination="@id/view_pager"/>
 
     </fragment>
 
     <fragment
         android:id="@+id/view_pager"
-        android:name="com.example.competitiondetails.tableFragment.TableFragment"/>
+        android:name="com.example.competitiondetails.ViewPagerFragment"
+        android:label="Competition Details"/>
 
 </navigation>

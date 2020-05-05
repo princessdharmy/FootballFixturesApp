@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply from: '../../commons.gradle'
 
-
 dependencies {
     implementation project(Modules.core)
     implementation project(Modules.common)
