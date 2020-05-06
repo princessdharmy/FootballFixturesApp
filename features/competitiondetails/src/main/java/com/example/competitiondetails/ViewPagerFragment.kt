@@ -22,14 +22,10 @@ class ViewPagerFragment : BaseFragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_view_pager, container, false)
         val view = binding.root
-        binding.click = MyHandler()
         return view
     }
 
-    inner class MyHandler {
-        fun onTapToRetry(view: View) {
-            show("Clicked", true)
-        }
+    companion object {
+        fun newInstance() = ViewPagerFragment()
     }
-
 }

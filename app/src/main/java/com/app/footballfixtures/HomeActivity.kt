@@ -2,14 +2,12 @@ package com.app.footballfixtures
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
 import com.app.footballfixtures.databinding.ActivityHomeBinding
 import com.example.common.base.BaseActivity
 import com.example.competitions.competitions.CompetitionsFragment
@@ -19,6 +17,7 @@ class HomeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,18 +26,33 @@ class HomeActivity : BaseActivity() {
         initBinding()
     }
 
-    private fun initBinding(){
+    private fun initBinding() {
         // Finding the Navigation Controller
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragNavHost) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragNavHost) as NavHostFragment
         navController = navHostFragment.navController
 
         // Setting Navigation Controller with the BottomNavigationView
         NavigationUI.setupWithNavController(binding.bottomNavigation, navHostFragment.navController)
 
-         //Setting Up ActionBar with Navigation Controller
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.todayFixtureFragment, R.id.competitionsFragment))
+        //Setting Up ActionBar with Navigation Controller
+        appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.todayFixtureFragment, R.id.competitionsFragment))
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+        // This helps to customise the toolbar i.e the back button
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.view_pager) {
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
+            } else 0
+        }
+
     }
+
+    /**
+     * This enables click listener on the back button
+     */
+    override fun onSupportNavigateUp() =
+        findNavController(R.id.fragNavHost).navigateUp(appBarConfiguration)
 
 }
