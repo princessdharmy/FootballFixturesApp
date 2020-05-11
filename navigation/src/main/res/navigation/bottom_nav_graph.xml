@@ -14,11 +14,11 @@
         android:name="com.example.competitions.competitions.CompetitionsFragment"
         android:label="Competitions">
 
-<!--        <argument android:name="competition"-->
-<!--            app:argType="com.example.presentation.models.Competition"/>-->
-
         <action android:id="@+id/action_competitionsFragment_to_competitionDetailsFragment"
             app:destination="@id/view_pager"/>
+
+<!--            <argument android:name="competition"-->
+<!--                app:argType="com.example.presentation.models.Competitions"/>-->
 
     </fragment>
 

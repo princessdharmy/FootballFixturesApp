@@ -33,8 +33,4 @@ dependencies {
     implementation Libraries.rxJava
     implementation Libraries.rxJavaAndroid
     implementation Libraries.rxJavaKotlin
-
-    implementation TestLibraries.junit
-    implementation TestLibraries.androidTestRunner
-    implementation TestLibraries.espresso
 }

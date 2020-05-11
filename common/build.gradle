@@ -2,8 +2,6 @@ apply plugin: 'com.android.library'
 apply from: '../commons.gradle'
 
 dependencies {
-    implementation project(Modules.navigation)
-
     implementation AndroidLibraries.appCompat
     implementation AndroidLibraries.fragmentKtx
     implementation AndroidLibraries.fragment

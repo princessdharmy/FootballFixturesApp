@@ -20,6 +20,7 @@ data class MatchResponse(
     var errorMessage: String = ""
 )
 
+@Parcelize
 data class Match(
     var id: Long = 0L,
     var competition: SubTeams? = null,
@@ -33,31 +34,35 @@ data class Match(
     var score: Score = Score(),
     var homeTeam: SubTeams = SubTeams(),
     var awayTeam: SubTeams = SubTeams()
-)
+) : Parcelable
 
 //@Entity(tableName = "season")
+@Parcelize
 data class Season(
     //@PrimaryKey
     var id: Long = 0L,
     var startDate: String? = "",
     var endDate: String? = ""
-)
+) : Parcelable
 
+@Parcelize
 data class Score(
     var fullTime: SubScores = SubScores(),
     var halfTime: SubScores = SubScores(),
     var duration: String = ""
-)
+) : Parcelable
 
+@Parcelize
 data class SubScores(
     var homeTeam: Int? = 0,
     var awayTeam: Int? = 0
-)
+) : Parcelable
 
+@Parcelize
 data class SubTeams(
     var id: Long = 0L,
     var name: String = ""
-)
+) : Parcelable
 
 /**
  * Data classes for Competitions
@@ -68,12 +73,13 @@ data class CompetitionResponse(
 )
 
 //@Entity(tableName = "competitions")
+@Parcelize
 data class Competitions(
     //@PrimaryKey
     var id: Long = 0L,
     var name: String = "",
     var currentSeason: Season = Season()
-)
+) : Parcelable
 
 /**
  * Data classes for Teams

@@ -1,7 +1,6 @@
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs.kotlin"
 
 androidExtensions {
     experimental = true
@@ -39,6 +38,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -47,4 +50,9 @@ dependencies {
 
     implementation KotlinLibraries.kotlin
     implementation AndroidLibraries.coreKtx
+
+    implementation TestLibraries.androidTestRunner
+    implementation TestLibraries.junit
+    implementation TestLibraries.espresso
+    implementation TestLibraries.espressoContrib
 }

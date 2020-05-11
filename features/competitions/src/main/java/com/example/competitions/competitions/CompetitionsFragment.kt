@@ -20,10 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.common.base.BaseFragment
-import com.example.presentation.utils.Utilities
 import com.example.competitions.R
 import com.example.competitions.databinding.CompetitionsFragmentBinding
-import com.example.competitions.di.CompetitionComponent
 import com.example.competitions.di.DaggerCompetitionComponent
 import com.example.core.coreComponent
 import com.example.presentation.models.Competitions
@@ -114,8 +112,9 @@ class CompetitionsFragment : BaseFragment() {
     private val clickListener = View.OnClickListener {
         val competitions = it.tag as Competitions
         show("${competitions.id} selected", true)
-        val bundle = bundleOf("id" to competitions.id, "name" to competitions.name)
-        it.findNavController().navigate(R.id.view_pager, bundle)
+        val action = CompetitionsFragmentDirections.actionCompetitionsFragmentToCompetitionDetailsFragment(competitions)
+//        val bundle = bundleOf("id" to competitions.id, "name" to competitions.name)
+//        it.findNavController().navigate(R.id.view_pager, bundle)
     }
 
     inner class MyHandler {
