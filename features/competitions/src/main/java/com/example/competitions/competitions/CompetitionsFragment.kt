@@ -112,7 +112,11 @@ class CompetitionsFragment : BaseFragment() {
     private val clickListener = View.OnClickListener {
         val competitions = it.tag as Competitions
         show("${competitions.id} selected", true)
-        val action = CompetitionsFragmentDirections.actionCompetitionsFragmentToCompetitionDetailsFragment(competitions)
+        val action =
+            CompetitionsFragmentDirections.actionCompetitionsFragmentToCompetitionDetailsFragment(
+                competitions
+            )
+        it.findNavController().navigate(action)
 //        val bundle = bundleOf("id" to competitions.id, "name" to competitions.name)
 //        it.findNavController().navigate(R.id.view_pager, bundle)
     }

@@ -1,6 +1,9 @@
-/*
+
 package com.example.competitiondetails
 
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 
 
 class ViewPageAdapter(supportFragmentManager: FragmentManager): FragmentStatePagerAdapter(supportFragmentManager) {
@@ -24,4 +27,4 @@ class ViewPageAdapter(supportFragmentManager: FragmentManager): FragmentStatePag
         fragmentList.add(fragment)
         fragmentTitleList.add(title)
     }
-}*/
+}

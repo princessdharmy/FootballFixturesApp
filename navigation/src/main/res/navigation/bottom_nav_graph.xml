@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottom_nav_graph.xml"
+    android:id="@+id/bottom_nav_graph"
     app:startDestination="@id/todayFixtureFragment">
 
     <fragment
@@ -15,16 +15,16 @@
         android:label="Competitions">
 
         <action android:id="@+id/action_competitionsFragment_to_competitionDetailsFragment"
-            app:destination="@id/view_pager"/>
+            app:destination="@id/view_pager_nav_graph">
 
-<!--            <argument android:name="competition"-->
-<!--                app:argType="com.example.presentation.models.Competitions"/>-->
+            <argument android:name="competition"
+                app:argType="com.example.presentation.models.Competitions"/>
+
+        </action>
 
     </fragment>
 
-    <fragment
-        android:id="@+id/view_pager"
-        android:name="com.example.competitiondetails.ViewPagerFragment"
-        android:label="Competition Details"/>
+    <include app:graph="@navigation/view_pager_nav_graph"/>
+
 
 </navigation>

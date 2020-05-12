@@ -7,6 +7,8 @@ dependencies {
     implementation project(Modules.common)
     implementation project(Modules.domain)
     implementation project(Modules.presentation)
+    implementation project(Modules.navigation)
+
 
     implementation AndroidLibraries.appCompat
     implementation AndroidLibraries.fragment

@@ -42,7 +42,7 @@ class HomeActivity : BaseActivity() {
 
         // This helps to customise the toolbar i.e the back button
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.view_pager) {
+            if(destination.id == R.id.viewPager) {
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
             } else 0
         }

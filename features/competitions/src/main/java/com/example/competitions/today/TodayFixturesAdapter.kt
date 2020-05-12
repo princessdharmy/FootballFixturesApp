@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.competitions.R
-import com.example.competitions.databinding.FixturesListItemBinding
+import com.example.competitions.databinding.CompetitionFixturesListItemBinding
 import com.example.presentation.models.Match
 
 class TodayFixturesAdapter(
@@ -14,7 +14,7 @@ class TodayFixturesAdapter(
 ): RecyclerView.Adapter<TodayFixturesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
-        val view = LayoutInflater.from(p0.context).inflate(R.layout.fixtures_list_item, p0, false)
+        val view = LayoutInflater.from(p0.context).inflate(R.layout.competition_fixtures_list_item, p0, false)
         return ViewHolder(view)
     }
 
@@ -33,7 +33,7 @@ class TodayFixturesAdapter(
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
-        val binding: FixturesListItemBinding? = DataBindingUtil.bind(view)
+        val binding: CompetitionFixturesListItemBinding? = DataBindingUtil.bind(view)
         init {
             view.tag = binding
         }
