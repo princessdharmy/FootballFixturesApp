@@ -22,7 +22,7 @@
                 android:id="@+id/toolbar"
                 style="@style/ToolbarTextAppearance"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="2dp"
                 android:layout_weight="1"
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
@@ -36,14 +36,11 @@
                 android:layout_height="wrap_content"
                 app:tabBackground="@color/colorPrimary"
                 app:tabGravity="fill"
-                app:tabIndicatorHeight="0dp"
+                app:tabIndicatorHeight="1dp"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/tabActiveItemColor"
                 app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                app:tabTextColor="@color/titleColor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/appbar"/>
+                app:tabTextColor="@color/titleColor" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

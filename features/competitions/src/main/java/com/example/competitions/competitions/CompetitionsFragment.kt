@@ -117,8 +117,6 @@ class CompetitionsFragment : BaseFragment() {
                 competitions
             )
         it.findNavController().navigate(action)
-//        val bundle = bundleOf("id" to competitions.id, "name" to competitions.name)
-//        it.findNavController().navigate(R.id.view_pager, bundle)
     }
 
     inner class MyHandler {
