@@ -61,7 +61,6 @@ class TableFragment : BaseFragment() {
 
     private fun getIntents() {
         competitionId = arguments?.getLong("id")!!
-        // show("${arguments?.getString("id")} received", true)
     }
 
     private fun initRecyclerView() {
