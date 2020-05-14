@@ -2,11 +2,13 @@ package com.example.competitiondetails.tableFragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,8 @@ import com.example.competitiondetails.R
 import com.example.competitiondetails.databinding.TableFragmentBinding
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
+import com.example.presentation.models.Resource
+import com.example.presentation.utils.Utilities.hasInternetConnection
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
 import com.example.presentation.viewmodels.TableViewModel
 import io.reactivex.disposables.Disposable
@@ -46,18 +50,18 @@ class TableFragment : BaseFragment() {
         val view = binding.root
         binding.click = MyHandler()
         getIntents()
-        //initRecyclerView()
+        initRecyclerView()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //getStandings(competitionId, "TOTAL")
+        getStandings(competitionId)
     }
 
     private fun getIntents() {
-        //competitionId = arguments?.getLong("id")!!
-        show("${arguments?.getString("id")} received", true)
+        competitionId = arguments?.getLong("id")!!
+        // show("${arguments?.getString("id")} received", true)
     }
 
     private fun initRecyclerView() {
@@ -69,19 +73,37 @@ class TableFragment : BaseFragment() {
         recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
     }
 
-    private fun getStandings(id: Long, standingType: String) {
-        disposable = Utilities.hasInternetConnection().doOnSuccess {
-            //            if (it)
-//                viewModel.getStandings(id, standingType).observe(this, Observer { data ->
-//                    if (data != null && data.standings.isNotEmpty()) {
-//                        binding.progressBar.visibility = View.GONE
-//                        binding.tableRecyclerview.visibility = View.VISIBLE
-//                        adapter.updateAdapter(data.standings[0].table)
-//                    }
-//                })
-//            else {
-//                showNoInternet()
-//            }
+    private fun getStandings(id: Long) {
+        Log.e("ID", id.toString())
+        disposable = hasInternetConnection().doOnSuccess {
+            if (it)
+                viewModel.getStandings(id).observe(viewLifecycleOwner, Observer { result ->
+                    Log.e("RESULT", result.data?.standings.toString())
+                    when (result.status) {
+                        Resource.Status.LOADING -> {
+                            println("Loading")
+                        }
+                        Resource.Status.ERROR -> {
+                            println("Error")
+                        }
+                        Resource.Status.SUCCESS -> {
+                            result.data?.let { data ->
+                                if (data.standings.isNullOrEmpty()) {
+                                    binding.progressBar.visibility = View.GONE
+                                    binding.noData.visibility = View.VISIBLE
+                                }
+                                else {
+                                    binding.progressBar.visibility = View.GONE
+                                    binding.tableRecyclerview.visibility = View.VISIBLE
+                                    adapter.updateAdapter(data.standings[0].table)
+                                }
+                            }
+                        }
+                    }
+                })
+            else {
+                showNoInternet()
+            }
         }.doOnError {
             showNoInternet()
         }.subscribe()
@@ -97,7 +119,7 @@ class TableFragment : BaseFragment() {
         fun onTapToRetry(view: View) {
             binding.progressBar.visibility = View.VISIBLE
             binding.noInternet.visibility = View.GONE
-            //getStandings(competitionId, "TOTAL")
+            getStandings(competitionId)
         }
     }
 

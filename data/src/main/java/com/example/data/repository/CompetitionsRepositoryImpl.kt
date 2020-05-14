@@ -16,4 +16,19 @@ class CompetitionsRepositoryImpl (private val apiDataSource: ApiDataSource): Com
         return apiDataSource.getAllCompetitions().map { it.map() }
     }
 
+    override fun getStandings(id: Long): Single<DomainEntities.StandingResponse> {
+        return apiDataSource.getStandings(id).map { it.map() }
+    }
+
+    override fun getSingleMatch(id: Long, date: String): Single<DomainEntities.MatchResponse> {
+        return apiDataSource.getSingleMatch(id, date).map { it.map() }
+    }
+
+    override fun getTeam(id: Long): Single<DomainEntities.TeamResponse> {
+        return apiDataSource.getTeam(id).map { it.map() }
+    }
+
+    override fun getPlayers(id: Long): Single<DomainEntities.PlayerResponse> {
+        return apiDataSource.getPlayers(id).map { it.map() }
+    }
 }

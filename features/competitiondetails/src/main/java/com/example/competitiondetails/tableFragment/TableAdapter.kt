@@ -23,7 +23,7 @@ class TableAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //holder.binding?.tables = tableList[position]
+        holder.binding?.tables = tableList[position]
     }
 
     fun updateAdapter(value: List<Table>){

@@ -1,16 +1,33 @@
 package com.example.presentation.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
+import com.example.domain.usecases.GetTableUseCase
+import com.example.presentation.mappers.map
+import com.example.presentation.models.Resource
+import com.example.presentation.models.StandingResponse
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Observable
+import io.reactivex.functions.Function
 import javax.inject.Inject
 
 class CompetitionDetailsViewModel @Inject constructor(
-   // private var repository: com.example.data.Repository
+    private val getTableUseCase: GetTableUseCase
 ) : ViewModel() {
 
-//    var liveData = MutableLiveData<MatchResponse>()
-//
-//    fun getSingleMatch(id: Long, date: String): LiveData<MatchResponse> {
-//        liveData = repository.getSingleMatch(id, date) as MutableLiveData<MatchResponse>
-//        return liveData
-//    }
+    fun getStandings(id: Long): LiveData<Resource<StandingResponse>> {
+        return getTableUseCase
+            .run(id.toString())
+            .map { Resource.success(it.map()) }
+            .toObservable()
+            .startWith(Resource.loading())
+            .onErrorResumeNext(
+                Function {
+                    Observable.just(Resource.error(msg = "An Error Occurred", data = null))
+                }
+            )
+            .toFlowable(BackpressureStrategy.LATEST)
+            .toLiveData()
+    }
 }

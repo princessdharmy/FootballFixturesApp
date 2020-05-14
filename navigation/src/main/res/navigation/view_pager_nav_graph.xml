@@ -6,20 +6,25 @@
 
     <fragment
         android:id="@+id/viewPager"
-        android:name="com.example.competitiondetails.ViewPagerFragment"
-        android:label="Competition Details" />
+        android:name="com.example.competitiondetails.ViewPagerFragment">
 
-    <fragment
-        android:id="@+id/tableFragment"
-        android:name="com.example.competitiondetails.tableFragment.TableFragment" />
+<!--        The argument passed to this fragment-->
+        <argument android:name="competition"
+            app:argType="com.example.presentation.models.Competitions"/>
 
-    <fragment
-        android:id="@+id/teamFixtureFragment"
-        android:name="com.example.competitiondetails.fixturesFragment.FixturesFragment" />
+    </fragment>
 
-    <fragment
-        android:id="@+id/teamFragment"
-        android:name="com.example.competitiondetails.teamFragment.TeamFragment">
+<!--    <fragment-->
+<!--        android:id="@+id/tableFragment"-->
+<!--        android:name="com.example.competitiondetails.tableFragment.TableFragment" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/teamFixtureFragment"-->
+<!--        android:name="com.example.competitiondetails.fixturesFragment.FixturesFragment" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/teamFragment"-->
+<!--        android:name="com.example.competitiondetails.teamFragment.TeamFragment">-->
 
         <!--        <action android:id="@+id/action_competitionsFragment_to_competitionDetailsFragment"-->
         <!--            app:destination="@id/view_pager">-->
@@ -29,6 +34,6 @@
 
         <!--        </action>-->
 
-    </fragment>
+<!--    </fragment>-->
 
 </navigation>

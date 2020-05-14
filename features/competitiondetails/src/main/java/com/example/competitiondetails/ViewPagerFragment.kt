@@ -18,6 +18,8 @@ class ViewPagerFragment : BaseFragment() {
 
     private lateinit var binding: FragmentViewPagerBinding
     private lateinit var viewPageAdapter: ViewPageAdapter
+    private var competitionId: Long = 0L
+    private lateinit var name: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,29 +30,35 @@ class ViewPagerFragment : BaseFragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_view_pager, container, false)
         val view = binding.root
 
+        getIntents()
         initAdapter()
+
+        // Set the actionbar title
+        baseActivity.supportActionBar?.title = name
+
         return view
     }
 
     private fun initAdapter(){
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         viewPageAdapter = ViewPageAdapter(baseActivity.supportFragmentManager)
         viewPageAdapter.addFragment(TableFragment.newInstance().apply {
             arguments = Bundle().apply {
-                //putLong("id", competitionId ?: 0L)
+                putLong("id", competitionId)
             }
         }, "Table")
-        viewPageAdapter.addFragment(FixturesFragment.newInstance().apply {
-            arguments = Bundle().apply {
-                //putLong("id", competitionId ?: 0L)
-            }
-        }, "Fixtures")
-        viewPageAdapter.addFragment(TeamFragment.newInstance().apply {
-            arguments = Bundle().apply {
-                //putLong("id", competitionId ?: 0L)
-            }
-        }, "Team")
+//        viewPageAdapter.addFragment(FixturesFragment.newInstance().apply {
+//            arguments = Bundle().apply {
+//                putLong("id", competitionId)
+//            }
+//        }, "Fixtures")
+//        viewPageAdapter.addFragment(TeamFragment.newInstance().apply {
+//            arguments = Bundle().apply {
+//                putLong("id", competitionId)
+//            }
+//        }, "Team")
 
         // Set up the ViewPager with the sections adapter.
         binding.container.adapter = viewPageAdapter
@@ -58,7 +66,9 @@ class ViewPagerFragment : BaseFragment() {
     }
 
     private fun getIntents() {
-        //val args:  by navArgs()
+        val args: ViewPagerFragmentArgs by navArgs()
+        competitionId = args.competition.id
+        name = args.competition.name
     }
     companion object {
         fun newInstance() = ViewPagerFragment()
