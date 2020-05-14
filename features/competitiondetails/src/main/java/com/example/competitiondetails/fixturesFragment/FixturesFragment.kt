@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,8 @@ import com.example.competitiondetails.R
 import com.example.competitiondetails.databinding.FixturesFragmentBinding
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
+import com.example.presentation.models.Resource
+import com.example.presentation.utils.Utilities.getCurrentDate
 import com.example.presentation.utils.Utilities.hasInternetConnection
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
 import com.example.presentation.viewmodels.CompetitionsViewModel
@@ -45,7 +48,7 @@ class FixturesFragment : BaseFragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fixtures_fragment, container, false)
         val view = binding.root
-        //binding.click = MyHandler()
+        binding.click = MyHandler()
         getIntents()
         initRecyclerView()
 
@@ -54,7 +57,7 @@ class FixturesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getSingleMatch(competitionId, Utilities.getCurrentDate())
+        getSingleMatch(competitionId, getCurrentDate())
     }
 
     private fun getIntents() {
@@ -65,27 +68,40 @@ class FixturesFragment : BaseFragment() {
         adapter = FixturesAdapter(ArrayList())
         recyclerView = binding.fixturesRecyclerview
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
     }
 
     private fun getSingleMatch(id: Long, date: String) {
         disposable = hasInternetConnection().doOnSuccess {
-//            if (it)
-//                viewModel.getSingleMatch(id, date).observe(this, Observer { data ->
-//                    if (data != null && data.matches.isNotEmpty()) {
-//                        binding.progressBar.visibility = View.GONE
-//                        binding.fixturesRecyclerview.visibility = View.VISIBLE
-//                        adapter.updateAdapter(data.matches)
-//                    } else {
-//                        binding.fixturesRecyclerview.visibility = View.GONE
-//                        binding.progressBar.visibility = View.GONE
-//                        binding.noFixture.visibility = View.VISIBLE
-//                    }
-//                })
-//            else {
-//                showNoInternet()
-//            }
+            if (it)
+                viewModel.getSingleMatch(id, date).observe(viewLifecycleOwner, Observer { result ->
+                    when (result.status) {
+                        Resource.Status.LOADING -> {
+                            println("Loading")
+                        }
+                        Resource.Status.ERROR -> {
+                            println("Error")
+                        }
+                        Resource.Status.SUCCESS -> {
+                            result.data?.let { data ->
+                                if (data.matches.isNullOrEmpty()) {
+                                    binding.fixturesRecyclerview.visibility = View.GONE
+                                    binding.progressBar.visibility = View.GONE
+                                    binding.noFixture.visibility = View.VISIBLE
+                                } else {
+                                    binding.progressBar.visibility = View.GONE
+                                    binding.fixturesRecyclerview.visibility = View.VISIBLE
+                                    adapter.updateAdapter(data.matches)
+                                }
+                            }
+                        }
+                    }
+                })
+            else {
+                showNoInternet()
+            }
         }.doOnError {
             showNoInternet()
         }.subscribe()
@@ -101,7 +117,7 @@ class FixturesFragment : BaseFragment() {
         fun onTapToRetry(view: View) {
             binding.progressBar.visibility = View.VISIBLE
             binding.noInternet.visibility = View.GONE
-            getSingleMatch(competitionId, Utilities.getCurrentDate())
+            getSingleMatch(competitionId, getCurrentDate())
         }
     }
 
@@ -112,7 +128,6 @@ class FixturesFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = FixturesFragment()
-        val TAG: String = FixturesFragment::class.java.simpleName
         var competitionId: Long = 0L
     }
 

@@ -73,11 +73,9 @@ class TableFragment : BaseFragment() {
     }
 
     private fun getStandings(id: Long) {
-        Log.e("ID", id.toString())
         disposable = hasInternetConnection().doOnSuccess {
             if (it)
                 viewModel.getStandings(id).observe(viewLifecycleOwner, Observer { result ->
-                    Log.e("RESULT", result.data?.standings.toString())
                     when (result.status) {
                         Resource.Status.LOADING -> {
                             println("Loading")

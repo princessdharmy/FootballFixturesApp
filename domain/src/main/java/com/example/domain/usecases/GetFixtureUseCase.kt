@@ -9,14 +9,22 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetTableUseCase @Inject constructor (
+class GetFixtureUseCase @Inject constructor (
     private val competitionsRepository: CompetitionsRepository,
     @Background backgroundScheduler: Scheduler,
     @Foreground foregroundScheduler: Scheduler
-) : SingleUseCase<DomainEntities.StandingResponse, Long>(
+) : SingleUseCase<DomainEntities.MatchResponse, GetFixtureUseCase.GetParameters>(
     backgroundScheduler, foregroundScheduler){
 
-    override fun build(input: Long?): Single<DomainEntities.StandingResponse> {
-        return competitionsRepository.getStandings(input!!)
+    override fun build(input: GetParameters?): Single<DomainEntities.MatchResponse> {
+        return competitionsRepository.getSingleMatch(input?.value1!!, input.value2)
+    }
+
+    data class GetParameters(val value1: Long, val value2: String)
+
+    companion object {
+        @JvmStatic
+        fun make (value1: Long, value2: String) : GetParameters  = GetParameters(value1, value2)
+
     }
 }

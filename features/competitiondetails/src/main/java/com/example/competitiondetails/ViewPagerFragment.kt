@@ -49,16 +49,16 @@ class ViewPagerFragment : BaseFragment() {
                 putLong("id", competitionId)
             }
         }, "Table")
-//        viewPageAdapter.addFragment(FixturesFragment.newInstance().apply {
-//            arguments = Bundle().apply {
-//                putLong("id", competitionId)
-//            }
-//        }, "Fixtures")
-//        viewPageAdapter.addFragment(TeamFragment.newInstance().apply {
-//            arguments = Bundle().apply {
-//                putLong("id", competitionId)
-//            }
-//        }, "Team")
+        viewPageAdapter.addFragment(FixturesFragment.newInstance().apply {
+            arguments = Bundle().apply {
+                putLong("id", competitionId)
+            }
+        }, "Fixtures")
+        viewPageAdapter.addFragment(TeamFragment.newInstance().apply {
+            arguments = Bundle().apply {
+                putLong("id", competitionId)
+            }
+        }, "Team")
 
         // Set up the ViewPager with the sections adapter.
         binding.container.adapter = viewPageAdapter
