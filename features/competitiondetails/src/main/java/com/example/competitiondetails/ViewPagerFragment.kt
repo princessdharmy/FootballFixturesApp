@@ -40,10 +40,17 @@ class ViewPagerFragment : BaseFragment() {
     }
 
     private fun initAdapter(){
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        val viewPageAdapter = ViewPageAdapter(baseActivity.supportFragmentManager)
+        /**
+         * Create the adapter that will return a fragment for each of the three primary sections of
+         * the viewpager fragment.
+         *
+         * Using [supportFragmentManager] makes the viewpager fragment contents overlap one another.
+         * Thereby, causing irregularities on the fragment layout.
+         *
+         * To solve the issue above, [childFragmentManager] is used since for placing and managing
+         * Fragments inside of this Fragment.
+         */
+        val viewPageAdapter = ViewPageAdapter(childFragmentManager)
         viewPageAdapter.addFragment(TableFragment.newInstance().apply {
             arguments = Bundle().apply {
                 putLong("id", competitionId)

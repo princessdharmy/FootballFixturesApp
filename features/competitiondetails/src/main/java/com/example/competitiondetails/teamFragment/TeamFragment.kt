@@ -41,10 +41,10 @@ class TeamFragment : BaseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         DaggerCompetitionDetailsComponent.factory().create(coreComponent()).inject(this)
-        if (context is OnFragmentInteractionListener)
-            listener = context
-        else
-            throw IllegalArgumentException("${context.toString()} must implement OnFragmentInteractionListener")
+//        if (context is OnFragmentInteractionListener)
+//            listener = context
+//        else
+//            throw IllegalArgumentException("${context.toString()} must implement OnFragmentInteractionListener")
     }
 
     override fun onCreateView(
@@ -124,7 +124,7 @@ class TeamFragment : BaseFragment() {
                 Resource.Status.SUCCESS -> {
                     result.data?.let { data ->
                         if (data.squad.isNotEmpty()) {
-                            listener?.sendTeam(data)
+                            //listener?.sendTeam(data)
                         }
                     }
                 }
