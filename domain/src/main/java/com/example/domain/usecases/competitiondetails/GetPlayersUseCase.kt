@@ -1,26 +1,22 @@
-package com.example.domain.usecases
+package com.example.domain.usecases.competitiondetails
 
-import android.util.Log
 import com.example.domain.entities.DomainEntities
 import com.example.domain.qualifiers.Background
 import com.example.domain.qualifiers.Foreground
 import com.example.domain.repository.CompetitionsRepository
-import com.example.domain.usecases.base.ObservableUseCase
 import com.example.domain.usecases.base.SingleUseCase
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetCompetitionsUseCase @Inject constructor(
+class GetPlayersUseCase @Inject constructor (
     private val competitionsRepository: CompetitionsRepository,
     @Background backgroundScheduler: Scheduler,
     @Foreground foregroundScheduler: Scheduler
-): SingleUseCase<DomainEntities.CompetitionResponse, String>(
+) : SingleUseCase<DomainEntities.PlayerResponse, Long>(
     backgroundScheduler, foregroundScheduler){
 
-
-    override fun build(input: String?): Single<DomainEntities.CompetitionResponse> {
-        return competitionsRepository.getAllCompetitions()
+    override fun build(input: Long?): Single<DomainEntities.PlayerResponse> {
+        return competitionsRepository.getPlayers(input!!)
     }
 }

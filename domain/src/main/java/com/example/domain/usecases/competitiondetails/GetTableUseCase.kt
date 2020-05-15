@@ -1,4 +1,4 @@
-package com.example.domain.usecases
+package com.example.domain.usecases.competitiondetails
 
 import com.example.domain.entities.DomainEntities
 import com.example.domain.qualifiers.Background
@@ -9,13 +9,14 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetTodayFixturesUseCase @Inject constructor(
+class GetTableUseCase @Inject constructor (
     private val competitionsRepository: CompetitionsRepository,
     @Background backgroundScheduler: Scheduler,
     @Foreground foregroundScheduler: Scheduler
-): SingleUseCase<DomainEntities.MatchResponse, String>(backgroundScheduler, foregroundScheduler) {
+) : SingleUseCase<DomainEntities.StandingResponse, Long>(
+    backgroundScheduler, foregroundScheduler){
 
-    override fun build(input: String?): Single<DomainEntities.MatchResponse> {
-        return competitionsRepository.getTodayMatches(input.toString())
+    override fun build(input: Long?): Single<DomainEntities.StandingResponse> {
+        return competitionsRepository.getStandings(input!!)
     }
 }

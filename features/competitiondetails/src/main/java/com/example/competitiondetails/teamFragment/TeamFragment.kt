@@ -2,11 +2,13 @@ package com.example.competitiondetails.teamFragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,10 +19,11 @@ import com.example.competitiondetails.databinding.TeamFragmentBinding
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
 import com.example.presentation.models.PlayerResponse
+import com.example.presentation.models.Resource
 import com.example.presentation.models.Team
+import com.example.presentation.utils.Utilities.hasInternetConnection
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
 
-import com.example.presentation.viewmodels.TeamViewModel
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
@@ -38,6 +41,10 @@ class TeamFragment : BaseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         DaggerCompetitionDetailsComponent.factory().create(coreComponent()).inject(this)
+        if (context is OnFragmentInteractionListener)
+            listener = context
+        else
+            throw IllegalArgumentException("${context.toString()} must implement OnFragmentInteractionListener")
     }
 
     override fun onCreateView(
@@ -46,7 +53,7 @@ class TeamFragment : BaseFragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.team_fragment, container, false)
         val view = binding.root
-        //binding.click = MyHandler()
+        binding.click = MyHandler()
         getIntents()
         initRecyclerView()
 
@@ -55,17 +62,8 @@ class TeamFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //viewModel = ViewModelProviders.of(this, factory).get(TeamViewModel::class.java)
         getTeams(competitionId)
     }
-
-//    override fun onAttach(context: Context?) {
-//        super.onAttach(context)
-//        if (context is OnFragmentInteractionListener)
-//            listener = context
-//        else
-//            throw IllegalArgumentException("${context.toString()} must implement OnFragmentInteractionListener")
-//    }
 
     private fun getIntents() {
         competitionId = arguments?.getLong("id")!!
@@ -79,18 +77,34 @@ class TeamFragment : BaseFragment() {
     }
 
     private fun getTeams(id: Long) {
-        disposable = Utilities.hasInternetConnection().doOnSuccess {
-//            if (it)
-//                viewModel.getTeams(id).observe(this, Observer { data ->
-//                    if (data != null && data.teams.isNotEmpty()) {
-//                        binding.progressBar.visibility = View.GONE
-//                        binding.teamRecyclerview.visibility = View.VISIBLE
-//                        adapter.updateAdapter(data.teams)
-//                    }
-//                })
-//            else {
-//                showNoInternet()
-//            }
+        disposable = hasInternetConnection().doOnSuccess {
+            if (it)
+                viewModel.getTeams(id).observe(viewLifecycleOwner, Observer { result ->
+                    when (result.status) {
+                        Resource.Status.LOADING -> {
+                            println("Loading")
+                        }
+                        Resource.Status.ERROR -> {
+                            println("Error")
+                        }
+                        Resource.Status.SUCCESS -> {
+                            result.data?.let { data ->
+                                Log.e("TAG", data.teams.toString())
+                                if (data.teams.isNullOrEmpty()) {
+                                    binding.progressBar.visibility = View.GONE
+                                    binding.noData.visibility = View.VISIBLE
+                                } else {
+                                    binding.progressBar.visibility = View.GONE
+                                    binding.teamRecyclerview.visibility = View.VISIBLE
+                                    adapter.updateAdapter(data.teams)
+                                }
+                            }
+                        }
+                    }
+                })
+            else {
+                showNoInternet()
+            }
         }.doOnError {
             showNoInternet()
         }.subscribe()
@@ -98,12 +112,24 @@ class TeamFragment : BaseFragment() {
 
     private fun getPlayers(id: Long) {
         binding.progressBar.visibility = View.VISIBLE
-//        viewModel.getPlayers(id).observe(this, Observer {
-//            binding.progressBar.visibility = View.GONE
-//             if(it != null){
-//                 listener?.sendTeam(it)
-//             }
-//         })
+        viewModel.getPlayers(id).observe(viewLifecycleOwner, Observer { result ->
+            binding.progressBar.visibility = View.GONE
+            when (result.status) {
+                Resource.Status.LOADING -> {
+                    println("Loading")
+                }
+                Resource.Status.ERROR -> {
+                    println("Error")
+                }
+                Resource.Status.SUCCESS -> {
+                    result.data?.let { data ->
+                        if (data.squad.isNotEmpty()) {
+                            listener?.sendTeam(data)
+                        }
+                    }
+                }
+            }
+        })
     }
 
     private fun showNoInternet() {

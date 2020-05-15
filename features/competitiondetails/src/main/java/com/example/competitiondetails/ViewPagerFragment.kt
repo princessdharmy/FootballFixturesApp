@@ -17,7 +17,7 @@ import com.example.competitiondetails.teamFragment.TeamFragment
 class ViewPagerFragment : BaseFragment() {
 
     private lateinit var binding: FragmentViewPagerBinding
-    private lateinit var viewPageAdapter: ViewPageAdapter
+//    private lateinit var viewPageAdapter: ViewPageAdapter
     private var competitionId: Long = 0L
     private lateinit var name: String
 
@@ -43,7 +43,7 @@ class ViewPagerFragment : BaseFragment() {
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        viewPageAdapter = ViewPageAdapter(baseActivity.supportFragmentManager)
+        val viewPageAdapter = ViewPageAdapter(baseActivity.supportFragmentManager)
         viewPageAdapter.addFragment(TableFragment.newInstance().apply {
             arguments = Bundle().apply {
                 putLong("id", competitionId)

@@ -25,7 +25,7 @@ class TeamAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding?.click = listener
-        //holder.binding?.team = teamList[position]
+        holder.binding?.team = teamList[position]
     }
 
     fun updateAdapter(value: List<Team>){
