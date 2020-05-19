@@ -17,7 +17,6 @@ import com.example.competitiondetails.teamFragment.TeamFragment
 class ViewPagerFragment : BaseFragment() {
 
     private lateinit var binding: FragmentViewPagerBinding
-//    private lateinit var viewPageAdapter: ViewPageAdapter
     private var competitionId: Long = 0L
     private lateinit var name: String
 

@@ -1,6 +1,7 @@
 package com.example.competitiondetails.di
 
 import com.example.common.scopes.Fragment
+import com.example.competitiondetails.bottomSheet.BottomSheetFragment
 import com.example.competitiondetails.fixturesFragment.FixturesFragment
 import com.example.competitiondetails.tableFragment.TableFragment
 import com.example.competitiondetails.teamFragment.TeamFragment
@@ -27,4 +28,5 @@ interface CompetitionDetailsComponent {
     fun inject(fixturesFragment: FixturesFragment)
     fun inject(tableFragment: TableFragment)
     fun inject(teamFragment: TeamFragment)
+    fun inject(bottomSheetFragment: BottomSheetFragment)
 }

@@ -14,26 +14,4 @@
 
     </fragment>
 
-<!--    <fragment-->
-<!--        android:id="@+id/tableFragment"-->
-<!--        android:name="com.example.competitiondetails.tableFragment.TableFragment" />-->
-
-<!--    <fragment-->
-<!--        android:id="@+id/teamFixtureFragment"-->
-<!--        android:name="com.example.competitiondetails.fixturesFragment.FixturesFragment" />-->
-
-<!--    <fragment-->
-<!--        android:id="@+id/teamFragment"-->
-<!--        android:name="com.example.competitiondetails.teamFragment.TeamFragment">-->
-
-        <!--        <action android:id="@+id/action_competitionsFragment_to_competitionDetailsFragment"-->
-        <!--            app:destination="@id/view_pager">-->
-
-        <!--            <argument android:name="competition"-->
-        <!--                app:argType="com.example.presentation.models.Competitions"/>-->
-
-        <!--        </action>-->
-
-<!--    </fragment>-->
-
 </navigation>

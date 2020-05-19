@@ -1,5 +1,6 @@
 package com.example.competitiondetails.bottomSheet
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,9 @@ import com.example.competitiondetails.R
 import com.example.competitiondetails.databinding.TeamLineNamesBinding
 import com.example.presentation.models.Player
 
-class BottomSheetAdapter (
-    private var squadList: List<Player>
-): RecyclerView.Adapter<BottomSheetAdapter.ViewHolder>() {
+class BottomSheetAdapter : RecyclerView.Adapter<BottomSheetAdapter.ViewHolder>() {
+
+    private var squadList: List<Player> = ArrayList()
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val view = LayoutInflater.from(p0.context).inflate(R.layout.team_line_names, p0, false)
@@ -23,13 +24,14 @@ class BottomSheetAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.binding?.players = squadList[position].apply {
-//            //This increments the serial number of each player
-//            count = position + 1
-//        }
+        holder.binding?.players = squadList[position].apply {
+            //This increments the serial number of each player
+            count = position + 1
+        }
     }
 
     fun updateAdapter(value: List<Player>){
+        Log.e("TAG", "$value")
         squadList = value
         return notifyDataSetChanged()
     }

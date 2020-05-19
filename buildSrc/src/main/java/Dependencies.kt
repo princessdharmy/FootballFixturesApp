@@ -51,7 +51,7 @@ object Versions {
     val logginInterceptor = "3.8.1"
     val materialDesignVersion = "1.0.0"
     val moshiVersion = "1.9.2"
-    val nav = "2.0.0"
+    val nav = "2.2.2"
     val okHttp = "3.12.1"
     val retrofit = "2.5.0"
     val retrofitCoroutines = "0.9.2"
@@ -61,7 +61,7 @@ object Versions {
     val rxJavaAndroid = "2.1.1"
     val rxJava = "2.2.9"
     val rxJavaKotlin = "2.2.0"
-    val safeArgs = "2.1.0-alpha01"
+    val safeArgs = "2.2.2"
     val shapeImageVersion = "0.9.3@aar"
     val svgDecoderVersion = "1.2.1"
     val targetSdk = 28

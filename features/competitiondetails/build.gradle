@@ -21,6 +21,11 @@ dependencies {
     implementation AndroidLibraries.navigation
     implementation AndroidLibraries.navigationFrag
 
+    implementation Libraries.moshi
+    implementation Libraries.glide
+    kapt Libraries.glideCompiler
+    implementation Libraries.svgDecoder
+
     implementation Libraries.dagger2
     kapt Libraries.daggerCompiler
 

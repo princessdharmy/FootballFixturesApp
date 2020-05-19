@@ -111,7 +111,6 @@ class CompetitionsFragment : BaseFragment() {
 
     private val clickListener = View.OnClickListener {
         val competitions = it.tag as Competitions
-        show("${competitions.id} selected", true)
         val action =
             CompetitionsFragmentDirections.actionCompetitionsFragmentToCompetitionDetailsFragment(
                 competitions

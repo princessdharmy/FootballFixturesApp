@@ -99,6 +99,7 @@ data class Team(
 /**
  * Data classes for Players
  */
+@Parcelize
 data class PlayerResponse(
     var id: Long = 0L,
     var name: String = "",
@@ -106,7 +107,7 @@ data class PlayerResponse(
     var crestUrl: String = "",
     var squad: List<Player> = ArrayList(),
     var errorMessage: String = ""
-)
+): Parcelable
 
 @Parcelize
 data class Player(

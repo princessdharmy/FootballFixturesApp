@@ -50,10 +50,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="132dp"
-                android:layout_marginRight="132dp"
                 android:layout_marginBottom="8dp"
                 android:textSize="16sp"
                 android:fontFamily="@font/proxima_nova_semi_bold"
@@ -88,12 +86,12 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
-                    android:src="@drawable/soccer"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.031" />
+                    app:layout_constraintVertical_bias="0.031"
+                    tools:src="@drawable/soccer"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/squad_recyclerview"
@@ -110,7 +108,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView3"
                     tools:listitem="@layout/team_line_names"
-                    app:layout_constraintVertical_bias="0.65" />
+                    app:layout_constraintVertical_bias="0.65"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

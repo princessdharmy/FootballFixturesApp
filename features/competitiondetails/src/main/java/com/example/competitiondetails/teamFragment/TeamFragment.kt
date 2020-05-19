@@ -7,14 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common.base.BaseFragment
 import com.example.presentation.utils.Utilities
 import com.example.competitiondetails.R
+import com.example.competitiondetails.bottomSheet.BottomSheetFragment
 import com.example.competitiondetails.databinding.TeamFragmentBinding
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
@@ -32,7 +35,6 @@ class TeamFragment : BaseFragment() {
     lateinit var binding: TeamFragmentBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TeamAdapter
-    private var listener: OnFragmentInteractionListener? = null
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: CompetitionDetailsViewModel by viewModels { factory }
@@ -41,10 +43,6 @@ class TeamFragment : BaseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         DaggerCompetitionDetailsComponent.factory().create(coreComponent()).inject(this)
-//        if (context is OnFragmentInteractionListener)
-//            listener = context
-//        else
-//            throw IllegalArgumentException("${context.toString()} must implement OnFragmentInteractionListener")
     }
 
     override fun onCreateView(
@@ -56,7 +54,6 @@ class TeamFragment : BaseFragment() {
         binding.click = MyHandler()
         getIntents()
         initRecyclerView()
-
         return view
     }
 
@@ -89,7 +86,6 @@ class TeamFragment : BaseFragment() {
                         }
                         Resource.Status.SUCCESS -> {
                             result.data?.let { data ->
-                                Log.e("TAG", data.teams.toString())
                                 if (data.teams.isNullOrEmpty()) {
                                     binding.progressBar.visibility = View.GONE
                                     binding.noData.visibility = View.VISIBLE
@@ -123,9 +119,10 @@ class TeamFragment : BaseFragment() {
                 }
                 Resource.Status.SUCCESS -> {
                     result.data?.let { data ->
-                        if (data.squad.isNotEmpty()) {
-                            //listener?.sendTeam(data)
-                        }
+                        //if (data.squad.isNotEmpty()) {
+                            Log.e("TAG", "$data")
+                            //showContent(data)
+                       // }
                     }
                 }
             }
@@ -141,6 +138,17 @@ class TeamFragment : BaseFragment() {
     private val clickListener = View.OnClickListener {
         val team = it.tag as Team
         getPlayers(team.id)
+        //openBottomSheet(team)
+    }
+
+    private fun openBottomSheet(team: Team){
+        val transaction = baseActivity.supportFragmentManager.beginTransaction()
+        val previous = baseActivity.supportFragmentManager.findFragmentByTag(BottomSheetFragment.TAG)
+        if (previous != null) transaction.remove(previous)
+        transaction.addToBackStack(null)
+
+        val dialogFragment = BottomSheetFragment.newInstance(team.id)
+        dialogFragment.show(transaction, BottomSheetFragment.TAG)
     }
 
     inner class MyHandler {
@@ -149,15 +157,6 @@ class TeamFragment : BaseFragment() {
             binding.noInternet.visibility = View.GONE
             getTeams(competitionId)
         }
-    }
-
-    interface OnFragmentInteractionListener {
-        fun sendTeam(playerResponse: PlayerResponse)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
     }
 
     override fun onDestroyView() {
