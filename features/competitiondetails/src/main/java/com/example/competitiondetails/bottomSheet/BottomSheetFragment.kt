@@ -28,6 +28,7 @@ import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
 import com.example.presentation.models.Resource
 import com.example.presentation.utils.Utilities
+import com.example.presentation.utils.Utilities.hasInternetConnection
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -88,17 +89,15 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun getPlayers(id: Long) {
-        //binding.progressBar.visibility = View.VISIBLE
-        disposable = Utilities.hasInternetConnection().doOnSuccess {
+        disposable = hasInternetConnection().doOnSuccess {
             if (it)
                 viewModel.getPlayers(id).observe(viewLifecycleOwner, Observer { result ->
-                    //binding.progressBar.visibility = View.GONE
                     when (result.status) {
                         Resource.Status.LOADING -> {
                             println("Loading")
                         }
                         Resource.Status.ERROR -> {
-                            println("Error detected!")
+                            println("Error")
                         }
                         Resource.Status.SUCCESS -> {
                             result.data?.let { data ->

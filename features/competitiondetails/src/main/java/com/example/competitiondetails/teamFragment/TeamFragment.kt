@@ -106,29 +106,6 @@ class TeamFragment : BaseFragment() {
         }.subscribe()
     }
 
-    private fun getPlayers(id: Long) {
-        binding.progressBar.visibility = View.VISIBLE
-        viewModel.getPlayers(id).observe(viewLifecycleOwner, Observer { result ->
-            binding.progressBar.visibility = View.GONE
-            when (result.status) {
-                Resource.Status.LOADING -> {
-                    println("Loading")
-                }
-                Resource.Status.ERROR -> {
-                    println("Error")
-                }
-                Resource.Status.SUCCESS -> {
-                    result.data?.let { data ->
-                        //if (data.squad.isNotEmpty()) {
-                            Log.e("TAG", "${data.squad}")
-                            //showContent(data)
-                       // }
-                    }
-                }
-            }
-        })
-    }
-
     private fun showNoInternet() {
         binding.teamRecyclerview.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
@@ -137,7 +114,6 @@ class TeamFragment : BaseFragment() {
 
     private val clickListener = View.OnClickListener {
         val team = it.tag as Team
-        //getPlayers(team.id)
         openBottomSheet(team.id)
     }
 
