@@ -5,16 +5,13 @@ import android.content.Context
 import android.graphics.drawable.PictureDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +19,6 @@ import com.example.common.utils.glide.GlideApp
 import com.example.common.utils.glide.SvgSoftwareLayerSetter
 import com.example.competitiondetails.R
 import com.example.competitiondetails.databinding.FragmentBottomSheetBinding
-import com.example.presentation.models.Player
 import com.example.presentation.models.PlayerResponse
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -82,26 +78,6 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.click = MyHandler()
         getIntents()
-//        if (arguments != null) {
-//            binding.clubName.text = arguments?.getString("name")
-//            if (arguments?.getString("url")?.endsWith(".svg") == true)
-//                GlideApp.with(this)
-//                    .`as`(PictureDrawable::class.java)
-//                    .placeholder(R.drawable.soccer)
-//                    .error(R.drawable.soccer)
-//                    .transition(DrawableTransitionOptions.withCrossFade())
-//                    .listener(SvgSoftwareLayerSetter())
-//                    .load(Uri.parse(arguments?.getString("url")))
-//                    .into(binding.imageView3)
-//            else{}
-//                GlideApp.with(this)
-//                    .load(arguments?.getString("url"))
-//                    .placeholder(R.drawable.soccer)
-//                    .error(R.drawable.soccer)
-//                    .transition(DrawableTransitionOptions.withCrossFade())
-//                    .into(binding.imageView3)
-                //initRecyclerView(arguments?.getParcelableArrayList("players") ?: ArrayList())
-//        }
     }
 
     private fun getIntents() {
@@ -124,7 +100,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
                     result.data?.let { data ->
                         if (data.squad.isNullOrEmpty()) {
 
-                         } else {
+                        } else {
                             showContent(data)
                         }
                     }
@@ -135,27 +111,26 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun showContent(data: PlayerResponse) {
         if (activity != null) {
-        binding.clubName.text = data.name
-        if (data.crestUrl?.endsWith(".svg")!!)
-            GlideApp.with(this)
-                .`as`(PictureDrawable::class.java)
-                .placeholder(R.drawable.soccer)
-                .error(R.drawable.soccer)
-                .transition(withCrossFade())
-                .listener(SvgSoftwareLayerSetter())
-                .load(Uri.parse(data.crestUrl))
-                .into(binding.imageView3)
-        else
-            GlideApp.with(this)
-                .load(data.crestUrl)
-                .placeholder(R.drawable.soccer)
-                .error(R.drawable.soccer)
-                .transition(withCrossFade())
-                .into(binding.imageView3)
+            binding.clubName.text = data.name
+            if (data.crestUrl?.endsWith(".svg")!!)
+                GlideApp.with(this)
+                    .`as`(PictureDrawable::class.java)
+                    .placeholder(R.drawable.soccer)
+                    .error(R.drawable.soccer)
+                    .transition(withCrossFade())
+                    .listener(SvgSoftwareLayerSetter())
+                    .load(Uri.parse(data.crestUrl))
+                    .into(binding.imageView3)
+            else
+                GlideApp.with(this)
+                    .load(data.crestUrl)
+                    .placeholder(R.drawable.soccer)
+                    .error(R.drawable.soccer)
+                    .transition(withCrossFade())
+                    .into(binding.imageView3)
 
-        adapter.updateAdapter(data.squad)
-        //initRecyclerView(data.squad)
-        dialog.show()
+            adapter.updateAdapter(data.squad)
+            dialog.show()
         }
     }
 
@@ -189,13 +164,6 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
                 putLong("id", id)
             }
         }
-//        fun newInstance(players: PlayerResponse) = BottomSheetFragment().apply {
-//            arguments = Bundle().apply {
-//                putString("name", players.name)
-//                putString("url", players.crestUrl)
-//                putParcelableArrayList("players", ArrayList(players.squad))
-//            }
-//        }
     }
 
 }
