@@ -27,8 +27,10 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withC
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
 import com.example.presentation.models.Resource
+import com.example.presentation.utils.Utilities
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class BottomSheetFragment : BottomSheetDialogFragment() {
@@ -43,7 +45,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var dialog: BottomSheetDialog
     private lateinit var behavior: BottomSheetBehavior<View>
     private var teamId: Long = 0L
-    private val disposable = CompositeDisposable()
+    var disposable: Disposable? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
@@ -87,26 +89,37 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun getPlayers(id: Long) {
         //binding.progressBar.visibility = View.VISIBLE
-        viewModel.getPlayers(id).observe(viewLifecycleOwner, Observer { result ->
-            //binding.progressBar.visibility = View.GONE
-            when (result.status) {
-                Resource.Status.LOADING -> {
-                    println("Loading")
-                }
-                Resource.Status.ERROR -> {
-                    println("Error detected!")
-                }
-                Resource.Status.SUCCESS -> {
-                    result.data?.let { data ->
-                        if (data.squad.isNullOrEmpty()) {
-
-                        } else {
-                            showContent(data)
+        disposable = Utilities.hasInternetConnection().doOnSuccess {
+            if (it)
+                viewModel.getPlayers(id).observe(viewLifecycleOwner, Observer { result ->
+                    //binding.progressBar.visibility = View.GONE
+                    when (result.status) {
+                        Resource.Status.LOADING -> {
+                            println("Loading")
+                        }
+                        Resource.Status.ERROR -> {
+                            println("Error detected!")
+                        }
+                        Resource.Status.SUCCESS -> {
+                            result.data?.let { data ->
+                                if (data.squad.isNullOrEmpty()) {
+                                    binding.progressBar.visibility = View.GONE
+                                    binding.noData.visibility = View.VISIBLE
+                                } else {
+                                    binding.progressBar.visibility = View.GONE
+                                    binding.squadRecyclerview.visibility = View.VISIBLE
+                                    showContent(data)
+                                }
+                            }
                         }
                     }
-                }
+                })
+            else {
+                showNoInternet()
             }
-        })
+        }.doOnError {
+            showNoInternet()
+        }.subscribe()
     }
 
     private fun showContent(data: PlayerResponse) {
@@ -148,12 +161,24 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             behavior.state = BottomSheetBehavior.STATE_COLLAPSED
             dialog.hide()
         }
+
+        fun onTapToRetry(view: View) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.noInternet.visibility = View.GONE
+            getPlayers(teamId)
+        }
+    }
+
+    private fun showNoInternet() {
+        binding.squadRecyclerview.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
+        binding.noInternet.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         dialog.dismiss()
-        disposable.dispose()
+        disposable?.dispose()
     }
 
     companion object {
