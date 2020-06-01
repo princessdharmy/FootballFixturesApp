@@ -88,7 +88,7 @@ fun DomainEntities.TeamResponse.map() = TeamResponse(
 )
 
 fun Team.map() =
-    DomainEntities.Team(id = id, name = name, shortName = shortName, crestUrl = crestUrl)
+    DomainEntities.Team(id = id, name = name, shortName = shortName, crestUrl = crestUrl ?: "")
 
 fun DomainEntities.Team.map() =
     Team(id = id, name = name, shortName = shortName, crestUrl = crestUrl)
@@ -97,7 +97,7 @@ fun PlayerResponse.map() = DomainEntities.PlayerResponse(
     id = id,
     name = name,
     shortName = shortName,
-    crestUrl = crestUrl,
+    crestUrl = crestUrl ?: "",
     squad = squad.map { it.map() },
     errorMessage = errorMessage
 )
@@ -112,7 +112,7 @@ fun DomainEntities.PlayerResponse.map() = PlayerResponse(
 )
 
 fun Player.map() =
-    DomainEntities.Player(id = id, name = name, position = position, role = role, count = count)
+    DomainEntities.Player(id = id, name = name, position = position ?: "", role = role, count = count)
 
 fun DomainEntities.Player.map() =
     Player(id = id, name = name, position = position, role = role, count = count)

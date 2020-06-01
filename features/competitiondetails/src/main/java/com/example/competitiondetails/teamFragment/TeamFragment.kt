@@ -120,7 +120,7 @@ class TeamFragment : BaseFragment() {
                 Resource.Status.SUCCESS -> {
                     result.data?.let { data ->
                         //if (data.squad.isNotEmpty()) {
-                            Log.e("TAG", "$data")
+                            Log.e("TAG", "${data.squad}")
                             //showContent(data)
                        // }
                     }
@@ -137,17 +137,17 @@ class TeamFragment : BaseFragment() {
 
     private val clickListener = View.OnClickListener {
         val team = it.tag as Team
-        getPlayers(team.id)
-        //openBottomSheet(team)
+        //getPlayers(team.id)
+        openBottomSheet(team.id)
     }
 
-    private fun openBottomSheet(team: Team){
+    private fun openBottomSheet(teamId: Long){
         val transaction = baseActivity.supportFragmentManager.beginTransaction()
         val previous = baseActivity.supportFragmentManager.findFragmentByTag(BottomSheetFragment.TAG)
         if (previous != null) transaction.remove(previous)
         transaction.addToBackStack(null)
 
-        val dialogFragment = BottomSheetFragment.newInstance(team.id)
+        val dialogFragment = BottomSheetFragment.newInstance(teamId)
         dialogFragment.show(transaction, BottomSheetFragment.TAG)
     }
 

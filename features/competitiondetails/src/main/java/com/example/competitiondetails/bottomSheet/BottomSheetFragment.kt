@@ -46,7 +46,6 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var adapter: BottomSheetAdapter
     private lateinit var dialog: BottomSheetDialog
     private lateinit var behavior: BottomSheetBehavior<View>
-    private lateinit var playerResponse: PlayerResponse
     private var teamId: Long = 0L
     private val disposable = CompositeDisposable()
 
@@ -76,13 +75,13 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_bottom_sheet, container, false)
         val view = binding.root
         initRecyclerView()
-        getIntents()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.click = MyHandler()
+        getIntents()
 //        if (arguments != null) {
 //            binding.clubName.text = arguments?.getString("name")
 //            if (arguments?.getString("url")?.endsWith(".svg") == true)
@@ -107,14 +106,37 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun getIntents() {
         teamId = arguments?.getLong("id")!!
+        getPlayers(teamId)
     }
 
+    private fun getPlayers(id: Long) {
+        //binding.progressBar.visibility = View.VISIBLE
+        viewModel.getPlayers(id).observe(viewLifecycleOwner, Observer { result ->
+            //binding.progressBar.visibility = View.GONE
+            when (result.status) {
+                Resource.Status.LOADING -> {
+                    println("Loading")
+                }
+                Resource.Status.ERROR -> {
+                    println("Error detected!")
+                }
+                Resource.Status.SUCCESS -> {
+                    result.data?.let { data ->
+                        if (data.squad.isNullOrEmpty()) {
 
+                         } else {
+                            showContent(data)
+                        }
+                    }
+                }
+            }
+        })
+    }
 
     private fun showContent(data: PlayerResponse) {
         if (activity != null) {
         binding.clubName.text = data.name
-        if (data.crestUrl.endsWith(".svg"))
+        if (data.crestUrl?.endsWith(".svg")!!)
             GlideApp.with(this)
                 .`as`(PictureDrawable::class.java)
                 .placeholder(R.drawable.soccer)

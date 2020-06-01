@@ -93,7 +93,7 @@ data class Team(
     var id: Long = 0L,
     var name: String = "",
     var shortName: String = "",
-    var crestUrl: String = ""
+    var crestUrl: String? = ""
 )
 
 /**
@@ -104,7 +104,7 @@ data class PlayerResponse(
     var id: Long = 0L,
     var name: String = "",
     var shortName: String = "",
-    var crestUrl: String = "",
+    var crestUrl: String? = "",
     var squad: List<Player> = ArrayList(),
     var errorMessage: String = ""
 ): Parcelable
@@ -113,7 +113,7 @@ data class PlayerResponse(
 data class Player(
     var id: Long = 0L,
     var name: String = "",
-    var position: String = "",
+    var position: String? = "",
     var role: String = "",
     var count: Int = 0
 ): Parcelable

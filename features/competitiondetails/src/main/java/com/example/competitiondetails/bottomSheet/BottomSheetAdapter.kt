@@ -31,7 +31,6 @@ class BottomSheetAdapter : RecyclerView.Adapter<BottomSheetAdapter.ViewHolder>()
     }
 
     fun updateAdapter(value: List<Player>){
-        Log.e("TAG", "$value")
         squadList = value
         return notifyDataSetChanged()
     }
