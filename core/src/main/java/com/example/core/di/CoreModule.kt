@@ -1,15 +1,24 @@
 package com.example.core.di
 
 import android.app.Application
-import com.example.core.FixturesApplication
+import android.content.Context
+import com.example.core.MainApplication
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-abstract class CoreModule {
+class CoreModule {
 
     @Binds
     @Singleton
-    abstract fun bindApplication(application: FixturesApplication): Application
+    fun bindApplication(application: MainApplication): Application {
+        return application
+    }
+
+    @Provides
+    fun provideContext(application: Application): Context {
+        return application
+    }
 }

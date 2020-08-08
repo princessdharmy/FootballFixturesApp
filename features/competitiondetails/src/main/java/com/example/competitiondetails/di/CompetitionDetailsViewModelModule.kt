@@ -1,18 +1,17 @@
-package com.example.competitions.di
+package com.example.competitiondetails.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.common.scopes.Fragment
 import com.example.common.scopes.ViewModelKey
 import com.example.presentation.factory.ViewModelFactory
-import com.example.presentation.viewmodels.CompetitionsViewModel
+import com.example.presentation.viewmodels.CompetitionDetailsViewModel
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module
-interface CompetitionsModule {
+interface CompetitionDetailsViewModelModule {
 
     @Binds
     @Fragment
@@ -20,7 +19,7 @@ interface CompetitionsModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(CompetitionsViewModel::class)
-    fun bindCompetitionsViewModel(viewModel: CompetitionsViewModel): ViewModel
+    @ViewModelKey(CompetitionDetailsViewModel::class)
+    fun bindFixturesViewModel(fixturesViewModel: CompetitionDetailsViewModel): ViewModel
 
 }

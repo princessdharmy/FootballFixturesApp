@@ -8,13 +8,8 @@ import com.example.competitiondetails.teamFragment.TeamFragment
 import com.example.core.di.CoreComponent
 import dagger.Component
 
-@Component(
-    dependencies = [
-        CoreComponent::class
-    ],
-    modules = [
-        CompetitionDetailsModule::class
-    ]
+@Component(dependencies = [CoreComponent::class],
+    modules = [CompetitionDetailsViewModelModule::class]
 )
 @Fragment
 interface CompetitionDetailsComponent {

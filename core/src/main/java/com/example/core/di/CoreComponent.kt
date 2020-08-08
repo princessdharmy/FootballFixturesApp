@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [CoreModule::class, DataModule::class, NetworkModule::class,
+@Component(modules = [CoreModule::class, DataModule::class,
     DomainModule::class
 ])
 interface CoreComponent {

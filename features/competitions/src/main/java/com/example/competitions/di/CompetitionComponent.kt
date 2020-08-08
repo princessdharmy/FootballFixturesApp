@@ -6,13 +6,8 @@ import com.example.competitions.today.TodayFixturesFragment
 import com.example.core.di.CoreComponent
 import dagger.Component
 
-@Component(
-    dependencies = [
-        CoreComponent::class
-    ],
-    modules = [
-        CompetitionsModule::class
-    ]
+@Component(dependencies = [CoreComponent::class],
+    modules = [CompetitionsViewModelModule::class]
 )
 @Fragment
 interface CompetitionComponent {

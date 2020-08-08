@@ -8,7 +8,7 @@ import com.example.core.di.CoreComponent
 import com.example.core.di.DaggerCoreComponent
 
 
-class FixturesApplication: Application() {
+class MainApplication: Application() {
 
     private val coreComponent: CoreComponent by lazy {
         DaggerCoreComponent.factory().create(this)
@@ -17,10 +17,10 @@ class FixturesApplication: Application() {
     companion object {
         @JvmStatic
         fun coreComponent(context: Context) =
-            (context.applicationContext as FixturesApplication).coreComponent
+            (context.applicationContext as MainApplication).coreComponent
     }
 
 }
 
-fun Activity.coreComponent() = FixturesApplication.coreComponent(this)
-fun Fragment.coreComponent() = FixturesApplication.coreComponent(requireContext())
+fun Activity.coreComponent() = MainApplication.coreComponent(this)
+fun Fragment.coreComponent() = MainApplication.coreComponent(requireContext())
