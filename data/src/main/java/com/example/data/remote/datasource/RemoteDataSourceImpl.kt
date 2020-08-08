@@ -5,7 +5,7 @@ import com.example.data.models.*
 import com.example.data.remote.api.ApiService
 import io.reactivex.Single
 
-class ApiDataSourceImpl (private val apiService: ApiService): ApiDataSource {
+class RemoteDataSourceImpl (private val apiService: ApiService): RemoteDataSource {
 
     override fun getAllMatches(date: String): Single<DataMatchResponse> {
         return apiService.getAllMatches(date, date)

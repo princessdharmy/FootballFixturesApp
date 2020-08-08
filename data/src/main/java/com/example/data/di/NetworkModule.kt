@@ -8,7 +8,6 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -28,6 +27,9 @@ class NetworkModule {
         return httpLoggingInterceptor
     }
 
+    /*
+    * The method returns the Okhttp object
+    * */
     @Provides
     @Singleton
     internal fun provideOkhttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
@@ -47,13 +49,15 @@ class NetworkModule {
         return (okHttpClient)!!
     }
 
+    /*
+    * The method returns the Retrofit object
+    * */
     @Provides
     @Singleton
     internal fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
             .build()
     }
@@ -64,6 +68,9 @@ class NetworkModule {
         return retrofit.create(ApiService::class.java)
     }
 
+    /**
+     * The method returns the Gson object
+     **/
     @Provides
     @Singleton
     fun provideGson(): Gson = GsonBuilder().create()

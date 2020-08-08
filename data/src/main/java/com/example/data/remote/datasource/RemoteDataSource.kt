@@ -3,7 +3,7 @@ package com.example.data.remote.datasource
 import com.example.data.models.*
 import io.reactivex.Single
 
-interface ApiDataSource {
+interface RemoteDataSource {
 
     fun getAllMatches(date: String): Single<DataMatchResponse>
 
