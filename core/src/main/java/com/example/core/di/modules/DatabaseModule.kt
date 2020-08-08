@@ -2,9 +2,9 @@ package com.example.core.di.modules
 
 import android.content.Context
 import androidx.room.Room
-import com.example.data.CompetitionsDao
-import com.example.data.FootballDatabase
-import com.example.data.FootballDatabase.Companion.DATABASE_NAME
+import com.example.data.local.room.CompetitionsDao
+import com.example.data.local.room.FootballDatabase
+import com.example.data.local.room.FootballDatabase.Companion.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

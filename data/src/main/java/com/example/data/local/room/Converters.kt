@@ -1,4 +1,4 @@
-package com.example.data
+package com.example.data.local.room
 
 import androidx.room.TypeConverter
 import com.example.data.models.DataSeason

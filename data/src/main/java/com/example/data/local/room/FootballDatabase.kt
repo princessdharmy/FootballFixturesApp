@@ -1,10 +1,10 @@
-package com.example.data
+package com.example.data.local.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.data.CompetitionsDao
-import com.example.data.Converters
+import com.example.data.local.room.CompetitionsDao
+import com.example.data.local.room.Converters
 import com.example.data.models.DataCompetitions
 import com.example.data.models.DataSeason
 

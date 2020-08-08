@@ -1,6 +1,8 @@
 package com.example.data.di
 
 import com.example.data.local.datasource.LocalDataSource
+import com.example.data.local.datasource.LocalDataSourceImpl
+import com.example.data.local.room.CompetitionsDao
 import com.example.data.remote.api.ApiService
 import com.example.data.remote.datasource.RemoteDataSource
 import com.example.data.remote.datasource.RemoteDataSourceImpl
@@ -21,6 +23,11 @@ class DataModule {
     }
 
     /// Provide Local Data Sources ///
+
+    @Provides
+    fun provideLocalDataSource(competitionsDao: CompetitionsDao): LocalDataSource {
+        return LocalDataSourceImpl(competitionsDao)
+    }
 
     /// Provide repositories ///
 
