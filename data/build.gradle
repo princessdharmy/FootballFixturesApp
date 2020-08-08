@@ -19,6 +19,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(Modules.domain)
+    implementation project(Modules.common)
 
     api Libraries.retrofit
     api Libraries.retrofitGsonConverter

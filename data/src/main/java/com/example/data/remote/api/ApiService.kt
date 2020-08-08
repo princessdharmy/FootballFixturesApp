@@ -1,8 +1,7 @@
 package com.example.data.remote.api
 
 import com.example.data.BuildConfig.API_KEY
-import com.example.data.models.*
-import io.reactivex.Single
+import com.example.domain.entities.DomainEntities.*
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -13,40 +12,40 @@ interface ApiService {
 
     @GET("matches")
     @Headers("X-Auth-Token: $API_KEY")
-    fun getAllMatches(@Query("dateFrom") dateFrom: String,
+    suspend fun getAllMatches(@Query("dateFrom") dateFrom: String,
                            @Query("dateTo") dateTo: String)
-            : Single<DataMatchResponse>
+            : Response<DomainMatchResponse>
 
 
     @GET("competitions/{id}/matches")
     @Headers("X-Auth-Token: $API_KEY")
-    fun getMatchesByCompetition(@Path("id") id: Long,
+    suspend fun getMatchesByCompetition(@Path("id") id: Long,
                                 @Query("dateFrom") dateFrom: String,
                                 @Query("dateTo") dateTo: String)
-            : Single<DataMatchResponse>
+            : Response<DomainMatchResponse>
 
 
     @GET("competitions")
     @Headers("X-Auth-Token: $API_KEY")
-    fun getAllCompetitions(@Query("plan") plan: String)
-            : Single<DataCompetitionResponse>
+    suspend fun getAllCompetitions(@Query("plan") plan: String)
+            : Response<DomainCompetitionResponse>
 
 
     @GET("competitions/{id}/teams")
     @Headers("X-Auth-Token: $API_KEY")
-    fun getTeamsByCompetition(@Path("id") id: Long)
-            : Single<DataTeamResponse>
+    suspend fun getTeamsByCompetition(@Path("id") id: Long)
+            : Response<DomainTeamResponse>
 
 
     @GET("teams/{id}")
     @Headers("X-Auth-Token: $API_KEY")
-    fun getTeamById(@Path("id") id: Long)
-            : Single<DataPlayerResponse>
+    suspend fun getTeamById(@Path("id") id: Long)
+            : Response<DomainPlayerResponse>
 
 
     @GET("competitions/{id}/standings")
     @Headers("X-Auth-Token: $API_KEY")
-    fun getTablesByCompetition(@Path("id") id: Long,
+    suspend fun getTablesByCompetition(@Path("id") id: Long,
                                @Query("standingType") standingType: String)
-            : Single<DataStandingResponse>
+            : Response<DomainStandingResponse>
 }

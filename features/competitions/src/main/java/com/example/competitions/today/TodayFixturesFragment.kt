@@ -73,9 +73,12 @@ class TodayFixturesFragment : BaseFragment() {
         disposable = hasInternetConnection().doOnSuccess {
             if (it)
                 viewModel.getAllMatches(date).observe(viewLifecycleOwner, Observer { result ->
+
                     when(result.status) {
                         Resource.Status.LOADING -> { println("Loading") }
-                        Resource.Status.ERROR -> { println("Error") }
+                        Resource.Status.ERROR -> { println("${result.message}")
+//                            println("Error")
+                        }
                         Resource.Status.SUCCESS -> {
                             result.data?.let { data ->
                                 if (data.matches.isNotEmpty()) {

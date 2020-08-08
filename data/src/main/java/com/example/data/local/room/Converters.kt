@@ -1,18 +1,18 @@
 package com.example.data.local.room
 
 import androidx.room.TypeConverter
-import com.example.data.models.DataSeason
+import com.example.domain.entities.DomainEntities.*
 import com.squareup.moshi.Moshi
 
 class Converters {
 
         @TypeConverter
-        fun fromSeason(season: DataSeason): String {
-            return Moshi.Builder().build().adapter(DataSeason::class.java).toJson(season)
+        fun fromSeason(season: DomainSeason): String {
+            return Moshi.Builder().build().adapter(DomainSeason::class.java).toJson(season)
         }
 
         @TypeConverter
-        fun toSeason(season: String): DataSeason {
-            return Moshi.Builder().build().adapter(DataSeason::class.java).fromJson(season)!!
+        fun toSeason(season: String): DomainSeason {
+            return Moshi.Builder().build().adapter(DomainSeason::class.java).fromJson(season)!!
         }
 }

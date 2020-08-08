@@ -1,3 +1,4 @@
+/*
 package com.example.data.models
 
 import android.os.Parcelable
@@ -6,9 +7,11 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
+*/
 /**
  * Data classes for Matches
- */
+ *//*
+
 data class DataMatchResponse(
     var matches: List<DataMatch> = ArrayList(),
     var errorMessage: String = ""
@@ -53,9 +56,11 @@ data class DataSubTeams(
     var name: String = ""
 )
 
+*/
 /**
  * Data classes for Competitions
- */
+ *//*
+
 data class DataCompetitionResponse(
     var competitions: List<DataCompetitions> = ArrayList(),
     var errorMessage: String = ""
@@ -69,9 +74,11 @@ data class DataCompetitions(
     var currentSeason: DataSeason = DataSeason()
 )
 
+*/
 /**
  * Data classes for Teams
- */
+ *//*
+
 data class DataTeamResponse(
     var teams: List<DataTeam> = ArrayList(),
     var errorMessage: String = ""
@@ -84,9 +91,11 @@ data class DataTeam(
     var crestUrl: String? = ""
 )
 
+*/
 /**
  * Data classes for Players
- */
+ *//*
+
 data class DataPlayerResponse(
     var id: Long = 0L,
     var name: String = "",
@@ -105,9 +114,11 @@ data class DataPlayer(
     var count: Int = 0
 ): Parcelable
 
+*/
 /**
  * Data classes for Standings
- */
+ *//*
+
 data class DataStandingResponse(
     var standings: List<DataStanding> = ArrayList(),
     var errorMessage: String = ""
@@ -126,3 +137,4 @@ data class DataTable(
 )
 
 
+*/

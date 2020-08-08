@@ -1,3 +1,4 @@
+/*
 package com.example.data.local.mapper
 
 import com.example.data.models.*
@@ -145,4 +146,4 @@ fun DomainEntities.Table.map() = DataTable(
     playedGames = playedGames,
     points = points,
     goalDifference = goalDifference
-)
+)*/

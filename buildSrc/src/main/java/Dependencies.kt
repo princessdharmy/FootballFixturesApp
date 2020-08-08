@@ -45,7 +45,7 @@ object Versions {
     val junit = "4.12"
     val kotlinVersion = "1.3.72"
     val kotlinCoroutine = "1.3.5-native-mt"
-    val lifecycle = "2.1.0"
+    val lifecycle = "2.2.0"
     val minSdk = 23
     val legacyVersion = "1.0.0"
     val logginInterceptor = "3.8.1"
@@ -53,7 +53,7 @@ object Versions {
     val moshiVersion = "1.9.2"
     val nav = "2.2.2"
     val okHttp = "3.12.1"
-    val retrofit = "2.5.0"
+    val retrofit = "2.6.0"
     val retrofitGson = "2.4.0"
     val roomVersion = "2.2.2"
     val recyclerview = "1.0.0"
@@ -123,9 +123,6 @@ object AndroidLibraries {
     val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
     val lifecycleCompile = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
     val lifecycleLivedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
-
-    // ReactiveStreams support for LiveData
-    val lifecycleReactiveStreams = "androidx.lifecycle:lifecycle-reactivestreams-ktx:${Versions.lifecycle}"
 
     // ROOM
     val room = "androidx.room:room-runtime:${Versions.roomVersion}"

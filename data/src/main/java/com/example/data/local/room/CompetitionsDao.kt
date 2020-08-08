@@ -4,17 +4,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.data.models.DataCompetitions
-import io.reactivex.Flowable
-import io.reactivex.Single
-
+import com.example.domain.entities.DomainEntities.*
 
 @Dao
 interface CompetitionsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCompetitions(competitions: List<DataCompetitions>)
+    fun insertCompetitions(competitions: List<DomainCompetitions>)
 
     @Query("SELECT * FROM competitions")
-    fun queryCompetitions(): List<DataCompetitions>
+    fun queryCompetitions(): List<DomainCompetitions>
 }

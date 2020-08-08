@@ -1,19 +1,19 @@
 package com.example.presentation.mappers
 
-import com.example.domain.entities.DomainEntities
+import com.example.domain.entities.DomainEntities.*
 import com.example.presentation.models.*
 
-fun MatchResponse.map() = DomainEntities.MatchResponse(
+fun MatchResponse.map() = DomainMatchResponse(
     matches = matches.map { it.map() },
     errorMessage = errorMessage
 )
 
-fun DomainEntities.MatchResponse.map() = MatchResponse(
+fun DomainMatchResponse.map() = MatchResponse(
     matches = matches.map { it.map() },
     errorMessage = errorMessage
 )
 
-fun Match.map() = DomainEntities.Match(
+fun Match.map() = DomainMatch(
     id = id,
     competition = competition?.map(),
     season = season.map(),
@@ -28,7 +28,7 @@ fun Match.map() = DomainEntities.Match(
     awayTeam = awayTeam.map()
 )
 
-fun DomainEntities.Match.map() = Match(
+fun DomainMatch.map() = Match(
     id = id,
     competition = competition?.map(),
     season = season.map(),
@@ -43,57 +43,57 @@ fun DomainEntities.Match.map() = Match(
     awayTeam = awayTeam.map()
 )
 
-fun Season.map() = DomainEntities.Season(id = id, startDate = startDate, endDate = endDate)
+fun Season.map() = DomainSeason(id = id, startDate = startDate, endDate = endDate)
 
-fun DomainEntities.Season.map() = Season(id = id, startDate = startDate, endDate = endDate)
+fun DomainSeason.map() = Season(id = id, startDate = startDate, endDate = endDate)
 
 fun Score.map() =
-    DomainEntities.Score(halfTime = halfTime.map(), fullTime = fullTime.map(), duration = duration)
+    DomainScore(halfTime = halfTime.map(), fullTime = fullTime.map(), duration = duration)
 
-fun DomainEntities.Score.map() =
+fun DomainScore.map() =
     Score(halfTime = halfTime.map(), fullTime = fullTime.map(), duration = duration)
 
-fun SubScores.map() = DomainEntities.SubScores(homeTeam = homeTeam, awayTeam = awayTeam)
+fun SubScores.map() = DomainSubScores(homeTeam = homeTeam, awayTeam = awayTeam)
 
-fun DomainEntities.SubScores.map() = SubScores(homeTeam = homeTeam, awayTeam = awayTeam)
+fun DomainSubScores.map() = SubScores(homeTeam = homeTeam, awayTeam = awayTeam)
 
-fun SubTeams.map() = DomainEntities.SubTeams(id = id, name = name)
+fun SubTeams.map() = DomainSubTeams(id = id, name = name)
 
-fun DomainEntities.SubTeams.map() = SubTeams(id = id, name = name)
+fun DomainSubTeams.map() = SubTeams(id = id, name = name)
 
-fun CompetitionResponse.map() = DomainEntities.CompetitionResponse(
+fun CompetitionResponse.map() = DomainCompetitionResponse(
     competitions = competitions.map { it.map() },
     errorMessage = errorMessage
 )
 
-fun DomainEntities.CompetitionResponse.map() = CompetitionResponse(
+fun DomainCompetitionResponse.map() = CompetitionResponse(
     competitions = competitions.map { it.map() },
     errorMessage = errorMessage
 )
 
 fun Competitions.map() =
-    DomainEntities.Competitions(id = id, name = name, currentSeason = currentSeason.map())
+    DomainCompetitions(id = id, name = name, currentSeason = currentSeason.map())
 
-fun DomainEntities.Competitions.map() =
+fun DomainCompetitions.map() =
     Competitions(id = id, name = name, currentSeason = currentSeason.map())
 
-fun TeamResponse.map() = DomainEntities.TeamResponse(
+fun TeamResponse.map() = DomainTeamResponse(
     teams = teams.map { it.map() },
     errorMessage = errorMessage
 )
 
-fun DomainEntities.TeamResponse.map() = TeamResponse(
+fun DomainTeamResponse.map() = TeamResponse(
     teams = teams.map { it.map() },
     errorMessage = errorMessage
 )
 
 fun Team.map() =
-    DomainEntities.Team(id = id, name = name, shortName = shortName, crestUrl = crestUrl ?: "")
+    DomainTeam(id = id, name = name, shortName = shortName, crestUrl = crestUrl ?: "")
 
-fun DomainEntities.Team.map() =
+fun DomainTeam.map() =
     Team(id = id, name = name, shortName = shortName, crestUrl = crestUrl)
 
-fun PlayerResponse.map() = DomainEntities.PlayerResponse(
+fun PlayerResponse.map() = DomainPlayerResponse(
     id = id,
     name = name,
     shortName = shortName,
@@ -102,7 +102,7 @@ fun PlayerResponse.map() = DomainEntities.PlayerResponse(
     errorMessage = errorMessage
 )
 
-fun DomainEntities.PlayerResponse.map() = PlayerResponse(
+fun DomainPlayerResponse.map() = PlayerResponse(
     id = id,
     name = name,
     shortName = shortName,
@@ -112,26 +112,26 @@ fun DomainEntities.PlayerResponse.map() = PlayerResponse(
 )
 
 fun Player.map() =
-    DomainEntities.Player(id = id, name = name, position = position ?: "", role = role, count = count)
+    DomainPlayer(id = id, name = name, position = position ?: "", role = role, count = count)
 
-fun DomainEntities.Player.map() =
+fun DomainPlayer.map() =
     Player(id = id, name = name, position = position, role = role, count = count)
 
-fun StandingResponse.map() = DomainEntities.StandingResponse(
+fun StandingResponse.map() = DomainStandingResponse(
     standings = standings.map { it.map() },
     errorMessage = errorMessage
 )
 
-fun DomainEntities.StandingResponse.map() = StandingResponse(
+fun DomainStandingResponse.map() = StandingResponse(
     standings = standings.map { it.map() },
     errorMessage = errorMessage
 )
 
-fun Standing.map() = DomainEntities.Standing(table = table.map { it.map() })
+fun Standing.map() = DomainStanding(table = table.map { it.map() })
 
-fun DomainEntities.Standing.map() = Standing(table = table.map { it.map() })
+fun DomainStanding.map() = Standing(table = table.map { it.map() })
 
-fun Table.map() = DomainEntities.Table(
+fun Table.map() = DomainTable(
     position = position,
     team = team.map(),
     playedGames = playedGames,
@@ -139,7 +139,7 @@ fun Table.map() = DomainEntities.Table(
     goalDifference = goalDifference
 )
 
-fun DomainEntities.Table.map() = Table(
+fun DomainTable.map() = Table(
     position = position,
     team = team.map(),
     playedGames = playedGames,

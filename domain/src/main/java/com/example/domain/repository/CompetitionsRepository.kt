@@ -1,19 +1,19 @@
 package com.example.domain.repository
 
-import com.example.domain.entities.DomainEntities
-import io.reactivex.Single
+import com.example.common.utils.Result
+import com.example.domain.entities.DomainEntities.*
 
 interface CompetitionsRepository {
 
-    fun getTodayMatches(date: String): Single<DomainEntities.MatchResponse>
+    suspend fun getTodayMatches(date: String): Result<DomainMatchResponse>
 
-    fun getAllCompetitions(): Single<DomainEntities.CompetitionResponse>
+    suspend fun getAllCompetitions(): Result<DomainCompetitionResponse>
 
-    fun getStandings(id: Long): Single<DomainEntities.StandingResponse>
+    suspend fun getStandings(id: Long): Result<DomainStandingResponse>
 
-    fun getSingleMatch(id: Long, date: String): Single<DomainEntities.MatchResponse>
+    suspend fun getSingleMatch(id: Long, date: String): Result<DomainMatchResponse>
 
-    fun getTeam(id: Long): Single<DomainEntities.TeamResponse>
+    suspend fun getTeam(id: Long): Result<DomainTeamResponse>
 
-    fun getPlayers(id: Long): Single<DomainEntities.PlayerResponse>
+    suspend fun getPlayers(id: Long): Result<DomainPlayerResponse>
 }

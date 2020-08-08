@@ -14,7 +14,7 @@ dependencies {
 
     implementation AndroidLibraries.lifecycleViewModel
     implementation AndroidLibraries.lifecycleExtensions
-    implementation AndroidLibraries.lifecycleReactiveStreams
+    implementation AndroidLibraries.lifecycleLivedata
     kapt AndroidLibraries.lifecycleCompile
 
     implementation Libraries.moshi

@@ -11,6 +11,8 @@ android {
 
 
 dependencies {
+    implementation project(Modules.common)
+
     implementation Libraries.dagger2
     kapt Libraries.daggerCompiler
 
@@ -20,4 +22,7 @@ dependencies {
 
     implementation AndroidLibraries.lifecycleExtensions
     kapt AndroidLibraries.lifecycleCompile
+
+    implementation AndroidLibraries.room
+    kapt AndroidLibraries.roomCompiler
 }

@@ -1,6 +1,8 @@
 package com.example.domain.entities
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import java.util.ArrayList
 
@@ -9,46 +11,46 @@ sealed class DomainEntities {
     /**
      * Data classes for Matches
      */
-    data class MatchResponse(
-        var matches: List<Match> = ArrayList(),
+    data class DomainMatchResponse(
+        var matches: List<DomainMatch> = ArrayList(),
         var errorMessage: String = ""
     ): DomainEntities()
 
-    data class Match(
+    data class DomainMatch(
         var id: Long = 0L,
-        var competition: SubTeams? = null,
-        var season: Season = Season(),
+        var competition: DomainSubTeams? = null,
+        var season: DomainSeason = DomainSeason(),
         var utcDate: String = "",
         var status: String = "",
         var matchday: Int = 0,
         var stage: String = "",
         var group: String = "",
         var lastUpdated: String = "",
-        var score: Score = Score(),
-        var homeTeam: SubTeams = SubTeams(),
-        var awayTeam: SubTeams = SubTeams()
+        var score: DomainScore = DomainScore(),
+        var homeTeam: DomainSubTeams = DomainSubTeams(),
+        var awayTeam: DomainSubTeams = DomainSubTeams()
     ): DomainEntities()
 
-    //@Entity(tableName = "season")
-    data class Season(
-        //@PrimaryKey
+    @Entity(tableName = "season")
+    data class DomainSeason(
+        @PrimaryKey
         var id: Long = 0L,
         var startDate: String? = "",
         var endDate: String? = ""
     ): DomainEntities()
 
-    data class Score(
-        var fullTime: SubScores = SubScores(),
-        var halfTime: SubScores = SubScores(),
+    data class DomainScore(
+        var fullTime: DomainSubScores = DomainSubScores(),
+        var halfTime: DomainSubScores = DomainSubScores(),
         var duration: String = ""
     ): DomainEntities()
 
-    data class SubScores(
+    data class DomainSubScores(
         var homeTeam: Int? = 0,
         var awayTeam: Int? = 0
     ): DomainEntities()
 
-    data class SubTeams(
+    data class DomainSubTeams(
         var id: Long = 0L,
         var name: String = ""
     ): DomainEntities()
@@ -56,28 +58,28 @@ sealed class DomainEntities {
     /**
      * Data classes for Competitions
      */
-    data class CompetitionResponse(
-        var competitions: List<Competitions> = ArrayList(),
+    data class DomainCompetitionResponse(
+        var competitions: List<DomainCompetitions> = ArrayList(),
         var errorMessage: String = ""
     ): DomainEntities()
 
-    //@Entity(tableName = "competitions")
-    data class Competitions(
-        //@PrimaryKey
+    @Entity(tableName = "competitions")
+    data class DomainCompetitions(
+        @PrimaryKey
         var id: Long = 0L,
         var name: String = "",
-        var currentSeason: Season = Season()
+        var currentSeason: DomainSeason = DomainSeason()
     ): DomainEntities()
 
     /**
      * Data classes for Teams
      */
-    data class TeamResponse(
-        var teams: List<Team> = ArrayList(),
+    data class DomainTeamResponse(
+        var teams: List<DomainTeam> = ArrayList(),
         var errorMessage: String = ""
     ): DomainEntities()
 
-    data class Team(
+    data class DomainTeam(
         var id: Long = 0L,
         var name: String = "",
         var shortName: String = "",
@@ -87,17 +89,17 @@ sealed class DomainEntities {
     /**
      * Data classes for Players
      */
-    data class PlayerResponse(
+    data class DomainPlayerResponse(
         var id: Long = 0L,
         var name: String = "",
         var shortName: String = "",
         var crestUrl: String = "",
-        var squad: List<Player> = ArrayList(),
+        var squad: List<DomainPlayer> = ArrayList(),
         var errorMessage: String = ""
     ): DomainEntities()
 
     //@Parcelize
-    data class Player(
+    data class DomainPlayer(
         var id: Long = 0L,
         var name: String = "",
         var position: String = "",
@@ -109,18 +111,18 @@ sealed class DomainEntities {
     /**
      * Data classes for Standings
      */
-    data class StandingResponse(
-        var standings: List<Standing> = ArrayList(),
+    data class DomainStandingResponse(
+        var standings: List<DomainStanding> = ArrayList(),
         var errorMessage: String = ""
     ): DomainEntities()
 
-    data class Standing(
-        var table: List<Table> = ArrayList()
+    data class DomainStanding(
+        var table: List<DomainTable> = ArrayList()
     ): DomainEntities()
 
-    data class Table(
+    data class DomainTable(
         var position: Int = 0,
-        var team: Team = Team(),
+        var team: DomainTeam = DomainTeam(),
         var playedGames: Int = 0,
         var points: Int = 0,
         var goalDifference: Int = 0

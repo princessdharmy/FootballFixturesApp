@@ -1,20 +1,20 @@
 package com.example.data.remote.datasource
 
-import com.example.data.models.*
-import io.reactivex.Single
+import com.example.common.utils.Result
+import com.example.domain.entities.DomainEntities.*
 
 interface RemoteDataSource {
 
-    fun getAllMatches(date: String): Single<DataMatchResponse>
+    suspend fun getAllMatches(date: String): Result<DomainMatchResponse>
 
-    fun getAllCompetitions(): Single<DataCompetitionResponse>
+    suspend fun getAllCompetitions(): Result<DomainCompetitionResponse>
 
-    fun getStandings(id: Long): Single<DataStandingResponse>
+    suspend fun getStandings(id: Long): Result<DomainStandingResponse>
 
-    fun getSingleMatch(id: Long, date: String): Single<DataMatchResponse>
+    suspend fun getSingleMatch(id: Long, date: String): Result<DomainMatchResponse>
 
-    fun getTeam(id: Long): Single<DataTeamResponse>
+    suspend fun getTeam(id: Long): Result<DomainTeamResponse>
 
-    fun getPlayers(id: Long): Single<DataPlayerResponse>
+    suspend fun getPlayers(id: Long): Result<DomainPlayerResponse>
 
 }
