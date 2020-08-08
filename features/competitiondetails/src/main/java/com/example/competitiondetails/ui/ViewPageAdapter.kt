@@ -1,5 +1,5 @@
 
-package com.example.competitiondetails
+package com.example.competitiondetails.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

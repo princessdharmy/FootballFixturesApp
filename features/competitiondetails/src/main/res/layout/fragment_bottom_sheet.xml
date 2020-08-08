@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:behavior_peekHeight="200dp"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
-    tools:context=".bottomSheet.BottomSheetFragment">
+    tools:context=".ui.bottomSheet.BottomSheetFragment">
 
     <data>
         <variable

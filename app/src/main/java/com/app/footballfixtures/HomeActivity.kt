@@ -12,7 +12,7 @@ import com.example.common.base.BaseActivity
 class HomeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {

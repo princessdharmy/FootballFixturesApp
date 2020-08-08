@@ -29,8 +29,8 @@ class CompetitionsRepositoryImpl(
 
     override suspend fun getAllCompetitions(): Result<DomainCompetitionResponse> {
         return withContext(Dispatchers.IO) {
-            val allMatches = remoteDataSource.getAllCompetitions()
-            (allMatches as? Result.Success)?.let {
+            val allCompetitions = remoteDataSource.getAllCompetitions()
+            (allCompetitions as? Result.Success)?.let {
                 if (it.data?.competitions?.isNotEmpty()!!) {
                     return@withContext Result.Success(it.data)
                 }
@@ -41,8 +41,8 @@ class CompetitionsRepositoryImpl(
 
     override suspend fun getStandings(id: Long): Result<DomainStandingResponse> {
         return withContext(Dispatchers.IO) {
-            val allMatches = remoteDataSource.getStandings(id)
-            (allMatches as? Result.Success)?.let {
+            val allStandings = remoteDataSource.getStandings(id)
+            (allStandings as? Result.Success)?.let {
                 if (it.data?.standings?.isNotEmpty()!!) {
                     return@withContext Result.Success(it.data)
                 }
@@ -53,8 +53,8 @@ class CompetitionsRepositoryImpl(
 
     override suspend fun getSingleMatch(id: Long, date: String): Result<DomainMatchResponse> {
         return withContext(Dispatchers.IO) {
-            val allMatches = remoteDataSource.getSingleMatch(id, date)
-            (allMatches as? Result.Success)?.let {
+            val singleMatch = remoteDataSource.getSingleMatch(id, date)
+            (singleMatch as? Result.Success)?.let {
                 if (it.data?.matches?.isNotEmpty()!!) {
                     return@withContext Result.Success(it.data)
                 }
@@ -65,8 +65,8 @@ class CompetitionsRepositoryImpl(
 
     override suspend fun getTeam(id: Long): Result<DomainTeamResponse> {
         return withContext(Dispatchers.IO) {
-            val allMatches = remoteDataSource.getTeam(id)
-            (allMatches as? Result.Success)?.let {
+            val team = remoteDataSource.getTeam(id)
+            (team as? Result.Success)?.let {
                 if (it.data?.teams?.isNotEmpty()!!) {
                     return@withContext Result.Success(it.data)
                 }
@@ -77,8 +77,8 @@ class CompetitionsRepositoryImpl(
 
     override suspend fun getPlayers(id: Long): Result<DomainPlayerResponse> {
         return withContext(Dispatchers.IO) {
-            val allMatches = remoteDataSource.getPlayers(id)
-            (allMatches as? Result.Success)?.let {
+            val players = remoteDataSource.getPlayers(id)
+            (players as? Result.Success)?.let {
                 return@withContext Result.Success(it.data)
             }
             return@withContext Result.Error(Exception("Illegal state"))

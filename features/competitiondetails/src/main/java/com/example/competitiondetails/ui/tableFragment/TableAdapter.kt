@@ -1,4 +1,4 @@
-package com.example.competitiondetails.tableFragment
+package com.example.competitiondetails.ui.tableFragment
 
 import android.view.LayoutInflater
 import android.view.View

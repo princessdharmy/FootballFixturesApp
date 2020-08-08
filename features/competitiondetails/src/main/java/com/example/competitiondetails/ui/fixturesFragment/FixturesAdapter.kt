@@ -1,4 +1,4 @@
-package com.example.competitiondetails.fixturesFragment
+package com.example.competitiondetails.ui.fixturesFragment
 
 import android.view.LayoutInflater
 import android.view.View

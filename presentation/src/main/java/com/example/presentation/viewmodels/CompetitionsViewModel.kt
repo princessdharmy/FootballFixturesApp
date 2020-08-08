@@ -27,8 +27,7 @@ class CompetitionsViewModel @Inject constructor(
                 emit(Resource.success(result.data?.map()))
             }
             is Result.Error -> {
-//                emit(Resource.error(msg = "An Error Occurred", data = null))
-                emit(Resource.error(msg = "${result.exception}"))
+                emit(Resource.error(msg = "An Error Occurred", data = null))
             }
         }
     }

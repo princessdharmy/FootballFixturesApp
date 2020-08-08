@@ -1,8 +1,8 @@
 package com.example.competitions.di
 
 import com.example.common.scopes.Fragment
-import com.example.competitions.competitions.CompetitionsFragment
-import com.example.competitions.today.TodayFixturesFragment
+import com.example.competitions.ui.competitions.CompetitionsFragment
+import com.example.competitions.ui.today.TodayFixturesFragment
 import com.example.core.di.components.CoreComponent
 import dagger.Component
 

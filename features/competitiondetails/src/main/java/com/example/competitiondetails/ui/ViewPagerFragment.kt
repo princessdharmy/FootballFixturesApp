@@ -1,17 +1,18 @@
-package com.example.competitiondetails
+package com.example.competitiondetails.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import com.example.common.base.BaseFragment
+import com.example.competitiondetails.R
+import com.example.competitiondetails.ViewPagerFragmentArgs
 import com.example.competitiondetails.databinding.FragmentViewPagerBinding
-import com.example.competitiondetails.fixturesFragment.FixturesFragment
-import com.example.competitiondetails.tableFragment.TableFragment
-import com.example.competitiondetails.teamFragment.TeamFragment
+import com.example.competitiondetails.ui.fixturesFragment.FixturesFragment
+import com.example.competitiondetails.ui.tableFragment.TableFragment
+import com.example.competitiondetails.ui.teamFragment.TeamFragment
 
 
 class ViewPagerFragment : BaseFragment() {
@@ -26,7 +27,8 @@ class ViewPagerFragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_view_pager, container, false)
+            DataBindingUtil.inflate(inflater,
+                R.layout.fragment_view_pager, container, false)
         val view = binding.root
 
         getIntents()
@@ -49,7 +51,9 @@ class ViewPagerFragment : BaseFragment() {
          * To solve the issue above, [childFragmentManager] is used since for placing and managing
          * Fragments inside of this Fragment.
          */
-        val viewPageAdapter = ViewPageAdapter(childFragmentManager)
+        val viewPageAdapter = ViewPageAdapter(
+            childFragmentManager
+        )
         viewPageAdapter.addFragment(TableFragment.newInstance().apply {
             arguments = Bundle().apply {
                 putLong("id", competitionId)

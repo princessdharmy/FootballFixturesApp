@@ -4,21 +4,14 @@ import android.content.Context
 import com.example.core.di.modules.CoreModule
 import com.example.core.di.modules.DatabaseModule
 import com.example.data.di.DataModule
-import com.example.data.local.room.CompetitionsDao
-import com.example.domain.di.modules.DomainModule
-import com.example.domain.qualifiers.Background
-import com.example.domain.qualifiers.Foreground
 import com.example.domain.repository.CompetitionsRepository
 import dagger.BindsInstance
 import dagger.Component
-import io.reactivex.Scheduler
 import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [CoreModule::class, DataModule::class, DatabaseModule::class,
-    DomainModule::class
-])
+@Component(modules = [CoreModule::class, DataModule::class, DatabaseModule::class])
 interface CoreComponent {
 
     @Component.Factory
@@ -27,11 +20,5 @@ interface CoreComponent {
     }
 
     val competitionsRepository: CompetitionsRepository
-
-    @Background
-    fun backgroundSchedulers(): Scheduler
-
-    @Foreground
-    fun foregroundSchedulers(): Scheduler
 
 }

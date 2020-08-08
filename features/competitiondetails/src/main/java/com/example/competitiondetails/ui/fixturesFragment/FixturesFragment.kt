@@ -1,8 +1,7 @@
-package com.example.competitiondetails.tableFragment
+package com.example.competitiondetails.ui.fixturesFragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,25 +12,24 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.example.common.base.BaseFragment
-import com.example.presentation.utils.Utilities
 import com.example.competitiondetails.R
-import com.example.competitiondetails.databinding.TableFragmentBinding
+import com.example.competitiondetails.databinding.FixturesFragmentBinding
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
 import com.example.presentation.models.Resource
+import com.example.presentation.utils.Utilities.getCurrentDate
 import com.example.presentation.utils.Utilities.hasInternetConnection
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
-import com.example.presentation.viewmodels.TableViewModel
+
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-class TableFragment : BaseFragment() {
+class FixturesFragment : BaseFragment() {
 
-    lateinit var binding: TableFragmentBinding
+    lateinit var binding: FixturesFragmentBinding
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: TableAdapter
+    private lateinit var adapter: FixturesAdapter
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: CompetitionDetailsViewModel by viewModels { factory }
@@ -46,17 +44,18 @@ class TableFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.table_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fixtures_fragment, container, false)
         val view = binding.root
         binding.click = MyHandler()
         getIntents()
         initRecyclerView()
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getStandings(competitionId)
+        getSingleMatch(competitionId, getCurrentDate())
     }
 
     private fun getIntents() {
@@ -64,18 +63,18 @@ class TableFragment : BaseFragment() {
     }
 
     private fun initRecyclerView() {
-        adapter = TableAdapter(ArrayList())
-        recyclerView = binding.tableRecyclerview
+        adapter = FixturesAdapter(ArrayList())
+        recyclerView = binding.fixturesRecyclerview
         recyclerView.adapter = adapter
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
     }
 
-    private fun getStandings(id: Long) {
+    private fun getSingleMatch(id: Long, date: String) {
         disposable = hasInternetConnection().doOnSuccess {
             if (it)
-                viewModel.getStandings(id).observe(viewLifecycleOwner, Observer { result ->
+                viewModel.getSingleMatch(id, date).observe(viewLifecycleOwner, Observer { result ->
                     when (result.status) {
                         Resource.Status.LOADING -> {
                             println("Loading")
@@ -85,14 +84,14 @@ class TableFragment : BaseFragment() {
                         }
                         Resource.Status.SUCCESS -> {
                             result.data?.let { data ->
-                                if (data.standings.isNullOrEmpty()) {
+                                if (data.matches.isNullOrEmpty()) {
+                                    binding.fixturesRecyclerview.visibility = View.GONE
                                     binding.progressBar.visibility = View.GONE
-                                    binding.noData.visibility = View.VISIBLE
-                                }
-                                else {
+                                    binding.noFixture.visibility = View.VISIBLE
+                                } else {
                                     binding.progressBar.visibility = View.GONE
-                                    binding.tableRecyclerview.visibility = View.VISIBLE
-                                    adapter.updateAdapter(data.standings[0].table)
+                                    binding.fixturesRecyclerview.visibility = View.VISIBLE
+                                    adapter.updateAdapter(data.matches)
                                 }
                             }
                         }
@@ -107,7 +106,7 @@ class TableFragment : BaseFragment() {
     }
 
     private fun showNoInternet() {
-        binding.tableRecyclerview.visibility = View.GONE
+        binding.fixturesRecyclerview.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
         binding.noInternet.visibility = View.VISIBLE
     }
@@ -116,7 +115,7 @@ class TableFragment : BaseFragment() {
         fun onTapToRetry(view: View) {
             binding.progressBar.visibility = View.VISIBLE
             binding.noInternet.visibility = View.GONE
-            getStandings(competitionId)
+            getSingleMatch(competitionId, getCurrentDate())
         }
     }
 
@@ -126,7 +125,8 @@ class TableFragment : BaseFragment() {
     }
 
     companion object {
-        fun newInstance() = TableFragment()
+        fun newInstance() = FixturesFragment()
         var competitionId: Long = 0L
     }
+
 }

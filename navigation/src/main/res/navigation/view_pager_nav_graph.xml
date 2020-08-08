@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/viewPager"
-        android:name="com.example.competitiondetails.ViewPagerFragment">
+        android:name="com.example.competitiondetails.ui.ViewPagerFragment">
 
 <!--        The argument passed to this fragment-->
         <argument android:name="competition"

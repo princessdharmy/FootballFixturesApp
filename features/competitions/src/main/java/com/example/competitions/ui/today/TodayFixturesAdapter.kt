@@ -1,4 +1,4 @@
-package com.example.competitions.today
+package com.example.competitions.ui.today
 
 import android.view.LayoutInflater
 import android.view.View

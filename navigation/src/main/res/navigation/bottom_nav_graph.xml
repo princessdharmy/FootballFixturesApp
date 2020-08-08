@@ -6,12 +6,12 @@
 
     <fragment
         android:id="@+id/todayFixtureFragment"
-        android:name="com.example.competitions.today.TodayFixturesFragment"
+        android:name="com.example.competitions.ui.today.TodayFixturesFragment"
         android:label="Today's Fixture" />
 
     <fragment
         android:id="@+id/competitionsFragment"
-        android:name="com.example.competitions.competitions.CompetitionsFragment"
+        android:name="com.example.competitions.ui.competitions.CompetitionsFragment"
         android:label="Competitions">
 
         <action android:id="@+id/action_competitionsFragment_to_competitionDetailsFragment"

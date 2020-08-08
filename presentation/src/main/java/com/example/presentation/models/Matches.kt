@@ -36,10 +36,8 @@ data class Match(
     var awayTeam: SubTeams = SubTeams()
 ) : Parcelable
 
-//@Entity(tableName = "season")
 @Parcelize
 data class Season(
-    //@PrimaryKey
     var id: Long = 0L,
     var startDate: String? = "",
     var endDate: String? = ""
@@ -72,10 +70,8 @@ data class CompetitionResponse(
     var errorMessage: String = ""
 )
 
-//@Entity(tableName = "competitions")
 @Parcelize
 data class Competitions(
-    //@PrimaryKey
     var id: Long = 0L,
     var name: String = "",
     var currentSeason: Season = Season()

@@ -1,13 +1,12 @@
-package com.example.competitions.competitions
+package com.example.competitions.ui.competitions
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.competitions.R
-import com.example.competitions.competitions.CompetitionsAdapter.ViewHolder
+import com.example.competitions.ui.competitions.CompetitionsAdapter.ViewHolder
 import com.example.competitions.databinding.CompetitionsListItemBinding
 import com.example.presentation.models.Competitions
 

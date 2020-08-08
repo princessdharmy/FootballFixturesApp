@@ -1,6 +1,5 @@
-package com.example.competitiondetails.bottomSheet
+package com.example.competitiondetails.ui.bottomSheet
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

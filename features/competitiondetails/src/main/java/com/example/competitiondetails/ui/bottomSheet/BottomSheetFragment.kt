@@ -1,4 +1,4 @@
-package com.example.competitiondetails.bottomSheet
+package com.example.competitiondetails.ui.bottomSheet
 
 import android.app.Dialog
 import android.content.Context
@@ -27,10 +27,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withC
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
 import com.example.presentation.models.Resource
-import com.example.presentation.utils.Utilities
 import com.example.presentation.utils.Utilities.hasInternetConnection
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
