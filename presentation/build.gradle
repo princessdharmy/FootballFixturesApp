@@ -24,8 +24,6 @@ dependencies {
 
     implementation AndroidLibraries.room
     kapt AndroidLibraries.roomCompiler
-    implementation AndroidLibraries.roomExtension
-    implementation AndroidLibraries.roomRxJava
 
     implementation Libraries.dagger2
     kapt Libraries.daggerCompiler

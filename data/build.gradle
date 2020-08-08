@@ -35,7 +35,5 @@ dependencies {
 
     implementation AndroidLibraries.room
     kapt AndroidLibraries.roomCompiler
-    implementation AndroidLibraries.roomExtension
-    implementation AndroidLibraries.roomRxJava
 
 }

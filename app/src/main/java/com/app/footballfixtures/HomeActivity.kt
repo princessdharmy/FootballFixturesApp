@@ -1,8 +1,6 @@
 package com.app.footballfixtures
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -10,8 +8,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.app.footballfixtures.databinding.ActivityHomeBinding
 import com.example.common.base.BaseActivity
-import com.example.competitions.competitions.CompetitionsFragment
-import com.example.competitions.today.TodayFixturesFragment
 
 class HomeActivity : BaseActivity() {
 

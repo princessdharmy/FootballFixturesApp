@@ -28,7 +28,6 @@ object Releases {
  */
 object Versions {
     val appCompat = "1.1.0"
-    val androidSvg = "1.4"
     val androidTestRunner = "1.2.0"
     val androidJunit = "1.1.0"
     val buildTool = "29.0.2"
@@ -41,10 +40,11 @@ object Versions {
     val espressoCore = "3.2.0"
     val fragment = "1.2.0"
     val glideVersion = "4.9.0"
-    val gradle = "3.5.3"
+    val gradle = "4.0.1"
     val gson = "2.8.5"
     val junit = "4.12"
-    val kotlin = "1.3.61"
+    val kotlinVersion = "1.3.72"
+    val kotlinCoroutine = "1.3.5-native-mt"
     val lifecycle = "2.1.0"
     val minSdk = 23
     val legacyVersion = "1.0.0"
@@ -54,7 +54,6 @@ object Versions {
     val nav = "2.2.2"
     val okHttp = "3.12.1"
     val retrofit = "2.5.0"
-    val retrofitCoroutines = "0.9.2"
     val retrofitGson = "2.4.0"
     val roomVersion = "2.2.2"
     val recyclerview = "1.0.0"
@@ -94,12 +93,12 @@ object Libraries {
     val glide =  "com.github.bumptech.glide:glide:${Versions.glideVersion}"
     val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glideVersion}"
     val svgDecoder = "com.caverock:androidsvg:${Versions.svgDecoderVersion}"
-    //val androidSvg = "com.caverock:androidsvg-aar:${Versions.androidSvg}"
-
 }
 
 object KotlinLibraries {
-    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlinVersion}"
+    val coreKotlinCoroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutine}"
+    val androidKotlinCoroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutine}"
 }
 
 object AndroidLibraries {
@@ -117,13 +116,13 @@ object AndroidLibraries {
     val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragment}"
     val fragment = "androidx.fragment:fragment:${Versions.fragment}"
 
-
     val materialDesign = "com.google.android.material:material:${Versions.materialDesignVersion}"
 
     // ViewModel and LiveData
     val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
     val lifecycleCompile = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
+    val lifecycleLivedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
 
     // ReactiveStreams support for LiveData
     val lifecycleReactiveStreams = "androidx.lifecycle:lifecycle-reactivestreams-ktx:${Versions.lifecycle}"
@@ -131,12 +130,6 @@ object AndroidLibraries {
     // ROOM
     val room = "androidx.room:room-runtime:${Versions.roomVersion}"
     val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
-
-    // optional - Kotlin Extensions and Coroutines support for Room
-    val roomExtension = "androidx.room:room-ktx:${Versions.roomVersion}"
-
-    // optional - RxJava support for Room
-    val roomRxJava = "androidx.room:room-rxjava2:${Versions.roomVersion}"
 
 }
 

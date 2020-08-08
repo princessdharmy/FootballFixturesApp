@@ -16,5 +16,5 @@ interface CompetitionsDao {
     fun insertCompetitions(competitions: List<DataCompetitions>)
 
     @Query("SELECT * FROM competitions")
-    fun queryCompetitions(): Flowable<List<DataCompetitions>>
+    fun queryCompetitions(): List<DataCompetitions>
 }
