@@ -13,6 +13,6 @@ There are over 100 football competitions available with `live scores`, `fixtures
 but the app is built on a free plan. Therefore, it is limited to some data contents.
 
 ## Code Pattern
-This code was refactored from a single to multi module using clean architecture, architectural pattern (MVVM) and Jetpack components (Data Binding, Livedata, Lifecycles, Navigation, Room, ViewModel).
+This code was refactored from a single to multi module using clean architecture, kotlin coroutines, architectural pattern (MVVM) and Jetpack components (Data Binding, Livedata, Lifecycles, Navigation, Room, ViewModel).
 
 This illustrates the use of multi-module with clean architecture to separate the different layers involved. Also, to make testing easier.
