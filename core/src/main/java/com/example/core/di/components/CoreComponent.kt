@@ -2,7 +2,9 @@ package com.example.core.di.components
 
 import android.content.Context
 import com.example.core.di.modules.CoreModule
+import com.example.core.di.modules.DatabaseModule
 import com.example.data.di.DataModule
+import com.example.data.local.room.CompetitionsDao
 import com.example.domain.di.modules.DomainModule
 import com.example.domain.qualifiers.Background
 import com.example.domain.qualifiers.Foreground
@@ -14,7 +16,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [CoreModule::class, DataModule::class,
+@Component(modules = [CoreModule::class, DataModule::class, DatabaseModule::class,
     DomainModule::class
 ])
 interface CoreComponent {

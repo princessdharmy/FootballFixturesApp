@@ -9,16 +9,13 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class CoreModule {
+abstract class CoreModule {
 
     @Binds
     @Singleton
-    fun bindApplication(application: MainApplication): Application {
-        return application
-    }
+    abstract fun bindApplication(application: MainApplication): Application
 
-    @Provides
-    fun provideContext(application: Application): Context {
-        return application
-    }
+//    @Provides
+//    abstract fun provideContext(application: Application): Context
+
 }

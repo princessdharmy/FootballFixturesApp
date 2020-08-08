@@ -24,8 +24,8 @@ class DatabaseModule {
             .build()
 
     /*
-    * We need the MovieDao module.
-    * For this, We need the AppDatabase object
+    * We need the CompetitionsDao module.
+    * For this, We need the FootballDatabase object
     * So we will define the providers for this here in this module.
     * */
     @Singleton

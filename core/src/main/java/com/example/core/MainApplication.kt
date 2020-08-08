@@ -5,7 +5,7 @@ import android.app.Application
 import android.content.Context
 import androidx.fragment.app.Fragment
 import com.example.core.di.components.CoreComponent
-import com.example.core.di.DaggerCoreComponent
+import com.example.core.di.components.DaggerCoreComponent
 
 
 class MainApplication: Application() {
