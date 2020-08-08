@@ -1,8 +1,8 @@
-package com.example.core.di
+package com.example.core.di.components
 
 import android.content.Context
+import com.example.core.di.modules.CoreModule
 import com.example.data.di.DataModule
-import com.example.data.di.NetworkModule
 import com.example.domain.di.modules.DomainModule
 import com.example.domain.qualifiers.Background
 import com.example.domain.qualifiers.Foreground

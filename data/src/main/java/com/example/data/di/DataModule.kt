@@ -33,15 +33,4 @@ class DataModule {
         return CompetitionsRepositoryImpl(remoteDataSource, localDataSource)
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideAppDatabase(context: Context): AppDatabase = Room.databaseBuilder(
-//        context, AppDatabase::class.java, "competitions_db"
-//    ).fallbackToDestructiveMigration().build()
-//
-//    @Provides
-//    @Singleton
-//    fun provideCompetitionDao(appDatabase: AppDatabase):
-//            CompetitionsDao = appDatabase.competitionsDao()
-
 }

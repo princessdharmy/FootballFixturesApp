@@ -1,4 +1,4 @@
-package com.example.core.di
+package com.example.core.di.modules
 
 import android.app.Application
 import android.content.Context

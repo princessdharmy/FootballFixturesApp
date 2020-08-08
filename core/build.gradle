@@ -18,4 +18,7 @@ dependencies {
     kapt Libraries.daggerCompiler
     implementation AndroidLibraries.fragment
     implementation AndroidLibraries.fragmentKtx
+
+    implementation AndroidLibraries.room
+    kapt AndroidLibraries.roomCompiler
 }

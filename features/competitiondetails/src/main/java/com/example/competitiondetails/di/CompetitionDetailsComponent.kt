@@ -5,7 +5,7 @@ import com.example.competitiondetails.bottomSheet.BottomSheetFragment
 import com.example.competitiondetails.fixturesFragment.FixturesFragment
 import com.example.competitiondetails.tableFragment.TableFragment
 import com.example.competitiondetails.teamFragment.TeamFragment
-import com.example.core.di.CoreComponent
+import com.example.core.di.components.CoreComponent
 import dagger.Component
 
 @Component(dependencies = [CoreComponent::class],
