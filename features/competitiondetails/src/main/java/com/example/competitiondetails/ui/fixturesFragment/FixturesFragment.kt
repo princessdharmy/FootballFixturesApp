@@ -76,7 +76,7 @@ class FixturesFragment : BaseFragment() {
         disposable = hasInternetConnection().doOnSuccess {
             if (it)
                 viewModel.getSingleMatch(id, date).observe(viewLifecycleOwner, Observer { result ->
-                    Log.v("CHECKING", result.data.toString())
+
                     when (result.status) {
                         Resource.Status.LOADING -> {
                             println("Loading")

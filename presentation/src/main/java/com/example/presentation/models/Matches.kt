@@ -26,7 +26,7 @@ data class Match(
     var competition: SubTeams? = null,
     var season: Season = Season(),
     var utcDate: String = "",
-    var status: String = "",
+    var status: String? = "",
     var matchday: Int = 0,
     var stage: String = "",
     var group: String = "",

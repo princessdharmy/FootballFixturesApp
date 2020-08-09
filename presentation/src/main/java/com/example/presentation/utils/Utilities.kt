@@ -1,6 +1,7 @@
 package com.example.presentation.utils
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.example.presentation.models.Score
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -10,6 +11,7 @@ import java.net.InetSocketAddress
 import java.net.Socket
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.floor
 
 object Utilities {
 
@@ -50,7 +52,7 @@ object Utilities {
 
     @JvmStatic
     fun convertSeasonEndDate(date: String): String {
-        if(date.isNotEmpty()) {
+        if (date.isNotEmpty()) {
             var seasonFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val dateFormat = seasonFormat.parse(date)
             seasonFormat = SimpleDateFormat("yy", Locale.getDefault())
@@ -65,11 +67,13 @@ object Utilities {
     }
 
     @JvmStatic
-    fun showMatchTime(status: String, startTime: String, score: Score): String{
+    fun showMatchTime(status: String?, startTime: String?, score: Score?): String {
+        Log.e("Start time", "$startTime and $status")
         return when (status) {
             "SCHEDULED" -> ("00")
             "PAUSED" -> ("HT")
             "FINISHED" -> ("FT")
+            "POSTPONED" -> ("PPND")
             else -> calculateMatchTime(
                 startTime,
                 score
@@ -85,20 +89,29 @@ object Utilities {
 
     @SuppressLint("SimpleDateFormat")
     @JvmStatic
-    fun calculateMatchTime(startTime: String, score: Score): String{
+    fun calculateMatchTime(startTime: String?, score: Score?): String {
         val simpleDateFormat = SimpleDateFormat("HH:mm")
-        val startedTime =
-            convertDate(startTime)
-        val currentTime =
-            getCurrentTime()
-        val onGoingMatchTime = simpleDateFormat.parse(currentTime).time - simpleDateFormat.parse(startedTime).time
         val time: Int
-        time = if(score.halfTime.homeTeam != null || score.halfTime.awayTeam != null){
-            Math.floor((onGoingMatchTime / 60000.0)).toInt() - 15
+        if (startTime.isNullOrEmpty()) {
+            time = floor((simpleDateFormat.parse(getCurrentTime()).time / 60000.0)).toInt()
+            return "$time\'"
         } else {
-            Math.floor((onGoingMatchTime / 60000.0)).toInt()
+            return try {
+                val startedTime = convertDate(startTime.toString())
+                val currentTime = getCurrentTime()
+                val onGoingMatchTime =
+                    simpleDateFormat.parse(currentTime).time - simpleDateFormat.parse(startedTime).time
+                time = if (score?.halfTime?.homeTeam != null || score?.halfTime?.awayTeam != null) {
+                    floor((onGoingMatchTime / 60000.0)).toInt() - 15
+                } else {
+                    floor((onGoingMatchTime / 60000.0)).toInt()
+                }
+                "$time\'"
+            } catch (e: IllegalArgumentException) {
+                ""
+            }
         }
-        return "$time\'"
+
     }
 
     fun hasInternetConnection(): Single<Boolean> {

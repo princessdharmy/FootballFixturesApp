@@ -17,7 +17,6 @@ class CompetitionsRepositoryImpl(
     override suspend fun getTodayMatches(date: String): Result<DomainMatchResponse> {
         return withContext(Dispatchers.IO) {
             val allMatches = remoteDataSource.getAllMatches(date)
-            Log.v("RESULT", allMatches.toString())
             (allMatches as? Result.Success)?.let {
                 if (it.data?.matches?.isNotEmpty()!!) {
                     return@withContext Result.Success(it.data)
