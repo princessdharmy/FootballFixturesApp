@@ -9,7 +9,7 @@
     <data>
         <variable
             name="click"
-            type="com.example.competitiondetails.bottomSheet.BottomSheetFragment.MyHandler"/>
+            type="com.example.competitiondetails.ui.bottomSheet.BottomSheetFragment.MyHandler"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

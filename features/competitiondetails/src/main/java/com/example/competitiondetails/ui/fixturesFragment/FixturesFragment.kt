@@ -2,6 +2,7 @@ package com.example.competitiondetails.ui.fixturesFragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -75,6 +76,7 @@ class FixturesFragment : BaseFragment() {
         disposable = hasInternetConnection().doOnSuccess {
             if (it)
                 viewModel.getSingleMatch(id, date).observe(viewLifecycleOwner, Observer { result ->
+                    Log.v("CHECKING", result.data.toString())
                     when (result.status) {
                         Resource.Status.LOADING -> {
                             println("Loading")

@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import com.example.common.base.BaseFragment
 import com.example.competitiondetails.R
-import com.example.competitiondetails.ViewPagerFragmentArgs
 import com.example.competitiondetails.databinding.FragmentViewPagerBinding
 import com.example.competitiondetails.ui.fixturesFragment.FixturesFragment
 import com.example.competitiondetails.ui.tableFragment.TableFragment

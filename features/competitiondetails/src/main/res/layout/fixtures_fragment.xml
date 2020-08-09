@@ -6,7 +6,7 @@
     <data>
         <variable
             name="click"
-            type="com.example.competitiondetails.fixturesFragment.FixturesFragment.MyHandler"/>
+            type="com.example.competitiondetails.ui.fixturesFragment.FixturesFragment.MyHandler"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
