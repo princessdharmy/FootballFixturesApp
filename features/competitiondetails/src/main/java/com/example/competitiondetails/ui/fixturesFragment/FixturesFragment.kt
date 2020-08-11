@@ -76,14 +76,9 @@ class FixturesFragment : BaseFragment() {
         disposable = hasInternetConnection().doOnSuccess {
             if (it)
                 viewModel.getSingleMatch(id, date).observe(viewLifecycleOwner, Observer { result ->
-
                     when (result.status) {
-                        Resource.Status.LOADING -> {
-                            println("Loading")
-                        }
-                        Resource.Status.ERROR -> {
-                            println("Error")
-                        }
+                        Resource.Status.LOADING -> { println("Loading") }
+                        Resource.Status.ERROR -> { println("Error") }
                         Resource.Status.SUCCESS -> {
                             result.data?.let { data ->
                                 if (data.matches.isNullOrEmpty()) {
@@ -93,7 +88,7 @@ class FixturesFragment : BaseFragment() {
                                 } else {
                                     binding.progressBar.visibility = View.GONE
                                     binding.fixturesRecyclerview.visibility = View.VISIBLE
-                                    adapter.updateAdapter(data.matches)
+                                    adapter.updateAdapter(data.matches!!)
                                 }
                             }
                         }

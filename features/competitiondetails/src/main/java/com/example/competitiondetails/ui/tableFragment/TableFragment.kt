@@ -89,7 +89,7 @@ class TableFragment : BaseFragment() {
                                 else {
                                     binding.progressBar.visibility = View.GONE
                                     binding.tableRecyclerview.visibility = View.VISIBLE
-                                    adapter.updateAdapter(data.standings[0].table)
+                                    data.standings!![0].table?.let { it1 -> adapter.updateAdapter(it1) }
                                 }
                             }
                         }

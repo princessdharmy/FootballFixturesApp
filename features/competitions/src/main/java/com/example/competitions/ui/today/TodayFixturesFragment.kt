@@ -2,6 +2,7 @@ package com.example.competitions.ui.today
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,10 +78,10 @@ class TodayFixturesFragment : BaseFragment() {
                         Resource.Status.ERROR -> { println("Error") }
                         Resource.Status.SUCCESS -> {
                             result.data?.let { data ->
-                                if (data.matches.isNotEmpty()) {
+                                if (data.matches?.isNotEmpty()!!) {
                                     binding.progressBar.visibility = View.GONE
                                     binding.fixturesRecyclerview.visibility = View.VISIBLE
-                                    adapter.updateAdapter(data.matches)
+                                    adapter.updateAdapter(data.matches!!)
                                 } else {
                                     binding.fixturesRecyclerview.visibility = View.GONE
                                     binding.progressBar.visibility = View.GONE

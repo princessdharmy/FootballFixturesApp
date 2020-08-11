@@ -68,7 +68,6 @@ object Utilities {
 
     @JvmStatic
     fun showMatchTime(status: String?, startTime: String?, score: Score?): String {
-        Log.e("Start time", "$startTime and $status")
         return when (status) {
             "SCHEDULED" -> ("00")
             "PAUSED" -> ("HT")

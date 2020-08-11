@@ -12,7 +12,7 @@ sealed class DomainEntities {
      * Data classes for Matches
      */
     data class DomainMatchResponse(
-        var matches: List<DomainMatch> = ArrayList(),
+        var matches: List<DomainMatch>? = ArrayList(),
         var errorMessage: String = ""
     ): DomainEntities()
 
@@ -59,7 +59,7 @@ sealed class DomainEntities {
      * Data classes for Competitions
      */
     data class DomainCompetitionResponse(
-        var competitions: List<DomainCompetitions> = ArrayList(),
+        var competitions: List<DomainCompetitions>? = ArrayList(),
         var errorMessage: String = ""
     ): DomainEntities()
 
@@ -75,7 +75,7 @@ sealed class DomainEntities {
      * Data classes for Teams
      */
     data class DomainTeamResponse(
-        var teams: List<DomainTeam> = ArrayList(),
+        var teams: List<DomainTeam>? = ArrayList(),
         var errorMessage: String = ""
     ): DomainEntities()
 
@@ -94,7 +94,7 @@ sealed class DomainEntities {
         var name: String = "",
         var shortName: String = "",
         var crestUrl: String = "",
-        var squad: List<DomainPlayer> = ArrayList(),
+        var squad: List<DomainPlayer>? = ArrayList(),
         var errorMessage: String = ""
     ): DomainEntities()
 
@@ -112,12 +112,12 @@ sealed class DomainEntities {
      * Data classes for Standings
      */
     data class DomainStandingResponse(
-        var standings: List<DomainStanding> = ArrayList(),
+        var standings: List<DomainStanding>? = ArrayList(),
         var errorMessage: String = ""
     ): DomainEntities()
 
     data class DomainStanding(
-        var table: List<DomainTable> = ArrayList()
+        var table: List<DomainTable>? = ArrayList()
     ): DomainEntities()
 
     data class DomainTable(

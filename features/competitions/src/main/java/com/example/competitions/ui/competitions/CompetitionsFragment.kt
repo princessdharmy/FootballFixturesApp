@@ -80,11 +80,11 @@ class CompetitionsFragment : BaseFragment() {
                         }
                         Resource.Status.SUCCESS -> {
                             result.data?.let { data ->
-                                if (data.competitions.isNotEmpty()) {
+                                if (data.competitions?.isNotEmpty()!!) {
                                     binding.progressBar.visibility = View.GONE
                                     binding.noInternet.visibility = View.GONE
                                     binding.competitionsRecyclerview.visibility = View.VISIBLE
-                                    adapter.updateAdapter(data.competitions)
+                                    adapter.updateAdapter(data.competitions!!)
                                 }
                             }
                         }

@@ -139,7 +139,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
                     .transition(withCrossFade())
                     .into(binding.imageView3)
 
-            adapter.updateAdapter(data.squad)
+            data.squad?.let { adapter.updateAdapter(it) }
             dialog.show()
         }
     }

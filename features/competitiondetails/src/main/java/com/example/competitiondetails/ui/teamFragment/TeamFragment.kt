@@ -87,7 +87,7 @@ class TeamFragment : BaseFragment() {
                                 } else {
                                     binding.progressBar.visibility = View.GONE
                                     binding.teamRecyclerview.visibility = View.VISIBLE
-                                    adapter.updateAdapter(data.teams)
+                                    data.teams?.let { adapter.updateAdapter(it) }
                                 }
                             }
                         }

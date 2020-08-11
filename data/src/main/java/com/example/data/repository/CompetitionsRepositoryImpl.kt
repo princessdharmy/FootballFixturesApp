@@ -18,7 +18,7 @@ class CompetitionsRepositoryImpl(
         return withContext(Dispatchers.IO) {
             val allMatches = remoteDataSource.getAllMatches(date)
             (allMatches as? Result.Success)?.let {
-                if (it.data?.matches?.isNotEmpty()!!) {
+                if (it.data?.matches != null) {
                     return@withContext Result.Success(it.data)
                 }
             }
@@ -30,7 +30,7 @@ class CompetitionsRepositoryImpl(
         return withContext(Dispatchers.IO) {
             val allCompetitions = remoteDataSource.getAllCompetitions()
             (allCompetitions as? Result.Success)?.let {
-                if (it.data?.competitions?.isNotEmpty()!!) {
+                if (it.data?.competitions != null) {
                     return@withContext Result.Success(it.data)
                 }
             }
@@ -42,7 +42,7 @@ class CompetitionsRepositoryImpl(
         return withContext(Dispatchers.IO) {
             val allStandings = remoteDataSource.getStandings(id)
             (allStandings as? Result.Success)?.let {
-                if (it.data?.standings?.isNotEmpty()!!) {
+                if (it.data?.standings != null) {
                     return@withContext Result.Success(it.data)
                 }
             }
@@ -54,7 +54,7 @@ class CompetitionsRepositoryImpl(
         return withContext(Dispatchers.IO) {
             val singleMatch = remoteDataSource.getSingleMatch(id, date)
             (singleMatch as? Result.Success)?.let {
-                if (it.data?.matches?.isNotEmpty()!!) {
+                if (it.data?.matches != null) {
                     return@withContext Result.Success(it.data)
                 }
             }
@@ -66,7 +66,7 @@ class CompetitionsRepositoryImpl(
         return withContext(Dispatchers.IO) {
             val team = remoteDataSource.getTeam(id)
             (team as? Result.Success)?.let {
-                if (it.data?.teams?.isNotEmpty()!!) {
+                if (it.data?.teams!= null) {
                     return@withContext Result.Success(it.data)
                 }
             }
