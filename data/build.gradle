@@ -37,4 +37,6 @@ dependencies {
     implementation AndroidLibraries.room
     kapt AndroidLibraries.roomCompiler
 
+    implementation AndroidLibraries.workManager
+
 }

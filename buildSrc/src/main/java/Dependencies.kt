@@ -65,6 +65,7 @@ object Versions {
     val svgDecoderVersion = "1.2.1"
     val targetSdk = 28
     val vectorDrawableVersion = "1.1.0"
+    val workManagerVersion = "2.4.0"
 }
 
 object Libraries {
@@ -127,6 +128,9 @@ object AndroidLibraries {
     // ROOM
     val room = "androidx.room:room-runtime:${Versions.roomVersion}"
     val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
+
+    // Work Manager
+    val workManager = "androidx.work:work-runtime-ktx:${Versions.workManagerVersion}"
 
 }
 
