@@ -17,6 +17,7 @@ dependencies {
     kapt AndroidLibraries.roomCompiler
     implementation AndroidLibraries.lifecycleViewModel
 
+    implementation AndroidLibraries.workManager
 
     implementation Libraries.dagger2
     kapt Libraries.daggerCompiler
