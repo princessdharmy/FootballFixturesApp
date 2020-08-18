@@ -7,10 +7,11 @@ import javax.inject.Singleton
 
 @Singleton
 class FootballWorkerFactory @Inject constructor(
-    refreshCompetitionsUseCase: RefreshCompetitionsUseCase
+    refreshCompetitionsUseCase: RefreshCompetitionsUseCase,
+    workNetworkService: WorkNetworkService
 ) : DelegatingWorkerFactory() {
 
     init {
-        addFactory(CompetitionDataWorkerFactory(refreshCompetitionsUseCase))
+        addFactory(CompetitionDataWorkerFactory(refreshCompetitionsUseCase, workNetworkService))
     }
 }

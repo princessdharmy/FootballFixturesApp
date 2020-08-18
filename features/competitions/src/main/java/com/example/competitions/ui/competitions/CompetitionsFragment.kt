@@ -2,6 +2,7 @@ package com.example.competitions.ui.competitions
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,7 @@ class CompetitionsFragment : BaseFragment() {
     lateinit var binding: CompetitionsFragmentBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CompetitionsAdapter
+
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: CompetitionsViewModel by viewModels { factory }
@@ -68,34 +70,14 @@ class CompetitionsFragment : BaseFragment() {
     }
 
     private fun getCompetitions() {
-        disposable = hasInternetConnection().doOnSuccess {
-            if (it)
-                viewModel.getAllCompetitions().observe(viewLifecycleOwner, Observer { result ->
-                    when (result.status) {
-                        Resource.Status.LOADING -> {
-                            println("Loading")
-                        }
-                        Resource.Status.ERROR -> {
-                            println("Error")
-                        }
-                        Resource.Status.SUCCESS -> {
-                            result.data?.let { data ->
-                                if (data.competitions?.isNotEmpty()!!) {
-                                    binding.progressBar.visibility = View.GONE
-                                    binding.noInternet.visibility = View.GONE
-                                    binding.competitionsRecyclerview.visibility = View.VISIBLE
-                                    adapter.updateAdapter(data.competitions!!)
-                                }
-                            }
-                        }
-                    }
-                })
-            else {
-                showNoInternet()
-            }
-        }.doOnError {
-            showNoInternet()
-        }.subscribe()
+        viewModel.getAllCompetitions().observe(viewLifecycleOwner, Observer { result ->
+            if (result?.isNotEmpty()!!) {
+                binding.progressBar.visibility = View.GONE
+                binding.noInternet.visibility = View.GONE
+                binding.competitionsRecyclerview.visibility = View.VISIBLE
+                adapter.updateAdapter(result)
+            } else Log.e("Result", result.toString())
+        })
     }
 
     private fun showNoInternet() {

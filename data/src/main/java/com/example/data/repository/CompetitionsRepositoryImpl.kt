@@ -1,6 +1,7 @@
 package com.example.data.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.example.common.utils.Result
 import com.example.data.local.datasource.LocalDataSource
 import com.example.data.remote.datasource.RemoteDataSource
@@ -19,18 +20,6 @@ class CompetitionsRepositoryImpl(
             val allMatches = remoteDataSource.getAllMatches(date)
             (allMatches as? Result.Success)?.let {
                 if (it.data?.matches != null) {
-                    return@withContext Result.Success(it.data)
-                }
-            }
-            return@withContext Result.Error(Exception("Illegal state"))
-        }
-    }
-
-    override suspend fun getAllCompetitions(): Result<DomainCompetitionResponse> {
-        return withContext(Dispatchers.IO) {
-            val allCompetitions = remoteDataSource.getAllCompetitions()
-            (allCompetitions as? Result.Success)?.let {
-                if (it.data?.competitions != null) {
                     return@withContext Result.Success(it.data)
                 }
             }
@@ -83,4 +72,18 @@ class CompetitionsRepositoryImpl(
             return@withContext Result.Error(Exception("Illegal state"))
         }
     }
+
+    override suspend fun refreshCacheWithRemoteCompetitionData(){
+        withContext(Dispatchers.IO) {
+            val allCompetitions = remoteDataSource.getAllCompetitions()
+            (allCompetitions as? Result.Success)?.let {
+                if (it.data?.competitions != null) {
+                    localDataSource.saveCompetitions(it.data?.competitions!!)
+                }
+            }
+        }
+    }
+
+    override fun getAllCompetitionsFromDb(): List<DomainCompetitions> = localDataSource.getAllCompetitionsFromDb()
+
 }

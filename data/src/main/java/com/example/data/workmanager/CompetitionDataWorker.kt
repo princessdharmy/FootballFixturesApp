@@ -10,12 +10,15 @@ import java.lang.Exception
 class CompetitionDataWorker (
     context: Context,
     params: WorkerParameters,
-    private val refreshCompetitionsUseCase: RefreshCompetitionsUseCase
+    private val refreshCompetitionsUseCase: RefreshCompetitionsUseCase,
+    private val workNetworkService: WorkNetworkService
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
         return try {
-            Log.e("Tag", "Successful")
+            refreshCompetitionsUseCase.invoke()
+            workNetworkService.scheduleFetchData()
+            Log.e("Tag", "Successfully saved")
             Result.success()
         } catch (e: Exception) {
             Log.e("Tag", "Failed")
