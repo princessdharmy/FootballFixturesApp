@@ -129,9 +129,6 @@ object AndroidLibraries {
     val room = "androidx.room:room-runtime:${Versions.roomVersion}"
     val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
 
-    // Work Manager
-    val workManager = "androidx.work:work-runtime-ktx:${Versions.workManagerVersion}"
-
 }
 
 object TestLibraries {
