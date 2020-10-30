@@ -27,15 +27,15 @@ object Releases {
  * Arranged alphabetically
  */
 object Versions {
-    val appCompat = "1.1.0"
+    val appCompat = "1.2.0"
     val androidTestRunner = "1.2.0"
     val androidJunit = "1.1.0"
     val buildTool = "29.0.2"
     val cardViewVersion = "1.0.0"
-    val coreKtx = "1.1.0"
+    val coreKtx = "1.3.2"
     val compileSdkVersion = 29
-    val constraintLayout = "1.1.3"
-    val coroutines = "1.1.1"
+    val constraintLayout = "2.0.3"
+    val coroutines = "1.3.5"
     val dagger = "2.24"
     val espressoCore = "3.2.0"
     val fragment = "1.2.0"
@@ -43,20 +43,20 @@ object Versions {
     val gradle = "4.0.1"
     val gson = "2.8.5"
     val junit = "4.12"
-    val kotlinVersion = "1.3.72"
+    val kotlinVersion = "1.4.10"
     val kotlinCoroutine = "1.3.5-native-mt"
     val lifecycle = "2.2.0"
     val minSdk = 23
     val legacyVersion = "1.0.0"
-    val logginInterceptor = "3.8.1"
+    val logginInterceptor = "4.7.2"
     val materialDesignVersion = "1.0.0"
-    val moshiVersion = "1.9.2"
-    val nav = "2.2.2"
+    val moshiVersion = "1.11.0"
+    val nav = "2.3.1"
     val okHttp = "3.12.1"
-    val retrofit = "2.6.0"
+    val retrofit = "2.9.0"
     val retrofitGson = "2.4.0"
-    val roomVersion = "2.2.2"
-    val recyclerview = "1.0.0"
+    val roomVersion = "2.2.5"
+    val recyclerview = "1.1.0"
     val rxJavaAndroid = "2.1.1"
     val rxJava = "2.2.9"
     val rxJavaKotlin = "2.2.0"
@@ -65,7 +65,6 @@ object Versions {
     val svgDecoderVersion = "1.2.1"
     val targetSdk = 28
     val vectorDrawableVersion = "1.1.0"
-    val workManagerVersion = "2.4.0"
 }
 
 object Libraries {
