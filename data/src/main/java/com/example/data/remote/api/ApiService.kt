@@ -13,15 +13,15 @@ interface ApiService {
     @GET("matches")
     @Headers("X-Auth-Token: $API_KEY")
     suspend fun getAllMatches(@Query("dateFrom") dateFrom: String,
-                           @Query("dateTo") dateTo: String)
+                              @Query("dateTo") dateTo: String)
             : Response<DomainMatchResponse>
 
 
     @GET("competitions/{id}/matches")
     @Headers("X-Auth-Token: $API_KEY")
     suspend fun getMatchesByCompetition(@Path("id") id: Long,
-                                @Query("dateFrom") dateFrom: String,
-                                @Query("dateTo") dateTo: String)
+                                        @Query("dateFrom") dateFrom: String,
+                                        @Query("dateTo") dateTo: String)
             : Response<DomainMatchResponse>
 
 
@@ -46,6 +46,6 @@ interface ApiService {
     @GET("competitions/{id}/standings")
     @Headers("X-Auth-Token: $API_KEY")
     suspend fun getTablesByCompetition(@Path("id") id: Long,
-                               @Query("standingType") standingType: String)
+                                       @Query("standingType") standingType: String)
             : Response<DomainStandingResponse>
 }

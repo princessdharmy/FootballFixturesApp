@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -19,22 +20,21 @@ import com.example.competitions.R
 import com.example.competitions.databinding.TodayFixturesFragmentBinding
 import com.example.competitions.di.DaggerCompetitionComponent
 import com.example.core.coreComponent
-import com.example.presentation.models.Resource
+import com.example.common.utils.network.NetworkStatus
+import com.example.presentation.models.MatchResponse
+import com.example.presentation.models.PlayerResponse
 import com.example.presentation.utils.Utilities.getCurrentDate
 import com.example.presentation.viewmodels.CompetitionsViewModel
-
-import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class TodayFixturesFragment : BaseFragment() {
 
     lateinit var binding: TodayFixturesFragmentBinding
-    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TodayFixturesAdapter
+
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: CompetitionsViewModel by viewModels { factory }
-    private var disposable: Disposable? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,7 +45,8 @@ class TodayFixturesFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.today_fixtures_fragment, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.today_fixtures_fragment, container, false)
         val view = binding.root
         binding.click = MyHandler()
         initRecyclerView()
@@ -60,63 +61,72 @@ class TodayFixturesFragment : BaseFragment() {
 
     private fun initRecyclerView() {
         adapter = TodayFixturesAdapter(ArrayList())
-        recyclerView = binding.fixturesRecyclerview
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        binding.fixturesRecyclerview.adapter = adapter
+        binding.fixturesRecyclerview.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        binding.fixturesRecyclerview.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                LinearLayoutManager.VERTICAL
+            )
+        )
     }
 
     /**
      * Fetch list of all matches for today
      */
     private fun getTodayMatch(date: String) {
-        disposable = hasInternetConnection().doOnSuccess {
-            if (it)
-                viewModel.getAllMatches(date).observe(viewLifecycleOwner, Observer { result ->
-                    when(result.status) {
-                        Resource.Status.LOADING -> { println("Loading") }
-                        Resource.Status.ERROR -> { println("Error") }
-                        Resource.Status.SUCCESS -> {
-                            result.data?.let { data ->
-                                if (data.matches?.isNotEmpty()!!) {
-                                    binding.progressBar.visibility = View.GONE
-                                    binding.fixturesRecyclerview.visibility = View.VISIBLE
-                                    adapter.updateAdapter(data.matches!!)
-                                } else {
-                                    binding.fixturesRecyclerview.visibility = View.GONE
-                                    binding.progressBar.visibility = View.GONE
-                                    binding.noFixture.visibility = View.VISIBLE
-                                }
-                            }
-                        }
+        if (hasInternetConnection(requireContext()))
+            viewModel.getAllMatches(date).observe(viewLifecycleOwner, Observer { result ->
+                when (result) {
+                    is NetworkStatus.Loading -> {
+                        showLoading()
                     }
-                })
-            else {
-                showNoInternet()
-            }
-        }.doOnError {
+                    is NetworkStatus.Error -> {
+                        hideLoading()
+                        getTodayMatchFailed(result.errorMessage!!)
+                    }
+                    is NetworkStatus.Success -> {
+                        hideLoading()
+                        result.data?.let { getTodayMatchSuccessful(it) }
+                    }
+                }
+            })
+        else {
             showNoInternet()
-        }.subscribe()
+        }
+    }
 
+    private fun getTodayMatchSuccessful(matchResponse: MatchResponse) {
+        if (matchResponse.matches.isNotEmpty()) {
+            adapter.updateAdapter(matchResponse.matches)
+        } else {
+            binding.noFixture.visibility = View.VISIBLE
+        }
+    }
+
+    private fun getTodayMatchFailed(message: String) {
+        show(message, true)
     }
 
     private fun showNoInternet() {
         binding.fixturesRecyclerview.visibility = View.GONE
-        binding.progressBar.visibility = View.GONE
         binding.noInternet.visibility = View.VISIBLE
+    }
+
+    override fun showLoading() {
+        binding.includeProgressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        binding.includeProgressBar.visibility = View.GONE
     }
 
     inner class MyHandler {
         fun onTapToRetry(view: View) {
-            binding.progressBar.visibility = View.VISIBLE
             binding.noInternet.visibility = View.GONE
             getTodayMatch(getCurrentDate())
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        disposable?.dispose()
     }
 
     companion object {

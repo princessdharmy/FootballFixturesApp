@@ -5,9 +5,11 @@ import android.content.Context
 import android.graphics.drawable.PictureDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -26,10 +28,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
-import com.example.presentation.models.Resource
-import com.example.presentation.utils.Utilities.hasInternetConnection
+import com.example.common.utils.network.NetworkStatus
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
-import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class BottomSheetFragment : BottomSheetDialogFragment() {
@@ -39,12 +39,10 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     private val viewModel: CompetitionDetailsViewModel by viewModels { factory }
 
     lateinit var binding: FragmentBottomSheetBinding
-    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: BottomSheetAdapter
     private lateinit var dialog: BottomSheetDialog
     private lateinit var behavior: BottomSheetBehavior<View>
     private var teamId: Long = 0L
-    var disposable: Disposable? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
@@ -81,42 +79,32 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         getIntents()
     }
 
+    private fun initRecyclerView() {
+        adapter = BottomSheetAdapter()
+        binding.squadRecyclerview.adapter = adapter
+        binding.squadRecyclerview.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        binding.squadRecyclerview.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+    }
+
     private fun getIntents() {
         teamId = arguments?.getLong("id")!!
         getPlayers(teamId)
     }
 
     private fun getPlayers(id: Long) {
-        disposable = hasInternetConnection().doOnSuccess {
-            if (it)
-                viewModel.getPlayers(id).observe(viewLifecycleOwner, Observer { result ->
-                    when (result.status) {
-                        Resource.Status.LOADING -> {
-                            println("Loading")
-                        }
-                        Resource.Status.ERROR -> {
-                            println("Error")
-                        }
-                        Resource.Status.SUCCESS -> {
-                            result.data?.let { data ->
-                                if (data.squad.isNullOrEmpty()) {
-                                    binding.progressBar.visibility = View.GONE
-                                    binding.noData.visibility = View.VISIBLE
-                                } else {
-                                    binding.progressBar.visibility = View.GONE
-                                    binding.squadRecyclerview.visibility = View.VISIBLE
-                                    showContent(data)
-                                }
-                            }
-                        }
-                    }
-                })
-            else {
-                showNoInternet()
+        viewModel.getPlayers(id).observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is NetworkStatus.Loading -> binding.progressBar.visibility = View.VISIBLE
+                is NetworkStatus.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    getPlayersFailed(result.errorMessage!!)
+                }
+                is NetworkStatus.Success -> {
+                    result.data?.let { getPlayersSuccessful(it) }
+                }
             }
-        }.doOnError {
-            showNoInternet()
-        }.subscribe()
+        })
     }
 
     private fun showContent(data: PlayerResponse) {
@@ -144,15 +132,6 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun initRecyclerView() {
-        adapter = BottomSheetAdapter()
-        recyclerView = binding.squadRecyclerview
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-    }
-
     inner class MyHandler {
         fun onClose(view: View) {
             behavior.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -166,16 +145,26 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun showNoInternet() {
+    private fun showRetryMessage() {
         binding.squadRecyclerview.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
         binding.noInternet.visibility = View.VISIBLE
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        dialog.dismiss()
-        disposable?.dispose()
+    private fun getPlayersSuccessful(playerResponse: PlayerResponse){
+        if (playerResponse.squad.isNullOrEmpty()) {
+            binding.progressBar.visibility = View.GONE
+            binding.noData.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.squadRecyclerview.visibility = View.VISIBLE
+            showContent(playerResponse)
+        }
+    }
+
+    private fun getPlayersFailed(message: String){
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+        showRetryMessage()
     }
 
     companion object {

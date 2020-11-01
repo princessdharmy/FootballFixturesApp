@@ -9,7 +9,6 @@ dependencies {
     implementation project(Modules.presentation)
     implementation project(Modules.navigation)
 
-
     implementation AndroidLibraries.appCompat
     implementation AndroidLibraries.fragment
     implementation AndroidLibraries.fragmentKtx
@@ -23,7 +22,4 @@ dependencies {
     implementation Libraries.dagger2
     kapt Libraries.daggerCompiler
 
-    implementation Libraries.rxJava
-    implementation Libraries.rxJavaAndroid
-    implementation Libraries.rxJavaKotlin
 }

@@ -2,7 +2,6 @@ package com.example.competitions.ui.competitions
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,30 +12,23 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-
 import com.example.common.base.BaseFragment
 import com.example.competitions.R
 import com.example.competitions.databinding.CompetitionsFragmentBinding
 import com.example.competitions.di.DaggerCompetitionComponent
 import com.example.core.coreComponent
 import com.example.presentation.models.Competitions
-import com.example.presentation.models.Resource
-import com.example.presentation.utils.Utilities.hasInternetConnection
 import com.example.presentation.viewmodels.CompetitionsViewModel
-import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class CompetitionsFragment : BaseFragment() {
 
     lateinit var binding: CompetitionsFragmentBinding
-    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CompetitionsAdapter
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: CompetitionsViewModel by viewModels { factory }
-    var disposable: Disposable? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -62,28 +54,25 @@ class CompetitionsFragment : BaseFragment() {
 
     private fun initRecyclerView() {
         adapter = CompetitionsAdapter(ArrayList(), clickListener)
-        recyclerView = binding.competitionsRecyclerview
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager =
+        binding.competitionsRecyclerview.adapter = adapter
+        binding.competitionsRecyclerview.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        binding.competitionsRecyclerview.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
     }
 
     private fun getCompetitions() {
         viewModel.getAllCompetitions().observe(viewLifecycleOwner, Observer { result ->
             if (result?.isNotEmpty()!!) {
-                binding.progressBar.visibility = View.GONE
-                binding.noInternet.visibility = View.GONE
-                binding.competitionsRecyclerview.visibility = View.VISIBLE
+                hideLoading()
                 adapter.updateAdapter(result)
-            } else Log.e("Result", result.toString())
+            }
         })
     }
 
-    private fun showNoInternet() {
-        binding.competitionsRecyclerview.visibility = View.GONE
-        binding.progressBar.visibility = View.GONE
-        binding.noInternet.visibility = View.VISIBLE
+    override fun showLoading() {}
+
+    override fun hideLoading() {
+        binding.includeProgressBar.visibility = View.GONE
     }
 
     private val clickListener = View.OnClickListener {
@@ -97,15 +86,9 @@ class CompetitionsFragment : BaseFragment() {
 
     inner class MyHandler {
         fun onTapToRetry(view: View) {
-            binding.progressBar.visibility = View.VISIBLE
             binding.noInternet.visibility = View.GONE
             getCompetitions()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        disposable?.dispose()
     }
 
     companion object {

@@ -4,13 +4,11 @@ import com.example.domain.entities.DomainEntities.*
 import com.example.presentation.models.*
 
 fun MatchResponse.map() = DomainMatchResponse(
-    matches = matches?.map { it.map() },
-    errorMessage = errorMessage
+    matches = matches.map { it.map() }
 )
 
 fun DomainMatchResponse.map() = MatchResponse(
-    matches = matches?.map { it.map() },
-    errorMessage = errorMessage
+    matches = matches.map { it.map() }
 )
 
 fun Match.map() = DomainMatch(
@@ -18,7 +16,7 @@ fun Match.map() = DomainMatch(
     competition = competition?.map(),
     season = season.map(),
     utcDate = utcDate,
-    status = status ?: "",
+    status = status,
     matchday = matchday,
     stage = stage,
     group = group,
@@ -62,13 +60,11 @@ fun SubTeams.map() = DomainSubTeams(id = id, name = name)
 fun DomainSubTeams.map() = SubTeams(id = id, name = name)
 
 fun CompetitionResponse.map() = DomainCompetitionResponse(
-    competitions = competitions?.map { it.map() },
-    errorMessage = errorMessage
+    competitions = competitions.map { it.map() }
 )
 
 fun DomainCompetitionResponse.map() = CompetitionResponse(
-    competitions = competitions?.map { it.map() },
-    errorMessage = errorMessage
+    competitions = competitions.map { it.map() }
 )
 
 fun Competitions.map() =
@@ -78,13 +74,11 @@ fun DomainCompetitions.map() =
     Competitions(id = id, name = name, currentSeason = currentSeason.map())
 
 fun TeamResponse.map() = DomainTeamResponse(
-    teams = teams?.map { it.map() },
-    errorMessage = errorMessage
+    teams = teams.map { it.map() }
 )
 
 fun DomainTeamResponse.map() = TeamResponse(
-    teams = teams?.map { it.map() },
-    errorMessage = errorMessage
+    teams = teams.map { it.map() }
 )
 
 fun Team.map() =
@@ -98,8 +92,7 @@ fun PlayerResponse.map() = DomainPlayerResponse(
     name = name,
     shortName = shortName,
     crestUrl = crestUrl ?: "",
-    squad = squad?.map { it.map() },
-    errorMessage = errorMessage
+    squad = squad.map { it.map() }
 )
 
 fun DomainPlayerResponse.map() = PlayerResponse(
@@ -107,8 +100,7 @@ fun DomainPlayerResponse.map() = PlayerResponse(
     name = name,
     shortName = shortName,
     crestUrl = crestUrl,
-    squad = squad?.map { it.map() },
-    errorMessage = errorMessage
+    squad = squad.map { it.map() }
 )
 
 fun Player.map() =
@@ -118,18 +110,16 @@ fun DomainPlayer.map() =
     Player(id = id, name = name, position = position, role = role, count = count)
 
 fun StandingResponse.map() = DomainStandingResponse(
-    standings = standings?.map { it.map() },
-    errorMessage = errorMessage
+    standings = standings.map { it.map() }
 )
 
 fun DomainStandingResponse.map() = StandingResponse(
-    standings = standings?.map { it.map() },
-    errorMessage = errorMessage
+    standings = standings.map { it.map() }
 )
 
-fun Standing.map() = DomainStanding(table = table?.map { it.map() })
+fun Standing.map() = DomainStanding(table = table.map { it.map() })
 
-fun DomainStanding.map() = Standing(table = table?.map { it.map() })
+fun DomainStanding.map() = Standing(table = table.map { it.map() })
 
 fun Table.map() = DomainTable(
     position = position,

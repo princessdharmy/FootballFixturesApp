@@ -1,14 +1,10 @@
 package com.example.presentation.utils
 
 import android.annotation.SuppressLint
-import android.util.Log
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import com.example.presentation.models.Score
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.io.IOException
-import java.net.InetSocketAddress
-import java.net.Socket
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.floor
@@ -113,22 +109,10 @@ object Utilities {
 
     }
 
-    fun hasInternetConnection(): Single<Boolean> {
-        return Single.fromCallable {
-            try {
-                val timeoutMs = 1500
-                val socket = Socket()
-                val socketAddress = InetSocketAddress("api.football-data.org", 443)
-
-                socket.connect(socketAddress, timeoutMs)
-                socket.close()
-                true
-            } catch (e: IOException) {
-                false
-            }
-        }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+    fun hasInternetConnection(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting
     }
 
 }

@@ -1,21 +1,21 @@
 package com.example.data.di
 
+import com.example.common.utils.BASE_URL
 import com.example.data.remote.api.ApiService
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 class NetworkModule {
 
-    private val BASE_URL = "https://api.football-data.org/v2/"
     private val REQUEST_TIMEOUT = 10
     private var okHttpClient: OkHttpClient? = null
 
@@ -54,10 +54,10 @@ class NetworkModule {
     * */
     @Provides
     @Singleton
-    internal fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
+    internal fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()
     }
@@ -69,9 +69,13 @@ class NetworkModule {
     }
 
     /**
-     * The method returns the Gson object
+     * The method returns the Moshi object
      **/
     @Provides
     @Singleton
-    fun provideGson(): Gson = GsonBuilder().create()
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder()
+            .addLast(KotlinJsonAdapterFactory())
+            .build()
+    }
 }

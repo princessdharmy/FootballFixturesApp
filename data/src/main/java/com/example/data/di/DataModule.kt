@@ -1,5 +1,7 @@
 package com.example.data.di
 
+import com.example.data.coroutines.DefaultDispatcherProvider
+import com.example.data.coroutines.DispatcherProvider
 import com.example.data.local.datasource.LocalDataSource
 import com.example.data.local.datasource.LocalDataSourceImpl
 import com.example.data.local.room.CompetitionsDao
@@ -14,6 +16,12 @@ import javax.inject.Singleton
 
 @Module(includes = [NetworkModule::class])
 class DataModule {
+
+    /// Provide DispatcherProvider ///
+
+    @Provides
+    @Singleton
+    internal fun provideDispatcherProvider(): DispatcherProvider = DefaultDispatcherProvider()
 
     /// Provide Remote Data Sources ///
 
@@ -34,10 +42,11 @@ class DataModule {
     @Singleton
     @Provides
     fun provideCompetitionsRepository(
+        dispatcherProvider: DispatcherProvider,
         remoteDataSource: RemoteDataSource,
         localDataSource: LocalDataSource
     ): CompetitionsRepository {
-        return CompetitionsRepositoryImpl(remoteDataSource, localDataSource)
+        return CompetitionsRepositoryImpl(dispatcherProvider, remoteDataSource, localDataSource)
     }
 
 }

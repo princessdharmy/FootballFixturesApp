@@ -79,6 +79,11 @@ class ViewPagerFragment : BaseFragment() {
         competitionId = args.competition.id
         name = args.competition.name
     }
+
+    override fun showLoading() {}
+
+    override fun hideLoading() {}
+
     companion object {
         fun newInstance() = ViewPagerFragment()
     }

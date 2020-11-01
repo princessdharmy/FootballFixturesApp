@@ -8,7 +8,8 @@ class GetCompetitionsUseCase @Inject constructor(
     private val competitionsRepository: CompetitionsRepository
 ) {
 
-    operator fun invoke(): List<DomainCompetitions> {
+    suspend operator fun invoke(): List<DomainCompetitions> {
+        competitionsRepository.getAllCompetitions()
         return competitionsRepository.getAllCompetitionsFromDb()
     }
 

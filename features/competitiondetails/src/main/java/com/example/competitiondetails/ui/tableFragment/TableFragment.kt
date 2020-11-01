@@ -12,27 +12,25 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.example.common.base.BaseFragment
 import com.example.competitiondetails.R
 import com.example.competitiondetails.databinding.TableFragmentBinding
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
-import com.example.presentation.models.Resource
-import com.example.presentation.utils.Utilities.hasInternetConnection
+import com.example.common.utils.network.NetworkStatus
+import com.example.presentation.models.MatchResponse
+import com.example.presentation.models.StandingResponse
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
-import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class TableFragment : BaseFragment() {
 
     lateinit var binding: TableFragmentBinding
-    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TableAdapter
+
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: CompetitionDetailsViewModel by viewModels { factory }
-    var disposable: Disposable? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -62,64 +60,62 @@ class TableFragment : BaseFragment() {
 
     private fun initRecyclerView() {
         adapter = TableAdapter(ArrayList())
-        recyclerView = binding.tableRecyclerview
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        binding.tableRecyclerview.adapter = adapter
+        binding.tableRecyclerview.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        binding.tableRecyclerview.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
     }
 
     private fun getStandings(id: Long) {
-        disposable = hasInternetConnection().doOnSuccess {
-            if (it)
-                viewModel.getStandings(id).observe(viewLifecycleOwner, Observer { result ->
-                    when (result.status) {
-                        Resource.Status.LOADING -> {
-                            println("Loading")
-                        }
-                        Resource.Status.ERROR -> {
-                            println("Error")
-                        }
-                        Resource.Status.SUCCESS -> {
-                            result.data?.let { data ->
-                                if (data.standings.isNullOrEmpty()) {
-                                    binding.progressBar.visibility = View.GONE
-                                    binding.noData.visibility = View.VISIBLE
-                                }
-                                else {
-                                    binding.progressBar.visibility = View.GONE
-                                    binding.tableRecyclerview.visibility = View.VISIBLE
-                                    data.standings!![0].table?.let { it1 -> adapter.updateAdapter(it1) }
-                                }
-                            }
-                        }
-                    }
-                })
-            else {
-                showNoInternet()
+        viewModel.getStandings(id).observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is NetworkStatus.Loading -> {
+                    showLoading()
+                }
+                is NetworkStatus.Error -> {
+                    hideLoading()
+                    getStandingsFailed(result.errorMessage!!)
+                }
+                is NetworkStatus.Success -> {
+                    hideLoading()
+                    result.data?.let { getStandingsSuccessful(it)}
+                }
             }
-        }.doOnError {
-            showNoInternet()
-        }.subscribe()
+        })
     }
 
-    private fun showNoInternet() {
+    private fun getStandingsSuccessful(standingResponse: StandingResponse){
+        if (standingResponse.standings.isNullOrEmpty()) {
+            binding.noData.visibility = View.VISIBLE
+        } else {
+            binding.tableRecyclerview.visibility = View.VISIBLE
+            standingResponse.standings[0].table.let { adapter.updateAdapter(it) }
+        }
+    }
+
+    private fun getStandingsFailed(message: String){
+        show(message, true)
+        showRetryMessage()
+    }
+
+    private fun showRetryMessage() {
         binding.tableRecyclerview.visibility = View.GONE
-        binding.progressBar.visibility = View.GONE
         binding.noInternet.visibility = View.VISIBLE
+    }
+
+    override fun showLoading() {
+        binding.includeProgressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        binding.includeProgressBar.visibility = View.GONE
     }
 
     inner class MyHandler {
         fun onTapToRetry(view: View) {
-            binding.progressBar.visibility = View.VISIBLE
             binding.noInternet.visibility = View.GONE
             getStandings(competitionId)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        disposable?.dispose()
     }
 
     companion object {

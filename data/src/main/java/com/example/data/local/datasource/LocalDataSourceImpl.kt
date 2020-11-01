@@ -9,9 +9,7 @@ class LocalDataSourceImpl(private val competitionsDao: CompetitionsDao) : LocalD
         competitionsDao.insertCompetitions(competitions)
     }
 
-    override fun getAllCompetitionsFromDb(): List<DomainCompetitions> {
+    override suspend fun getAllCompetitionsFromDb(): List<DomainCompetitions> {
         return competitionsDao.queryCompetitions()
     }
-
-
 }

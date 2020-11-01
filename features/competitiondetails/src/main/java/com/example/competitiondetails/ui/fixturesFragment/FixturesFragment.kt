@@ -2,7 +2,6 @@ package com.example.competitiondetails.ui.fixturesFragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,23 +17,20 @@ import com.example.competitiondetails.R
 import com.example.competitiondetails.databinding.FixturesFragmentBinding
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
-import com.example.presentation.models.Resource
+import com.example.common.utils.network.NetworkStatus
+import com.example.presentation.models.MatchResponse
 import com.example.presentation.utils.Utilities.getCurrentDate
-import com.example.presentation.utils.Utilities.hasInternetConnection
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
-
-import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class FixturesFragment : BaseFragment() {
 
     lateinit var binding: FixturesFragmentBinding
-    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FixturesAdapter
+
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: CompetitionDetailsViewModel by viewModels { factory }
-    var disposable: Disposable? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -65,60 +61,63 @@ class FixturesFragment : BaseFragment() {
 
     private fun initRecyclerView() {
         adapter = FixturesAdapter(ArrayList())
-        recyclerView = binding.fixturesRecyclerview
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        binding.fixturesRecyclerview.adapter = adapter
+        binding.fixturesRecyclerview.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        binding.fixturesRecyclerview.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
     }
 
     private fun getSingleMatch(id: Long, date: String) {
-        disposable = hasInternetConnection().doOnSuccess {
-            if (it)
-                viewModel.getSingleMatch(id, date).observe(viewLifecycleOwner, Observer { result ->
-                    when (result.status) {
-                        Resource.Status.LOADING -> { println("Loading") }
-                        Resource.Status.ERROR -> { println("Error") }
-                        Resource.Status.SUCCESS -> {
-                            result.data?.let { data ->
-                                if (data.matches.isNullOrEmpty()) {
-                                    binding.fixturesRecyclerview.visibility = View.GONE
-                                    binding.progressBar.visibility = View.GONE
-                                    binding.noFixture.visibility = View.VISIBLE
-                                } else {
-                                    binding.progressBar.visibility = View.GONE
-                                    binding.fixturesRecyclerview.visibility = View.VISIBLE
-                                    adapter.updateAdapter(data.matches!!)
-                                }
-                            }
-                        }
-                    }
-                })
-            else {
-                showNoInternet()
+        viewModel.getSingleMatch(id, date).observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is NetworkStatus.Loading -> {
+                    showLoading()
+                }
+                is NetworkStatus.Error -> {
+                    hideLoading()
+                    getSingleMatchFailed(result.errorMessage!!)
+                }
+                is NetworkStatus.Success -> {
+                    hideLoading()
+                    result.data?.let { getSingleMatchSuccessful(it) }
+                }
             }
-        }.doOnError {
-            showNoInternet()
-        }.subscribe()
+        })
     }
 
-    private fun showNoInternet() {
+    private fun getSingleMatchSuccessful(matchResponse: MatchResponse){
+        if (matchResponse.matches.isNullOrEmpty()) {
+            binding.fixturesRecyclerview.visibility = View.GONE
+            binding.noFixture.visibility = View.VISIBLE
+        } else {
+            binding.fixturesRecyclerview.visibility = View.VISIBLE
+            adapter.updateAdapter(matchResponse.matches)
+        }
+    }
+
+    private fun getSingleMatchFailed(message: String){
+        show(message, true)
+        showRetryMessage()
+    }
+
+    private fun showRetryMessage() {
         binding.fixturesRecyclerview.visibility = View.GONE
-        binding.progressBar.visibility = View.GONE
         binding.noInternet.visibility = View.VISIBLE
+    }
+
+    override fun showLoading() {
+        binding.includeProgressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        binding.includeProgressBar.visibility = View.GONE
     }
 
     inner class MyHandler {
         fun onTapToRetry(view: View) {
-            binding.progressBar.visibility = View.VISIBLE
             binding.noInternet.visibility = View.GONE
             getSingleMatch(competitionId, getCurrentDate())
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        disposable?.dispose()
     }
 
     companion object {

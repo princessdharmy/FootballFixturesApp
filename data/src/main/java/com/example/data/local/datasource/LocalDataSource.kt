@@ -6,6 +6,6 @@ interface LocalDataSource {
 
     suspend fun saveCompetitions(competitions: List<DomainCompetitions>)
 
-    fun getAllCompetitionsFromDb(): List<DomainCompetitions>
+    suspend fun getAllCompetitionsFromDb(): List<DomainCompetitions>
 
 }

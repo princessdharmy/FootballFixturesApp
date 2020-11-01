@@ -1,22 +1,22 @@
 package com.example.domain.repository
 
-import androidx.lifecycle.LiveData
-import com.example.common.utils.Result
+import com.example.common.utils.network.NetworkResult
 import com.example.domain.entities.DomainEntities.*
 
 interface CompetitionsRepository {
 
-    suspend fun getTodayMatches(date: String): Result<DomainMatchResponse>
+    suspend fun getTodayMatches(date: String): NetworkResult<DomainMatchResponse>
 
-    suspend fun getStandings(id: Long): Result<DomainStandingResponse>
+    suspend fun getAllCompetitionsFromDb(): List<DomainCompetitions>
 
-    suspend fun getSingleMatch(id: Long, date: String): Result<DomainMatchResponse>
+    suspend fun getAllCompetitions()
 
-    suspend fun getTeam(id: Long): Result<DomainTeamResponse>
+    suspend fun getStandings(id: Long): NetworkResult<DomainStandingResponse>
 
-    suspend fun getPlayers(id: Long): Result<DomainPlayerResponse>
+    suspend fun getSingleMatch(id: Long, date: String): NetworkResult<DomainMatchResponse>
 
-    suspend fun refreshCacheWithRemoteCompetitionData()
+    suspend fun getTeam(id: Long): NetworkResult<DomainTeamResponse>
 
-    fun getAllCompetitionsFromDb(): List<DomainCompetitions>
+    suspend fun getPlayers(id: Long): NetworkResult<DomainPlayerResponse>
+
 }

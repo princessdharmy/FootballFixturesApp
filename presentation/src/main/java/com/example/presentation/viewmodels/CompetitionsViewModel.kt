@@ -1,16 +1,13 @@
 package com.example.presentation.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.*
-import com.example.common.utils.Result
+import com.example.common.utils.network.NetworkResult
 import com.example.domain.usecases.competition.GetCompetitionsUseCase
 import com.example.domain.usecases.competition.GetTodayFixturesUseCase
 import com.example.presentation.mappers.map
 import com.example.presentation.models.Competitions
-import com.example.presentation.models.MatchResponse
-import com.example.presentation.models.Resource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.common.utils.network.NetworkStatus
 import javax.inject.Inject
 
 class CompetitionsViewModel @Inject constructor(
@@ -18,24 +15,17 @@ class CompetitionsViewModel @Inject constructor(
     private val getCompetitionsUseCase: GetCompetitionsUseCase
 ) : ViewModel() {
 
-    fun getAllMatches(date: String): LiveData<Resource<MatchResponse>>
-            = liveData(Dispatchers.IO) {
-        emit(Resource.loading())
-
+    fun getAllMatches(date: String) = liveData {
+        emit(NetworkStatus.Loading())
         when (val result = getTodayFixturesUseCase.invoke(date)) {
-            is Result.Success -> {
-                emit(Resource.success(result.data?.map()))
-            }
-            is Result.Error -> {
-                emit(Resource.error(msg = "An Error Occurred", data = null))
-            }
+            is NetworkResult.Success -> emit(NetworkStatus.Success(result.data?.map()))
+            is NetworkResult.Error -> emit(NetworkStatus.Error(result.errorMessage!!, null))
         }
     }
 
 
-    fun getAllCompetitions(): LiveData<List<Competitions>> =
-        liveData(Dispatchers.IO) {
-            emit(getCompetitionsUseCase.invoke().map { it.map() })
-        }
+    fun getAllCompetitions(): LiveData<List<Competitions>> = liveData {
+        emit(getCompetitionsUseCase.invoke().map { it.map() })
+    }
 
 }

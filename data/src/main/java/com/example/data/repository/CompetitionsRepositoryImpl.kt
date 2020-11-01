@@ -1,89 +1,87 @@
 package com.example.data.repository
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import com.example.common.utils.Result
+
+import com.example.common.utils.network.NetworkResult
+import com.example.data.coroutines.DispatcherProvider
 import com.example.data.local.datasource.LocalDataSource
 import com.example.data.remote.datasource.RemoteDataSource
 import com.example.domain.entities.DomainEntities.*
 import com.example.domain.repository.CompetitionsRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 class CompetitionsRepositoryImpl(
+    private val dispatcherProvider: DispatcherProvider,
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : CompetitionsRepository {
-
-    override suspend fun getTodayMatches(date: String): Result<DomainMatchResponse> {
-        return withContext(Dispatchers.IO) {
-            val allMatches = remoteDataSource.getAllMatches(date)
-            (allMatches as? Result.Success)?.let {
-                if (it.data?.matches != null) {
-                    return@withContext Result.Success(it.data)
-                }
-            }
-            return@withContext Result.Error(Exception("Illegal state"))
-        }
+    override suspend fun getTodayMatches(date: String): NetworkResult<DomainMatchResponse> {
+        return withContext(dispatcherProvider.io()) {remoteDataSource.getAllMatches(date) }
+//            val response = remoteDataSource.getAllMatches(date)
+//            (response as? NetworkResult.Success)?.let {
+////                if (it.data != null) {
+//                    return@withContext NetworkResult.Success(it.data)
+////            }
+//            }
+//            return@withContext NetworkResult.Error(response)
+//        }
     }
 
-    override suspend fun getStandings(id: Long): Result<DomainStandingResponse> {
-        return withContext(Dispatchers.IO) {
-            val allStandings = remoteDataSource.getStandings(id)
-            (allStandings as? Result.Success)?.let {
-                if (it.data?.standings != null) {
-                    return@withContext Result.Success(it.data)
-                }
-            }
-            return@withContext Result.Error(Exception("Illegal state"))
-        }
-    }
+    override suspend fun getAllCompetitionsFromDb(): List<DomainCompetitions> =
+        withContext(dispatcherProvider.io()){ localDataSource.getAllCompetitionsFromDb() }
 
-    override suspend fun getSingleMatch(id: Long, date: String): Result<DomainMatchResponse> {
-        return withContext(Dispatchers.IO) {
-            val singleMatch = remoteDataSource.getSingleMatch(id, date)
-            (singleMatch as? Result.Success)?.let {
-                if (it.data?.matches != null) {
-                    return@withContext Result.Success(it.data)
-                }
-            }
-            return@withContext Result.Error(Exception("Illegal state"))
-        }
-    }
-
-    override suspend fun getTeam(id: Long): Result<DomainTeamResponse> {
-        return withContext(Dispatchers.IO) {
-            val team = remoteDataSource.getTeam(id)
-            (team as? Result.Success)?.let {
-                if (it.data?.teams!= null) {
-                    return@withContext Result.Success(it.data)
-                }
-            }
-            return@withContext Result.Error(Exception("Illegal state"))
-        }
-    }
-
-    override suspend fun getPlayers(id: Long): Result<DomainPlayerResponse> {
-        return withContext(Dispatchers.IO) {
-            val players = remoteDataSource.getPlayers(id)
-            (players as? Result.Success)?.let {
-                return@withContext Result.Success(it.data)
-            }
-            return@withContext Result.Error(Exception("Illegal state"))
-        }
-    }
-
-    override suspend fun refreshCacheWithRemoteCompetitionData(){
-        withContext(Dispatchers.IO) {
+    override suspend fun getAllCompetitions() {
+        return withContext(dispatcherProvider.io()) {
             val allCompetitions = remoteDataSource.getAllCompetitions()
-            (allCompetitions as? Result.Success)?.let {
-                if (it.data?.competitions != null) {
+            (allCompetitions as? NetworkResult.Success)?.let {
+                if (it.data != null) {
                     localDataSource.saveCompetitions(it.data?.competitions!!)
                 }
             }
         }
     }
 
-    override fun getAllCompetitionsFromDb(): List<DomainCompetitions> = localDataSource.getAllCompetitionsFromDb()
+    override suspend fun getStandings(id: Long): NetworkResult<DomainStandingResponse> {
+        return withContext(dispatcherProvider.io()) { remoteDataSource.getStandings(id)
+//            (allStandings as? Result.Success)?.let {
+//                if (it.data?.standings != null) {
+//                    return@withContext Result.Success(it.data)
+//                }
+//            }
+//            return@withContext Result.Error(Exception("Illegal state"))
+        }
+    }
+
+    override suspend fun getSingleMatch(id: Long, date: String): NetworkResult<DomainMatchResponse> {
+        return withContext(dispatcherProvider.io()) { remoteDataSource.getSingleMatch(id, date)
+//            (singleMatch as? Result.Success)?.let {
+//                if (it.data?.matches != null) {
+//                    return@withContext Result.Success(it.data)
+//                }
+//            }
+//            return@withContext Result.Error(Exception("Illegal state"))
+        }
+    }
+
+    override suspend fun getTeam(id: Long): NetworkResult<DomainTeamResponse> {
+        return withContext(dispatcherProvider.io()) { remoteDataSource.getTeam(id)
+//            (team as? Result.Success)?.let {
+//                if (it.data?.teams!= null) {
+//                    return@withContext Result.Success(it.data)
+//                }
+//            }
+//            return@withContext Result.Error(Exception("Illegal state"))
+        }
+    }
+
+    override suspend fun getPlayers(id: Long): NetworkResult<DomainPlayerResponse> {
+        return withContext(dispatcherProvider.io()) { remoteDataSource.getPlayers(id)
+//            (players as? Result.Success)?.let {
+//                return@withContext Result.Success(it.data)
+//            }
+//            return@withContext Result.Error(Exception("Illegal state"))
+//        }
+        }
+    }
 
 }

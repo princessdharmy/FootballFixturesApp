@@ -21,20 +21,24 @@ dependencies {
     implementation project(Modules.domain)
     implementation project(Modules.common)
 
-    api Libraries.retrofit
-    api Libraries.retrofitGsonConverter
-    api Libraries.retrofitAdapter
+    implementation Libraries.retrofit
+    api Libraries.retrofitMoshiConverter
     api Libraries.httpLoggingInterceptor
     implementation Libraries.okhttp
-    implementation Libraries.gson
+
     implementation Libraries.dagger2
     kapt Libraries.daggerCompiler
+
     implementation AndroidLibraries.lifecycleViewModel
     implementation AndroidLibraries.lifecycleExtensions
+    implementation AndroidLibraries.lifecycleLivedata
     kapt AndroidLibraries.lifecycleCompile
-    implementation Libraries.moshi
+
+    implementation Libraries.moshiKotlin
+    kapt Libraries.moshiKotlinCodegen
 
     implementation AndroidLibraries.room
+    implementation AndroidLibraries.roomKtx
     kapt AndroidLibraries.roomCompiler
 
 }
