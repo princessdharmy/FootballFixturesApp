@@ -95,12 +95,13 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     private fun getPlayers(id: Long) {
         viewModel.getPlayers(id).observe(viewLifecycleOwner, Observer { result ->
             when (result) {
-                is NetworkStatus.Loading -> binding.progressBar.visibility = View.VISIBLE
+                is NetworkStatus.Loading -> binding.includeProgressBar.visibility = View.VISIBLE
                 is NetworkStatus.Error -> {
-                    binding.progressBar.visibility = View.GONE
+                    binding.includeProgressBar.visibility = View.GONE
                     getPlayersFailed(result.errorMessage!!)
                 }
                 is NetworkStatus.Success -> {
+                    binding.includeProgressBar.visibility = View.GONE
                     result.data?.let { getPlayersSuccessful(it) }
                 }
             }
@@ -139,7 +140,6 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         fun onTapToRetry(view: View) {
-            binding.progressBar.visibility = View.VISIBLE
             binding.noInternet.visibility = View.GONE
             getPlayers(teamId)
         }
@@ -147,16 +147,13 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun showRetryMessage() {
         binding.squadRecyclerview.visibility = View.GONE
-        binding.progressBar.visibility = View.GONE
         binding.noInternet.visibility = View.VISIBLE
     }
 
     private fun getPlayersSuccessful(playerResponse: PlayerResponse){
         if (playerResponse.squad.isNullOrEmpty()) {
-            binding.progressBar.visibility = View.GONE
             binding.noData.visibility = View.VISIBLE
         } else {
-            binding.progressBar.visibility = View.GONE
             binding.squadRecyclerview.visibility = View.VISIBLE
             showContent(playerResponse)
         }

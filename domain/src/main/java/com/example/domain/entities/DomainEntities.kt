@@ -92,13 +92,12 @@ sealed class DomainEntities {
         var shortName: String = "",
         var crestUrl: String = "",
         var squad: List<DomainPlayer> = ArrayList(),
-        var errorMessage: String = ""
     ): DomainEntities()
 
     data class DomainPlayer(
         var id: Long = 0L,
         var name: String = "",
-        var position: String = "",
+        var position: String? = "",
         var role: String = "",
         var count: Int = 0
     ): DomainEntities()
