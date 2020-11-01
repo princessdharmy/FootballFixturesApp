@@ -64,7 +64,12 @@ class FixturesFragment : BaseFragment() {
         binding.fixturesRecyclerview.adapter = adapter
         binding.fixturesRecyclerview.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        binding.fixturesRecyclerview.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+        binding.fixturesRecyclerview.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                LinearLayoutManager.VERTICAL
+            )
+        )
     }
 
     private fun getSingleMatch(id: Long, date: String) {
@@ -85,7 +90,7 @@ class FixturesFragment : BaseFragment() {
         })
     }
 
-    private fun getSingleMatchSuccessful(matchResponse: MatchResponse){
+    private fun getSingleMatchSuccessful(matchResponse: MatchResponse) {
         if (matchResponse.matches.isNullOrEmpty()) {
             binding.fixturesRecyclerview.visibility = View.GONE
             binding.noFixture.visibility = View.VISIBLE
@@ -95,7 +100,7 @@ class FixturesFragment : BaseFragment() {
         }
     }
 
-    private fun getSingleMatchFailed(message: String){
+    private fun getSingleMatchFailed(message: String) {
         show(message, true)
         showRetryMessage()
     }

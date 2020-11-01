@@ -40,7 +40,7 @@ class HomeActivity : BaseActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.viewPager) {
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
-            } else 0
+            }
         }
 
     }

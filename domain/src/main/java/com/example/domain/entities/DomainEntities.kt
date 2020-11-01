@@ -29,6 +29,8 @@ sealed class DomainEntities {
         var awayTeam: DomainSubTeams = DomainSubTeams()
     ): DomainEntities()
 
+    // @JsonClass(generateAdapter = true) is an annotation processor for Moshi’s Kotlin codegen support
+    // It generates an adapter to be used when saving [DomainSeason] in the DB
     @JsonClass(generateAdapter = true)
     @Entity(tableName = "season")
     data class DomainSeason(

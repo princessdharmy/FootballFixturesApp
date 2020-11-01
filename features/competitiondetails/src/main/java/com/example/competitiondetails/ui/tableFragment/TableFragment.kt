@@ -63,7 +63,12 @@ class TableFragment : BaseFragment() {
         binding.tableRecyclerview.adapter = adapter
         binding.tableRecyclerview.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        binding.tableRecyclerview.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+        binding.tableRecyclerview.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                LinearLayoutManager.VERTICAL
+            )
+        )
     }
 
     private fun getStandings(id: Long) {
@@ -78,13 +83,13 @@ class TableFragment : BaseFragment() {
                 }
                 is NetworkStatus.Success -> {
                     hideLoading()
-                    result.data?.let { getStandingsSuccessful(it)}
+                    result.data?.let { getStandingsSuccessful(it) }
                 }
             }
         })
     }
 
-    private fun getStandingsSuccessful(standingResponse: StandingResponse){
+    private fun getStandingsSuccessful(standingResponse: StandingResponse) {
         if (standingResponse.standings.isNullOrEmpty()) {
             binding.noData.visibility = View.VISIBLE
         } else {
@@ -93,7 +98,7 @@ class TableFragment : BaseFragment() {
         }
     }
 
-    private fun getStandingsFailed(message: String){
+    private fun getStandingsFailed(message: String) {
         show(message, true)
         showRetryMessage()
     }

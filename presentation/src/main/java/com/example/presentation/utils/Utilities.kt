@@ -25,7 +25,7 @@ object Utilities {
 
         //Setting the timezone to match the local timezone
         dateFormat.timeZone = TimeZone.getDefault()
-        return dateFormat.format(dateFormatted)
+        return dateFormat.format(dateFormatted!!)
     }
 
     @JvmStatic
@@ -41,7 +41,7 @@ object Utilities {
             var seasonFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val dateFormat = seasonFormat.parse(date)
             seasonFormat = SimpleDateFormat("yyyy", Locale.getDefault())
-            return seasonFormat.format(dateFormat)
+            return seasonFormat.format(dateFormat!!)
         }
         return ""
     }
@@ -52,11 +52,12 @@ object Utilities {
             var seasonFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val dateFormat = seasonFormat.parse(date)
             seasonFormat = SimpleDateFormat("yy", Locale.getDefault())
-            return seasonFormat.format(dateFormat)
+            return seasonFormat.format(dateFormat!!)
         }
         return ""
     }
 
+    @SuppressLint("DefaultLocale")
     @JvmStatic
     fun convertRoleToPosition(role: String): String {
         return role.replace("_", " ").toLowerCase().capitalize()
@@ -88,14 +89,14 @@ object Utilities {
         val simpleDateFormat = SimpleDateFormat("HH:mm")
         val time: Int
         if (startTime.isNullOrEmpty()) {
-            time = floor((simpleDateFormat.parse(getCurrentTime()).time / 60000.0)).toInt()
+            time = floor((simpleDateFormat.parse(getCurrentTime())!!.time / 60000.0)).toInt()
             return "$time\'"
         } else {
             return try {
                 val startedTime = convertDate(startTime.toString())
                 val currentTime = getCurrentTime()
                 val onGoingMatchTime =
-                    simpleDateFormat.parse(currentTime).time - simpleDateFormat.parse(startedTime).time
+                    simpleDateFormat.parse(currentTime)?.time!! - simpleDateFormat.parse(startedTime)?.time!!
                 time = if (score?.halfTime?.homeTeam != null || score?.halfTime?.awayTeam != null) {
                     floor((onGoingMatchTime / 60000.0)).toInt() - 15
                 } else {

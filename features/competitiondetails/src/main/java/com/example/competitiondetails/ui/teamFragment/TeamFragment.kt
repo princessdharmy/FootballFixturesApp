@@ -17,7 +17,6 @@ import com.example.competitiondetails.databinding.TeamFragmentBinding
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
 import com.example.common.utils.network.NetworkStatus
-import com.example.presentation.models.MatchResponse
 import com.example.presentation.models.Team
 import com.example.presentation.models.TeamResponse
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
@@ -82,7 +81,7 @@ class TeamFragment : BaseFragment() {
         })
     }
 
-    private fun getTeamsSuccessful(teamResponse: TeamResponse){
+    private fun getTeamsSuccessful(teamResponse: TeamResponse) {
         if (teamResponse.teams.isNullOrEmpty()) {
             binding.noData.visibility = View.VISIBLE
         } else {
@@ -91,7 +90,7 @@ class TeamFragment : BaseFragment() {
         }
     }
 
-    private fun getTeamsFailed(message: String){
+    private fun getTeamsFailed(message: String) {
         show(message, true)
         showRetryMessage()
     }

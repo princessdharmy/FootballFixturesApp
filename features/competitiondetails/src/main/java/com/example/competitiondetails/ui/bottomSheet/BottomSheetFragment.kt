@@ -84,7 +84,12 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         binding.squadRecyclerview.adapter = adapter
         binding.squadRecyclerview.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        binding.squadRecyclerview.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+        binding.squadRecyclerview.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                LinearLayoutManager.VERTICAL
+            )
+        )
     }
 
     private fun getIntents() {
@@ -128,7 +133,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
                     .transition(withCrossFade())
                     .into(binding.imageView3)
 
-            data.squad?.let { adapter.updateAdapter(it) }
+            data.squad.let { adapter.updateAdapter(it) }
             dialog.show()
         }
     }
@@ -150,7 +155,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         binding.noInternet.visibility = View.VISIBLE
     }
 
-    private fun getPlayersSuccessful(playerResponse: PlayerResponse){
+    private fun getPlayersSuccessful(playerResponse: PlayerResponse) {
         if (playerResponse.squad.isNullOrEmpty()) {
             binding.noData.visibility = View.VISIBLE
         } else {
@@ -159,7 +164,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun getPlayersFailed(message: String){
+    private fun getPlayersFailed(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
         showRetryMessage()
     }

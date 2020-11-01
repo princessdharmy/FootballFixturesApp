@@ -2,11 +2,9 @@ package com.example.competitions.ui.today
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -22,7 +20,6 @@ import com.example.competitions.di.DaggerCompetitionComponent
 import com.example.core.coreComponent
 import com.example.common.utils.network.NetworkStatus
 import com.example.presentation.models.MatchResponse
-import com.example.presentation.models.PlayerResponse
 import com.example.presentation.utils.Utilities.getCurrentDate
 import com.example.presentation.viewmodels.CompetitionsViewModel
 import javax.inject.Inject

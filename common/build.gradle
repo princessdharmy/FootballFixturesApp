@@ -13,9 +13,6 @@ dependencies {
     kapt Libraries.glideCompiler
     implementation Libraries.svgDecoder
 
-//    implementation AndroidLibraries.room
-//    implementation AndroidLibraries.roomKtx
-//    kapt AndroidLibraries.roomCompiler
     implementation AndroidLibraries.lifecycleViewModel
 
     implementation Libraries.dagger2

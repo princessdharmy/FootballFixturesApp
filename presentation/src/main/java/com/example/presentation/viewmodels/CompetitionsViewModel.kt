@@ -1,6 +1,5 @@
 package com.example.presentation.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.common.utils.network.NetworkResult
 import com.example.domain.usecases.competition.GetCompetitionsUseCase
@@ -22,7 +21,6 @@ class CompetitionsViewModel @Inject constructor(
             is NetworkResult.Error -> emit(NetworkStatus.Error(result.errorMessage!!, null))
         }
     }
-
 
     fun getAllCompetitions(): LiveData<List<Competitions>> = liveData {
         emit(getCompetitionsUseCase.invoke().map { it.map() })

@@ -57,7 +57,12 @@ class CompetitionsFragment : BaseFragment() {
         binding.competitionsRecyclerview.adapter = adapter
         binding.competitionsRecyclerview.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.competitionsRecyclerview.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        binding.competitionsRecyclerview.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                LinearLayoutManager.VERTICAL
+            )
+        )
     }
 
     private fun getCompetitions() {
