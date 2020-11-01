@@ -26,6 +26,7 @@
             android:text='@{tables.position + ""}'
             android:textColor="@color/textColor"
             android:textSize="18sp"
+            android:gravity="start"
             android:fontFamily="@font/proxima_nova_regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_weight="1"
@@ -61,6 +62,7 @@
             android:text="@{tables.team.name}"
             android:textColor="@color/textColor"
             android:textSize="18sp"
+            android:gravity="start"
             android:fontFamily="@font/proxima_nova_semi_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/score1"
@@ -82,6 +84,7 @@
             android:text='@{tables.playedGames + ""}'
             android:textColor="@color/textColor"
             android:textSize="18sp"
+            android:gravity="end"
             android:fontFamily="@font/proxima_nova_semi_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/score2"
@@ -101,6 +104,7 @@
             android:text='@{tables.goalDifference + ""}'
             android:textColor="@color/textColor"
             android:textSize="18sp"
+            android:gravity="end"
             android:fontFamily="@font/proxima_nova_semi_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/score3"
@@ -119,6 +123,7 @@
             android:text='@{tables.points + ""}'
             android:textColor="@color/textColor"
             android:textSize="18sp"
+            android:gravity="end"
             android:fontFamily="@font/proxima_nova_semi_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

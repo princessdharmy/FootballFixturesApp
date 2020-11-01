@@ -36,14 +36,15 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                android:tint="@android:color/black"
+                android:tint="@color/black"
                 android:src="@drawable/ic_close_black_24dp"
                 android:onClick="@{click::onClose}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.07"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UseAppTint" />
 
             <TextView
                 android:id="@+id/club_name"

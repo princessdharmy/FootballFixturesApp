@@ -5,6 +5,7 @@
     <color name="colorAccent">#E4E1E1</color>
 
     <color name="listBgColor">#FAFAFA</color>
+    <color name="black">#333333</color>
 
     <!--Text Colors-->
     <color name="titleColor">#545454</color>
