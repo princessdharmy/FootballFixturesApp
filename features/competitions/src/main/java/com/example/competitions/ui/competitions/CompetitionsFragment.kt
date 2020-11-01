@@ -68,7 +68,6 @@ class CompetitionsFragment : BaseFragment() {
     private fun getCompetitions() {
         viewModel.getAllCompetitions().observe(viewLifecycleOwner, Observer { result ->
             if (result?.isNotEmpty()!!) {
-                hideLoading()
                 adapter.updateAdapter(result)
             }
         })
@@ -76,9 +75,7 @@ class CompetitionsFragment : BaseFragment() {
 
     override fun showLoading() {}
 
-    override fun hideLoading() {
-        binding.includeProgressBar.visibility = View.GONE
-    }
+    override fun hideLoading() {}
 
     private val clickListener = View.OnClickListener {
         val competitions = it.tag as Competitions
