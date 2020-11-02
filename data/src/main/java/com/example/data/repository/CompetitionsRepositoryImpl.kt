@@ -1,7 +1,7 @@
 package com.example.data.repository
 
 
-import com.example.common.utils.network.NetworkResult
+import com.example.common.utils.network.NetworkStatus
 import com.example.data.coroutines.DispatcherProvider
 import com.example.data.local.datasource.LocalDataSource
 import com.example.data.remote.datasource.RemoteDataSource
@@ -15,7 +15,7 @@ class CompetitionsRepositoryImpl(
     private val localDataSource: LocalDataSource
 ) : CompetitionsRepository {
 
-    override suspend fun getTodayMatches(date: String): NetworkResult<DomainMatchResponse> {
+    override suspend fun getTodayMatches(date: String): NetworkStatus<DomainMatchResponse> {
         return withContext(dispatcherProvider.io()) { remoteDataSource.getAllMatches(date) }
     }
 
@@ -25,7 +25,7 @@ class CompetitionsRepositoryImpl(
     override suspend fun getAllCompetitions() {
         return withContext(dispatcherProvider.io()) {
             val allCompetitions = remoteDataSource.getAllCompetitions()
-            (allCompetitions as? NetworkResult.Success)?.let {
+            (allCompetitions as? NetworkStatus.Success)?.let {
                 if (it.data != null) {
                     localDataSource.saveCompetitions(it.data?.competitions!!)
                 }
@@ -33,24 +33,24 @@ class CompetitionsRepositoryImpl(
         }
     }
 
-    override suspend fun getStandings(id: Long): NetworkResult<DomainStandingResponse> {
+    override suspend fun getStandings(id: Long): NetworkStatus<DomainStandingResponse> {
         return withContext(dispatcherProvider.io()) { remoteDataSource.getStandings(id) }
     }
 
     override suspend fun getSingleMatch(
         id: Long,
         date: String
-    ): NetworkResult<DomainMatchResponse> {
+    ): NetworkStatus<DomainMatchResponse> {
         return withContext(dispatcherProvider.io()) { remoteDataSource.getSingleMatch(id, date) }
     }
 
-    override suspend fun getTeam(id: Long): NetworkResult<DomainTeamResponse> {
+    override suspend fun getTeam(id: Long): NetworkStatus<DomainTeamResponse> {
         return withContext(dispatcherProvider.io()) {
             remoteDataSource.getTeam(id)
         }
     }
 
-    override suspend fun getPlayers(id: Long): NetworkResult<DomainPlayerResponse> {
+    override suspend fun getPlayers(id: Long): NetworkStatus<DomainPlayerResponse> {
         return withContext(dispatcherProvider.io()) {
             remoteDataSource.getPlayers(id)
         }

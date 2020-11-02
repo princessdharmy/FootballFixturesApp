@@ -2,7 +2,6 @@ package com.example.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.common.utils.network.NetworkResult
 import com.example.common.utils.network.NetworkStatus
 import com.example.domain.usecases.competitiondetails.GetFixtureUseCase
 import com.example.domain.usecases.competitiondetails.GetFixtureUseCase.Companion.make
@@ -22,32 +21,32 @@ class CompetitionDetailsViewModel @Inject constructor(
     fun getStandings(id: Long) = liveData {
         emit(NetworkStatus.Loading())
         when (val result = getTableUseCase.invoke(id)) {
-            is NetworkResult.Success -> emit(NetworkStatus.Success(result.data?.map()))
-            is NetworkResult.Error -> emit(NetworkStatus.Error(result.errorMessage, null))
+            is NetworkStatus.Success -> emit(NetworkStatus.Success(result.data?.map()))
+            is NetworkStatus.Error -> emit(NetworkStatus.Error(result.errorMessage, null))
         }
     }
 
     fun getSingleMatch(id: Long, date: String) = liveData {
         emit(NetworkStatus.Loading())
         when (val result = getFixtureUseCase.invoke(make(id, date))) {
-            is NetworkResult.Success -> emit(NetworkStatus.Success(result.data?.map()))
-            is NetworkResult.Error -> emit(NetworkStatus.Error(result.errorMessage, null))
+            is NetworkStatus.Success -> emit(NetworkStatus.Success(result.data?.map()))
+            is NetworkStatus.Error -> emit(NetworkStatus.Error(result.errorMessage, null))
         }
     }
 
     fun getTeams(id: Long) = liveData {
         emit(NetworkStatus.Loading())
         when (val result = getTeamUseCase.invoke(id)) {
-            is NetworkResult.Success -> emit(NetworkStatus.Success(result.data?.map()))
-            is NetworkResult.Error -> emit(NetworkStatus.Error(result.errorMessage, null))
+            is NetworkStatus.Success -> emit(NetworkStatus.Success(result.data?.map()))
+            is NetworkStatus.Error -> emit(NetworkStatus.Error(result.errorMessage, null))
         }
     }
 
     fun getPlayers(id: Long) = liveData {
         emit(NetworkStatus.Loading())
         when (val result = getPlayersUseCase.invoke(id)) {
-            is NetworkResult.Success -> emit(NetworkStatus.Success(result.data?.map()))
-            is NetworkResult.Error -> emit(NetworkStatus.Error(result.errorMessage, null))
+            is NetworkStatus.Success -> emit(NetworkStatus.Success(result.data?.map()))
+            is NetworkStatus.Error -> emit(NetworkStatus.Error(result.errorMessage, null))
         }
     }
 

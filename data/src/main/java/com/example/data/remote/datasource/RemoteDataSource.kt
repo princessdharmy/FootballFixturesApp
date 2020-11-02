@@ -1,20 +1,20 @@
 package com.example.data.remote.datasource
 
-import com.example.common.utils.network.NetworkResult
+import com.example.common.utils.network.NetworkStatus
 import com.example.domain.entities.DomainEntities.*
 
 interface RemoteDataSource {
 
-    suspend fun getAllMatches(date: String): NetworkResult<DomainMatchResponse>
+    suspend fun getAllMatches(date: String): NetworkStatus<DomainMatchResponse>
 
-    suspend fun getAllCompetitions(): NetworkResult<DomainCompetitionResponse>
+    suspend fun getAllCompetitions(): NetworkStatus<DomainCompetitionResponse>
 
-    suspend fun getStandings(id: Long): NetworkResult<DomainStandingResponse>
+    suspend fun getStandings(id: Long): NetworkStatus<DomainStandingResponse>
 
-    suspend fun getSingleMatch(id: Long, date: String): NetworkResult<DomainMatchResponse>
+    suspend fun getSingleMatch(id: Long, date: String): NetworkStatus<DomainMatchResponse>
 
-    suspend fun getTeam(id: Long): NetworkResult<DomainTeamResponse>
+    suspend fun getTeam(id: Long): NetworkStatus<DomainTeamResponse>
 
-    suspend fun getPlayers(id: Long): NetworkResult<DomainPlayerResponse>
+    suspend fun getPlayers(id: Long): NetworkStatus<DomainPlayerResponse>
 
 }

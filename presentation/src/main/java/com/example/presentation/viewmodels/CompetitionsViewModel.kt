@@ -1,7 +1,6 @@
 package com.example.presentation.viewmodels
 
 import androidx.lifecycle.*
-import com.example.common.utils.network.NetworkResult
 import com.example.domain.usecases.competition.GetCompetitionsUseCase
 import com.example.domain.usecases.competition.GetTodayFixturesUseCase
 import com.example.presentation.mappers.map
@@ -17,8 +16,8 @@ class CompetitionsViewModel @Inject constructor(
     fun getAllMatches(date: String) = liveData {
         emit(NetworkStatus.Loading())
         when (val result = getTodayFixturesUseCase.invoke(date)) {
-            is NetworkResult.Success -> emit(NetworkStatus.Success(result.data?.map()))
-            is NetworkResult.Error -> emit(NetworkStatus.Error(result.errorMessage!!, null))
+            is NetworkStatus.Success -> emit(NetworkStatus.Success(result.data?.map()))
+            is NetworkStatus.Error -> emit(NetworkStatus.Error(result.errorMessage!!, null))
         }
     }
 
