@@ -2,6 +2,7 @@ package com.example.competitions.ui.competitions
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.common.base.BaseFragment
+import com.example.common.utils.network.NetworkStatus
 import com.example.competitions.R
 import com.example.competitions.databinding.CompetitionsFragmentBinding
 import com.example.competitions.di.DaggerCompetitionComponent
@@ -49,6 +51,7 @@ class CompetitionsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getAllCompetitions()
         getCompetitions()
     }
 
@@ -66,16 +69,47 @@ class CompetitionsFragment : BaseFragment() {
     }
 
     private fun getCompetitions() {
-        viewModel.getAllCompetitions().observe(viewLifecycleOwner, Observer { result ->
-            if (result?.isNotEmpty()!!) {
-                adapter.updateAdapter(result)
+        viewModel.competitionsLiveData.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is NetworkStatus.Loading -> {
+                    if (result.data.isNullOrEmpty().not()) {
+                        hideLoading()
+                        result.data?.let { getCompetitionsSuccessful(it) }
+                    } else showLoading()
+                }
+                is NetworkStatus.Error -> {
+                    if (result.data.isNullOrEmpty().not()) {
+                        hideLoading()
+                        result.data?.let { getCompetitionsSuccessful(it) }
+                    } else {
+                        hideLoading()
+                        getCompetitionsFailed(result.errorMessage!!)
+                    }
+                }
+                is NetworkStatus.Success -> {
+                    hideLoading()
+                    result.data?.let { getCompetitionsSuccessful(it) }
+                }
             }
         })
     }
 
-    override fun showLoading() {}
+    private fun getCompetitionsSuccessful(competitions: List<Competitions>) {
+        if (competitions.isNullOrEmpty()) binding.noCompetition.visibility = View.VISIBLE
+        else adapter.updateAdapter(competitions)
+    }
 
-    override fun hideLoading() {}
+    private fun getCompetitionsFailed(message: String) {
+        show(message, true)
+    }
+
+    override fun showLoading() {
+        binding.includeProgressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        binding.includeProgressBar.visibility = View.GONE
+    }
 
     private val clickListener = View.OnClickListener {
         val competitions = it.tag as Competitions

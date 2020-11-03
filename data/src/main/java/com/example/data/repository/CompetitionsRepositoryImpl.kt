@@ -5,8 +5,12 @@ import com.example.common.utils.network.NetworkStatus
 import com.example.data.coroutines.DispatcherProvider
 import com.example.data.local.datasource.LocalDataSource
 import com.example.data.remote.datasource.RemoteDataSource
+import com.example.data.utils.networkBoundResource
 import com.example.domain.entities.DomainEntities.*
 import com.example.domain.repository.CompetitionsRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 class CompetitionsRepositoryImpl(
@@ -19,18 +23,20 @@ class CompetitionsRepositoryImpl(
         return withContext(dispatcherProvider.io()) { remoteDataSource.getAllMatches(date) }
     }
 
-    override suspend fun getAllCompetitionsFromDb(): List<DomainCompetitions> =
-        withContext(dispatcherProvider.io()) { localDataSource.getAllCompetitionsFromDb() }
+    @ExperimentalCoroutinesApi
+    override suspend fun getAllCompetitions(): Flow<NetworkStatus<List<DomainCompetitions>>> {
+        return networkBoundResource(
+            query = { fetchLocalCompetitions() },
+            fetch = { remoteDataSource.getAllCompetitions() },
+            saveFetchResult = { response ->
+                localDataSource.saveCompetitions(response.data?.competitions!!)
+            },
+            clearData = {}
+        )
+    }
 
-    override suspend fun getAllCompetitions() {
-        return withContext(dispatcherProvider.io()) {
-            val allCompetitions = remoteDataSource.getAllCompetitions()
-            (allCompetitions as? NetworkStatus.Success)?.let {
-                if (it.data != null) {
-                    localDataSource.saveCompetitions(it.data?.competitions!!)
-                }
-            }
-        }
+    private fun fetchLocalCompetitions(): Flow<List<DomainCompetitions>> = flow {
+        emit(localDataSource.getAllCompetitionsFromDb())
     }
 
     override suspend fun getStandings(id: Long): NetworkStatus<DomainStandingResponse> {

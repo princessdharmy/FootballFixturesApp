@@ -6,12 +6,20 @@ import com.example.domain.usecases.competition.GetTodayFixturesUseCase
 import com.example.presentation.mappers.map
 import com.example.presentation.models.Competitions
 import com.example.common.utils.network.NetworkStatus
+import com.example.domain.entities.DomainEntities.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CompetitionsViewModel @Inject constructor(
     private val getTodayFixturesUseCase: GetTodayFixturesUseCase,
     private val getCompetitionsUseCase: GetCompetitionsUseCase
 ) : ViewModel() {
+
+    private val _competitionsLiveData = MutableLiveData<NetworkStatus<List<Competitions>>>()
+    val competitionsLiveData = _competitionsLiveData
+
 
     fun getAllMatches(date: String) = liveData {
         emit(NetworkStatus.Loading())
@@ -21,8 +29,46 @@ class CompetitionsViewModel @Inject constructor(
         }
     }
 
-    fun getAllCompetitions(): LiveData<List<Competitions>> = liveData {
-        emit(getCompetitionsUseCase.invoke().map { it.map() })
+    fun getAllCompetitions() {
+        viewModelScope.launch(Dispatchers.IO) {
+            getCompetitionsUseCase.invoke().collect {
+                updateData(it)
+            }
+
+        }
+    }
+
+    private fun updateData(response: NetworkStatus<List<DomainCompetitions>>) {
+        when (response) {
+            is NetworkStatus.Loading -> {
+                if (response.data.isNullOrEmpty().not()) {
+                    _competitionsLiveData.postValue(NetworkStatus.Loading(response.data?.map { it.map() }))
+                } else {
+                    _competitionsLiveData.postValue(NetworkStatus.Loading())
+                }
+            }
+            is NetworkStatus.Success -> {
+                if (response.data.isNullOrEmpty().not()) {
+                    _competitionsLiveData.postValue(NetworkStatus.Success(response.data?.map { it.map() }))
+                }
+            }
+            is NetworkStatus.Error -> {
+                if (response.data.isNullOrEmpty().not()) {
+                    _competitionsLiveData.postValue(
+                        NetworkStatus.Error(
+                            null,
+                            response.data?.map { it.map() })
+                    )
+                } else {
+                    _competitionsLiveData.postValue(
+                        NetworkStatus.Error(
+                            response.errorMessage,
+                            null
+                        )
+                    )
+                }
+            }
+        }
     }
 
 }
