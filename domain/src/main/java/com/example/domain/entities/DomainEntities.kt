@@ -1,9 +1,8 @@
 package com.example.domain.entities
 
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
+import com.squareup.moshi.JsonClass
 import java.util.ArrayList
 
 sealed class DomainEntities {
@@ -12,8 +11,7 @@ sealed class DomainEntities {
      * Data classes for Matches
      */
     data class DomainMatchResponse(
-        var matches: List<DomainMatch> = ArrayList(),
-        var errorMessage: String = ""
+        var matches: List<DomainMatch> = ArrayList()
     ): DomainEntities()
 
     data class DomainMatch(
@@ -31,6 +29,9 @@ sealed class DomainEntities {
         var awayTeam: DomainSubTeams = DomainSubTeams()
     ): DomainEntities()
 
+    // @JsonClass(generateAdapter = true) is an annotation processor for Moshi’s Kotlin codegen support
+    // It generates an adapter to be used when saving [DomainSeason] in the DB
+    @JsonClass(generateAdapter = true)
     @Entity(tableName = "season")
     data class DomainSeason(
         @PrimaryKey
@@ -59,8 +60,7 @@ sealed class DomainEntities {
      * Data classes for Competitions
      */
     data class DomainCompetitionResponse(
-        var competitions: List<DomainCompetitions> = ArrayList(),
-        var errorMessage: String = ""
+        var competitions: List<DomainCompetitions> = ArrayList()
     ): DomainEntities()
 
     @Entity(tableName = "competitions")
@@ -75,8 +75,7 @@ sealed class DomainEntities {
      * Data classes for Teams
      */
     data class DomainTeamResponse(
-        var teams: List<DomainTeam> = ArrayList(),
-        var errorMessage: String = ""
+        var teams: List<DomainTeam> = ArrayList()
     ): DomainEntities()
 
     data class DomainTeam(
@@ -95,25 +94,21 @@ sealed class DomainEntities {
         var shortName: String = "",
         var crestUrl: String = "",
         var squad: List<DomainPlayer> = ArrayList(),
-        var errorMessage: String = ""
     ): DomainEntities()
 
-    //@Parcelize
     data class DomainPlayer(
         var id: Long = 0L,
         var name: String = "",
-        var position: String = "",
+        var position: String? = "",
         var role: String = "",
         var count: Int = 0
     ): DomainEntities()
-        //: Parcelable
 
     /**
      * Data classes for Standings
      */
     data class DomainStandingResponse(
-        var standings: List<DomainStanding> = ArrayList(),
-        var errorMessage: String = ""
+        var standings: List<DomainStanding> = ArrayList()
     ): DomainEntities()
 
     data class DomainStanding(

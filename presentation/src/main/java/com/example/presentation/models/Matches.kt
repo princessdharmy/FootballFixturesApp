@@ -16,8 +16,7 @@ import java.util.*
  * Data classes for Matches
  */
 data class MatchResponse(
-    var matches: List<Match> = ArrayList(),
-    var errorMessage: String = ""
+    var matches: List<Match> = ArrayList()
 )
 
 @Parcelize
@@ -66,8 +65,7 @@ data class SubTeams(
  * Data classes for Competitions
  */
 data class CompetitionResponse(
-    var competitions: List<Competitions> = ArrayList(),
-    var errorMessage: String = ""
+    var competitions: List<Competitions> = ArrayList()
 )
 
 @Parcelize
@@ -81,8 +79,7 @@ data class Competitions(
  * Data classes for Teams
  */
 data class TeamResponse(
-    var teams: List<Team> = ArrayList(),
-    var errorMessage: String = ""
+    var teams: List<Team> = ArrayList()
 )
 
 data class Team(
@@ -102,7 +99,6 @@ data class PlayerResponse(
     var shortName: String = "",
     var crestUrl: String? = "",
     var squad: List<Player> = ArrayList(),
-    var errorMessage: String = ""
 ): Parcelable
 
 @Parcelize
@@ -118,8 +114,7 @@ data class Player(
  * Data classes for Standings
  */
 data class StandingResponse(
-    var standings: List<Standing> = ArrayList(),
-    var errorMessage: String = ""
+    var standings: List<Standing> = ArrayList()
 )
 
 data class Standing(

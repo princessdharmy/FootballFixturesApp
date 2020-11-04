@@ -1,10 +1,15 @@
 package com.example.data.local.datasource
 
 import com.example.data.local.room.CompetitionsDao
-import io.reactivex.Observable
-import io.reactivex.Single
+import com.example.domain.entities.DomainEntities.*
 
 class LocalDataSourceImpl(private val competitionsDao: CompetitionsDao) : LocalDataSource {
 
+    override suspend fun saveCompetitions(competitions: List<DomainCompetitions>) {
+        competitionsDao.insertCompetitions(competitions)
+    }
 
+    override suspend fun getAllCompetitionsFromDb(): List<DomainCompetitions> {
+        return competitionsDao.queryCompetitions()
+    }
 }

@@ -1,6 +1,6 @@
 package com.example.domain.usecases.competitiondetails
 
-import com.example.common.utils.Result
+import com.example.common.utils.network.NetworkStatus
 import com.example.domain.entities.DomainEntities.*
 import com.example.domain.repository.CompetitionsRepository
 import javax.inject.Inject
@@ -9,7 +9,7 @@ class GetFixtureUseCase @Inject constructor(
     private val competitionsRepository: CompetitionsRepository
 ) {
 
-    suspend operator fun invoke(input: GetParameters?): Result<DomainMatchResponse> {
+    suspend operator fun invoke(input: GetParameters?): NetworkStatus<DomainMatchResponse> {
         return competitionsRepository.getSingleMatch(input?.value1!!, input.value2)
     }
 

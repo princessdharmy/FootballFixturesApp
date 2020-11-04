@@ -20,5 +20,6 @@ dependencies {
     implementation AndroidLibraries.fragmentKtx
 
     implementation AndroidLibraries.room
+    implementation AndroidLibraries.roomKtx
     kapt AndroidLibraries.roomCompiler
 }

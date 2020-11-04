@@ -23,7 +23,7 @@ class FixturesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-         //holder.binding?.match = singleMatchList[position]
+         holder.binding?.match = singleMatchList[position]
     }
 
     fun updateAdapter(value: List<Match>){

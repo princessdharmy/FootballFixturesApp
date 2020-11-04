@@ -10,30 +10,26 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.common.base.BaseFragment
 import com.example.competitiondetails.R
 import com.example.competitiondetails.ui.bottomSheet.BottomSheetFragment
 import com.example.competitiondetails.databinding.TeamFragmentBinding
 import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
 import com.example.core.coreComponent
-import com.example.presentation.models.Resource
+import com.example.common.utils.network.NetworkStatus
 import com.example.presentation.models.Team
-import com.example.presentation.utils.Utilities.hasInternetConnection
+import com.example.presentation.models.TeamResponse
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
-
-import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class TeamFragment : BaseFragment() {
 
     lateinit var binding: TeamFragmentBinding
-    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TeamAdapter
+
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: CompetitionDetailsViewModel by viewModels { factory }
-    var disposable: Disposable? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -63,47 +59,44 @@ class TeamFragment : BaseFragment() {
 
     private fun initRecyclerView() {
         adapter = TeamAdapter(ArrayList(), clickListener)
-        recyclerView = binding.teamRecyclerview
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = GridLayoutManager(context, 3)
+        binding.teamRecyclerview.adapter = adapter
+        binding.teamRecyclerview.layoutManager = GridLayoutManager(context, 3)
     }
 
     private fun getTeams(id: Long) {
-        disposable = hasInternetConnection().doOnSuccess {
-            if (it)
-                viewModel.getTeams(id).observe(viewLifecycleOwner, Observer { result ->
-                    when (result.status) {
-                        Resource.Status.LOADING -> {
-                            println("Loading")
-                        }
-                        Resource.Status.ERROR -> {
-                            println("Error")
-                        }
-                        Resource.Status.SUCCESS -> {
-                            result.data?.let { data ->
-                                if (data.teams.isNullOrEmpty()) {
-                                    binding.progressBar.visibility = View.GONE
-                                    binding.noData.visibility = View.VISIBLE
-                                } else {
-                                    binding.progressBar.visibility = View.GONE
-                                    binding.teamRecyclerview.visibility = View.VISIBLE
-                                    adapter.updateAdapter(data.teams)
-                                }
-                            }
-                        }
-                    }
-                })
-            else {
-                showNoInternet()
+        viewModel.getTeams(id).observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is NetworkStatus.Loading -> {
+                    showLoading()
+                }
+                is NetworkStatus.Error -> {
+                    hideLoading()
+                    getTeamsFailed(result.errorMessage!!)
+                }
+                is NetworkStatus.Success -> {
+                    hideLoading()
+                    result.data?.let { getTeamsSuccessful(it) }
+                }
             }
-        }.doOnError {
-            showNoInternet()
-        }.subscribe()
+        })
     }
 
-    private fun showNoInternet() {
+    private fun getTeamsSuccessful(teamResponse: TeamResponse) {
+        if (teamResponse.teams.isNullOrEmpty()) {
+            binding.noData.visibility = View.VISIBLE
+        } else {
+            binding.teamRecyclerview.visibility = View.VISIBLE
+            teamResponse.let { adapter.updateAdapter(it.teams) }
+        }
+    }
+
+    private fun getTeamsFailed(message: String) {
+        show(message, true)
+        showRetryMessage()
+    }
+
+    private fun showRetryMessage() {
         binding.teamRecyclerview.visibility = View.GONE
-        binding.progressBar.visibility = View.GONE
         binding.noInternet.visibility = View.VISIBLE
     }
 
@@ -112,9 +105,10 @@ class TeamFragment : BaseFragment() {
         openBottomSheet(team.id)
     }
 
-    private fun openBottomSheet(teamId: Long){
+    private fun openBottomSheet(teamId: Long) {
         val transaction = baseActivity.supportFragmentManager.beginTransaction()
-        val previous = baseActivity.supportFragmentManager.findFragmentByTag(BottomSheetFragment.TAG)
+        val previous =
+            baseActivity.supportFragmentManager.findFragmentByTag(BottomSheetFragment.TAG)
         if (previous != null) transaction.remove(previous)
         transaction.addToBackStack(null)
 
@@ -122,17 +116,19 @@ class TeamFragment : BaseFragment() {
         dialogFragment.show(transaction, BottomSheetFragment.TAG)
     }
 
+    override fun showLoading() {
+        binding.includeProgressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        binding.includeProgressBar.visibility = View.GONE
+    }
+
     inner class MyHandler {
         fun onTapToRetry(view: View) {
-            binding.progressBar.visibility = View.VISIBLE
             binding.noInternet.visibility = View.GONE
             getTeams(competitionId)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        disposable?.dispose()
     }
 
     companion object {

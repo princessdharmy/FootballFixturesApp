@@ -3,20 +3,17 @@ apply from: '../commons.gradle'
 
 dependencies {
     implementation AndroidLibraries.appCompat
+    implementation AndroidLibraries.constraintLayout
     implementation AndroidLibraries.fragmentKtx
     implementation AndroidLibraries.fragment
     implementation AndroidLibraries.navigation
     implementation AndroidLibraries.navigationFrag
 
-    implementation Libraries.moshi
     implementation Libraries.glide
     kapt Libraries.glideCompiler
     implementation Libraries.svgDecoder
 
-    implementation AndroidLibraries.room
-    kapt AndroidLibraries.roomCompiler
     implementation AndroidLibraries.lifecycleViewModel
-
 
     implementation Libraries.dagger2
     kapt Libraries.daggerCompiler

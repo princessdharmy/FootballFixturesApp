@@ -27,36 +27,35 @@ object Releases {
  * Arranged alphabetically
  */
 object Versions {
-    val appCompat = "1.1.0"
+    val appCompat = "1.2.0"
     val androidTestRunner = "1.2.0"
     val androidJunit = "1.1.0"
     val buildTool = "29.0.2"
     val cardViewVersion = "1.0.0"
-    val coreKtx = "1.1.0"
+    val coreKtx = "1.3.2"
     val compileSdkVersion = 29
-    val constraintLayout = "1.1.3"
-    val coroutines = "1.1.1"
+    val constraintLayout = "2.0.3"
+    val coroutines = "1.3.5"
     val dagger = "2.24"
     val espressoCore = "3.2.0"
     val fragment = "1.2.0"
     val glideVersion = "4.9.0"
     val gradle = "4.0.1"
-    val gson = "2.8.5"
     val junit = "4.12"
-    val kotlinVersion = "1.3.72"
+    val kotlinVersion = "1.4.10"
     val kotlinCoroutine = "1.3.5-native-mt"
     val lifecycle = "2.2.0"
     val minSdk = 23
     val legacyVersion = "1.0.0"
-    val logginInterceptor = "3.8.1"
+    val logginInterceptor = "4.7.2"
     val materialDesignVersion = "1.0.0"
-    val moshiVersion = "1.9.2"
-    val nav = "2.2.2"
+    val moshiVersion = "1.11.0"
+    val nav = "2.3.1"
     val okHttp = "3.12.1"
-    val retrofit = "2.6.0"
-    val retrofitGson = "2.4.0"
-    val roomVersion = "2.2.2"
-    val recyclerview = "1.0.0"
+    val retrofit = "2.9.0"
+    val retrofitMoshi = "2.6.2"
+    val roomVersion = "2.2.5"
+    val recyclerview = "1.1.0"
     val rxJavaAndroid = "2.1.1"
     val rxJava = "2.2.9"
     val rxJavaKotlin = "2.2.0"
@@ -72,21 +71,15 @@ object Libraries {
     val dagger2 = "com.google.dagger:dagger:${Versions.dagger}"
     val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
 
-    // RxJava
-    val rxJavaAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxJavaAndroid}"
-    val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJava}"
-    val rxJavaKotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxJavaKotlin}"
-
     // RETROFIT
-    val gson = "com.google.code.gson:gson:${Versions.gson}"
     val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    val retrofitAdapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
-    val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofitGson}"
+    val retrofitMoshiConverter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofitMoshi}"
     val httpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.logginInterceptor}"
     val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
 
     // MOSHI
-    val moshi = "com.squareup.moshi:moshi:${Versions.moshiVersion}"
+    val moshiKotlin = "com.squareup.moshi:moshi-kotlin:${Versions.moshiVersion}"
+    val moshiKotlinCodegen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshiVersion}"
 
     // VIEWS AND ANIMATIONS
     val shapeImage = "com.github.siyamed:android-shape-imageview:${Versions.shapeImageVersion}"
@@ -127,6 +120,8 @@ object AndroidLibraries {
     // ROOM
     val room = "androidx.room:room-runtime:${Versions.roomVersion}"
     val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    val roomKtx = "androidx.room:room-ktx:${Versions.roomVersion}"
 
 }
 

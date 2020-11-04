@@ -1,8 +1,11 @@
 package com.example.data.local.datasource
 
-import io.reactivex.Observable
-import io.reactivex.Single
+import com.example.domain.entities.DomainEntities.*
 
 interface LocalDataSource {
+
+    suspend fun saveCompetitions(competitions: List<DomainCompetitions>)
+
+    suspend fun getAllCompetitionsFromDb(): List<DomainCompetitions>
 
 }

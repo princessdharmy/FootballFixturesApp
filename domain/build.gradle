@@ -16,13 +16,13 @@ dependencies {
     implementation Libraries.dagger2
     kapt Libraries.daggerCompiler
 
-    implementation Libraries.rxJava
-    implementation Libraries.rxJavaAndroid
-    implementation Libraries.rxJavaKotlin
-
     implementation AndroidLibraries.lifecycleExtensions
     kapt AndroidLibraries.lifecycleCompile
 
     implementation AndroidLibraries.room
+    implementation AndroidLibraries.roomKtx
     kapt AndroidLibraries.roomCompiler
+
+    implementation Libraries.moshiKotlin
+    kapt Libraries.moshiKotlinCodegen
 }

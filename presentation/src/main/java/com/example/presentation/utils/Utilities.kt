@@ -1,15 +1,13 @@
 package com.example.presentation.utils
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import com.example.presentation.models.Score
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.io.IOException
-import java.net.InetSocketAddress
-import java.net.Socket
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.floor
 
 object Utilities {
 
@@ -27,7 +25,7 @@ object Utilities {
 
         //Setting the timezone to match the local timezone
         dateFormat.timeZone = TimeZone.getDefault()
-        return dateFormat.format(dateFormatted)
+        return dateFormat.format(dateFormatted!!)
     }
 
     @JvmStatic
@@ -43,33 +41,35 @@ object Utilities {
             var seasonFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val dateFormat = seasonFormat.parse(date)
             seasonFormat = SimpleDateFormat("yyyy", Locale.getDefault())
-            return seasonFormat.format(dateFormat)
+            return seasonFormat.format(dateFormat!!)
         }
         return ""
     }
 
     @JvmStatic
     fun convertSeasonEndDate(date: String): String {
-        if(date.isNotEmpty()) {
+        if (date.isNotEmpty()) {
             var seasonFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val dateFormat = seasonFormat.parse(date)
             seasonFormat = SimpleDateFormat("yy", Locale.getDefault())
-            return seasonFormat.format(dateFormat)
+            return seasonFormat.format(dateFormat!!)
         }
         return ""
     }
 
+    @SuppressLint("DefaultLocale")
     @JvmStatic
     fun convertRoleToPosition(role: String): String {
         return role.replace("_", " ").toLowerCase().capitalize()
     }
 
     @JvmStatic
-    fun showMatchTime(status: String, startTime: String, score: Score): String{
+    fun showMatchTime(status: String?, startTime: String?, score: Score?): String {
         return when (status) {
             "SCHEDULED" -> ("00")
             "PAUSED" -> ("HT")
             "FINISHED" -> ("FT")
+            "POSTPONED" -> ("PPND")
             else -> calculateMatchTime(
                 startTime,
                 score
@@ -85,38 +85,35 @@ object Utilities {
 
     @SuppressLint("SimpleDateFormat")
     @JvmStatic
-    fun calculateMatchTime(startTime: String, score: Score): String{
+    fun calculateMatchTime(startTime: String?, score: Score?): String {
         val simpleDateFormat = SimpleDateFormat("HH:mm")
-        val startedTime =
-            convertDate(startTime)
-        val currentTime =
-            getCurrentTime()
-        val onGoingMatchTime = simpleDateFormat.parse(currentTime).time - simpleDateFormat.parse(startedTime).time
         val time: Int
-        time = if(score.halfTime.homeTeam != null || score.halfTime.awayTeam != null){
-            Math.floor((onGoingMatchTime / 60000.0)).toInt() - 15
+        if (startTime.isNullOrEmpty()) {
+            time = floor((simpleDateFormat.parse(getCurrentTime())!!.time / 60000.0)).toInt()
+            return "$time\'"
         } else {
-            Math.floor((onGoingMatchTime / 60000.0)).toInt()
-        }
-        return "$time\'"
-    }
-
-    fun hasInternetConnection(): Single<Boolean> {
-        return Single.fromCallable {
-            try {
-                val timeoutMs = 1500
-                val socket = Socket()
-                val socketAddress = InetSocketAddress("api.football-data.org", 443)
-
-                socket.connect(socketAddress, timeoutMs)
-                socket.close()
-                true
-            } catch (e: IOException) {
-                false
+            return try {
+                val startedTime = convertDate(startTime.toString())
+                val currentTime = getCurrentTime()
+                val onGoingMatchTime =
+                    simpleDateFormat.parse(currentTime)?.time!! - simpleDateFormat.parse(startedTime)?.time!!
+                time = if (score?.halfTime?.homeTeam != null || score?.halfTime?.awayTeam != null) {
+                    floor((onGoingMatchTime / 60000.0)).toInt() - 15
+                } else {
+                    floor((onGoingMatchTime / 60000.0)).toInt()
+                }
+                "$time\'"
+            } catch (e: IllegalArgumentException) {
+                ""
             }
         }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+
+    }
+
+    fun hasInternetConnection(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting
     }
 
 }

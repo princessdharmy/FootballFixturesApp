@@ -9,9 +9,9 @@ import com.example.domain.entities.DomainEntities.*
 @Dao
 interface CompetitionsDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCompetitions(competitions: List<DomainCompetitions>)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertCompetitions(competitions: List<DomainCompetitions>): LongArray
 
     @Query("SELECT * FROM competitions")
-    fun queryCompetitions(): List<DomainCompetitions>
+    suspend fun queryCompetitions(): List<DomainCompetitions>
 }

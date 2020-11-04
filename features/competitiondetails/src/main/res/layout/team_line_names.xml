@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="com.example.presentation.utils.Utilities" />
@@ -18,7 +19,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="@{String.valueOf(players.count)}"
@@ -29,7 +29,8 @@
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="1" />
 
         <TextView
             android:id="@+id/player_name"
@@ -41,6 +42,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
+            android:gravity="start"
             android:text="@{players.name}"
             android:textColor="@color/textColor"
             android:textSize="16sp"
@@ -51,7 +53,8 @@
             app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toEndOf="@+id/id"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Leonel Messi"/>
 
         <TextView
             android:id="@+id/player_position"
@@ -61,6 +64,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
+            android:gravity="end"
             android:text='@{players.position != null ? players.position : Utilities.convertRoleToPosition(players.role)}'
             android:textColor="@color/textColor"
             android:textSize="16sp"
@@ -69,7 +73,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Striker"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
