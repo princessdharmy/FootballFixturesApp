@@ -34,8 +34,8 @@ dependencies {
     implementation Libraries.moshiKotlin
     kapt Libraries.moshiKotlinCodegen
 
-    implementation AndroidLibraries.room
-    implementation AndroidLibraries.roomKtx
+    api AndroidLibraries.room
+    api AndroidLibraries.roomKtx
     kapt AndroidLibraries.roomCompiler
 
 }

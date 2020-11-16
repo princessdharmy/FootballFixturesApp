@@ -14,26 +14,25 @@ import com.example.common.base.BaseFragment
 import com.example.competitiondetails.R
 import com.example.competitiondetails.ui.bottomSheet.BottomSheetFragment
 import com.example.competitiondetails.databinding.TeamFragmentBinding
-import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
-import com.example.core.coreComponent
 import com.example.common.utils.network.NetworkStatus
 import com.example.presentation.models.Team
 import com.example.presentation.models.TeamResponse
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class TeamFragment : BaseFragment() {
 
     lateinit var binding: TeamFragmentBinding
     private lateinit var adapter: TeamAdapter
 
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
-    private val viewModel: CompetitionDetailsViewModel by viewModels { factory }
+//    @Inject
+//    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel: CompetitionDetailsViewModel by viewModels()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerCompetitionDetailsComponent.factory().create(coreComponent()).inject(this)
     }
 
     override fun onCreateView(

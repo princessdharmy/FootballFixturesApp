@@ -16,26 +16,25 @@ import com.example.common.base.BaseFragment
 import com.example.presentation.utils.Utilities.hasInternetConnection
 import com.example.competitions.R
 import com.example.competitions.databinding.TodayFixturesFragmentBinding
-import com.example.competitions.di.DaggerCompetitionComponent
-import com.example.core.coreComponent
 import com.example.common.utils.network.NetworkStatus
 import com.example.presentation.models.MatchResponse
 import com.example.presentation.utils.Utilities.getCurrentDate
 import com.example.presentation.viewmodels.CompetitionsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class TodayFixturesFragment : BaseFragment() {
 
     lateinit var binding: TodayFixturesFragmentBinding
     private lateinit var adapter: TodayFixturesAdapter
 
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
-    private val viewModel: CompetitionsViewModel by viewModels { factory }
+//    @Inject
+//    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel: CompetitionsViewModel by viewModels()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerCompetitionComponent.factory().create(coreComponent()).inject(this)
     }
 
     override fun onCreateView(

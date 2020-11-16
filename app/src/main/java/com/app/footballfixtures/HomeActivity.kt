@@ -8,7 +8,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.app.footballfixtures.databinding.ActivityHomeBinding
 import com.example.common.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHomeBinding

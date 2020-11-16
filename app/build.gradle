@@ -9,11 +9,13 @@ android {
 }
 
 dependencies {
-    implementation project(Modules.core)
     implementation project(Modules.common)
     implementation project(Modules.competitions)
     implementation project(Modules.competitionDetails)
+    implementation project(Modules.data)
+    implementation project(Modules.domain)
     implementation project(Modules.navigation)
+    implementation project(Modules.presentation)
 
     implementation AndroidLibraries.appCompat
     implementation AndroidLibraries.constraintLayout

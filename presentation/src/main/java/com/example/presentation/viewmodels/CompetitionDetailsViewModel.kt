@@ -1,5 +1,6 @@
 package com.example.presentation.viewmodels
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.common.utils.network.NetworkStatus
@@ -11,7 +12,7 @@ import com.example.domain.usecases.competitiondetails.GetTeamUseCase
 import com.example.presentation.mappers.map
 import javax.inject.Inject
 
-class CompetitionDetailsViewModel @Inject constructor(
+class CompetitionDetailsViewModel @ViewModelInject constructor(
     private val getTableUseCase: GetTableUseCase,
     private val getFixtureUseCase: GetFixtureUseCase,
     private val getTeamUseCase: GetTeamUseCase,

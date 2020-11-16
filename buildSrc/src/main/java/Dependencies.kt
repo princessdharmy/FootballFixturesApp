@@ -7,7 +7,6 @@ object ApplicationId {
 object Modules {
     val app = ":footballfixtures"
     val common = ":common"
-    val core = ":core"
     val data = ":data"
     val domain = ":domain"
     val navigation = ":navigation"
@@ -42,6 +41,7 @@ object Versions {
     val glideVersion = "4.9.0"
     val gradle = "4.0.1"
     val hiltGradlePluginVersion = "2.28-alpha"
+    val hiltJetpackVersion = "1.0.0-alpha02"
     val hiltVersion = "2.28-alpha"
     val junit = "4.12"
     val kotlinVersion = "1.4.10"
@@ -76,8 +76,10 @@ object Libraries {
     /**
      * HILT
       */
-    val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltVersion}"
-    val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}"
+    val hilt = "com.google.dagger:hilt-android:${Versions.hiltVersion}"
+    val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}"
+    val hiltJetpack = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltJetpackVersion}"
+    val hiltJetpackCompiler = "androidx.hilt:hilt-compiler:${Versions.hiltJetpackVersion}"
 
     // For instrumentation tests
     val hiltAndroidTest = "com.google.dagger:hilt-android-testing:${Versions.hiltVersion}"

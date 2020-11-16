@@ -59,11 +59,10 @@ dependencies {
     implementation KotlinLibraries.kotlin
     implementation AndroidLibraries.coreKtx
 
-    implementation Libraries.dagger2
-    kapt Libraries.daggerCompiler
-
-    implementation Libraries.hiltAndroid
-    kapt Libraries.hiltAndroidCompiler
+    implementation Libraries.hilt
+    implementation Libraries.hiltJetpack
+    kapt Libraries.hiltCompiler
+    kapt Libraries.hiltJetpackCompiler
 
     // For instrumentation tests
     androidTestImplementation Libraries.hiltAndroidTest

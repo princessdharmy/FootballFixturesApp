@@ -17,24 +17,23 @@ import com.example.common.base.BaseFragment
 import com.example.common.utils.network.NetworkStatus
 import com.example.competitions.R
 import com.example.competitions.databinding.CompetitionsFragmentBinding
-import com.example.competitions.di.DaggerCompetitionComponent
-import com.example.core.coreComponent
 import com.example.presentation.models.Competitions
 import com.example.presentation.viewmodels.CompetitionsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class CompetitionsFragment : BaseFragment() {
 
     lateinit var binding: CompetitionsFragmentBinding
     private lateinit var adapter: CompetitionsAdapter
 
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
-    private val viewModel: CompetitionsViewModel by viewModels { factory }
+//    @Inject
+//    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel: CompetitionsViewModel by viewModels()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerCompetitionComponent.factory().create(coreComponent()).inject(this)
     }
 
     override fun onCreateView(

@@ -1,4 +1,4 @@
-package com.example.core.di.modules
+package com.example.data.di
 
 import android.content.Context
 import androidx.room.Room
@@ -7,18 +7,21 @@ import com.example.data.local.room.FootballDatabase
 import com.example.data.local.room.FootballDatabase.Companion.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Singleton
 
-
+@InstallIn(ApplicationComponent::class)
 @Module
-class DatabaseModule {
+object DatabaseModule {
 
     /*
      * The method returns the Database object
      **/
     @Singleton
     @Provides
-    fun provideAppDatabase(context: Context): FootballDatabase = Room.databaseBuilder(
+    fun provideAppDatabase(@ApplicationContext context: Context): FootballDatabase = Room.databaseBuilder(
         context, FootballDatabase::class.java, DATABASE_NAME)
             .fallbackToDestructiveMigration() // allows database to be cleared after upgrading version
             .build()

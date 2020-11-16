@@ -1,5 +1,6 @@
 package com.example.presentation.viewmodels
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.domain.usecases.competition.GetCompetitionsUseCase
 import com.example.domain.usecases.competition.GetTodayFixturesUseCase
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CompetitionsViewModel @Inject constructor(
+class CompetitionsViewModel @ViewModelInject constructor(
     private val getTodayFixturesUseCase: GetTodayFixturesUseCase,
     private val getCompetitionsUseCase: GetCompetitionsUseCase
 ) : ViewModel() {

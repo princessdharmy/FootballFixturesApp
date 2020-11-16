@@ -16,8 +16,8 @@ dependencies {
     implementation AndroidLibraries.lifecycleExtensions
     kapt AndroidLibraries.lifecycleCompile
 
-    implementation AndroidLibraries.room
-    implementation AndroidLibraries.roomKtx
+    api AndroidLibraries.room
+    api AndroidLibraries.roomKtx
     kapt AndroidLibraries.roomCompiler
 
     implementation Libraries.moshiKotlin

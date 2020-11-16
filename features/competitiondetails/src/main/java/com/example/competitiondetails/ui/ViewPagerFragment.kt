@@ -12,8 +12,9 @@ import com.example.competitiondetails.databinding.FragmentViewPagerBinding
 import com.example.competitiondetails.ui.fixturesFragment.FixturesFragment
 import com.example.competitiondetails.ui.tableFragment.TableFragment
 import com.example.competitiondetails.ui.teamFragment.TeamFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ViewPagerFragment : BaseFragment() {
 
     private lateinit var binding: FragmentViewPagerBinding

@@ -26,17 +26,17 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
-import com.example.competitiondetails.di.DaggerCompetitionDetailsComponent
-import com.example.core.coreComponent
 import com.example.common.utils.network.NetworkStatus
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class BottomSheetFragment : BottomSheetDialogFragment() {
 
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
-    private val viewModel: CompetitionDetailsViewModel by viewModels { factory }
+//    @Inject
+//    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel: CompetitionDetailsViewModel by viewModels()
 
     lateinit var binding: FragmentBottomSheetBinding
     private lateinit var adapter: BottomSheetAdapter
@@ -58,7 +58,6 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerCompetitionDetailsComponent.factory().create(coreComponent()).inject(this)
     }
 
     override fun onCreateView(

@@ -12,10 +12,13 @@ import com.example.data.repository.CompetitionsRepositoryImpl
 import com.example.domain.repository.CompetitionsRepository
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Singleton
 
-@Module(includes = [NetworkModule::class])
-class DataModule {
+@InstallIn(ApplicationComponent::class)
+@Module
+object DataModule {
 
     /// Provide DispatcherProvider ///
 

@@ -1,2 +1,2 @@
-include ':app', ':buildsrc', ':core', ':features:competitions', ':data', ':domain', ':common', ':navigation', ':features:competitiondetails'
+include ':app', ':buildsrc', ':features:competitions', ':data', ':domain', ':common', ':navigation', ':features:competitiondetails'
 include ':presentation'
