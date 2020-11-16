@@ -1,6 +1,5 @@
 package com.example.competitiondetails.ui.tableFragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,25 +14,16 @@ import com.example.common.base.BaseFragment
 import com.example.competitiondetails.R
 import com.example.competitiondetails.databinding.TableFragmentBinding
 import com.example.common.utils.network.NetworkStatus
-import com.example.presentation.models.MatchResponse
 import com.example.presentation.models.StandingResponse
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TableFragment : BaseFragment() {
 
     lateinit var binding: TableFragmentBinding
     private lateinit var adapter: TableAdapter
-
-//    @Inject
-//    lateinit var factory: ViewModelProvider.Factory
     private val viewModel: CompetitionDetailsViewModel by viewModels()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

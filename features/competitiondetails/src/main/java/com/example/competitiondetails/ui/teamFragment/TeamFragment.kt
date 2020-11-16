@@ -1,6 +1,5 @@
 package com.example.competitiondetails.ui.teamFragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.common.base.BaseFragment
 import com.example.competitiondetails.R
@@ -19,21 +17,13 @@ import com.example.presentation.models.Team
 import com.example.presentation.models.TeamResponse
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TeamFragment : BaseFragment() {
 
     lateinit var binding: TeamFragmentBinding
     private lateinit var adapter: TeamAdapter
-
-//    @Inject
-//    lateinit var factory: ViewModelProvider.Factory
     private val viewModel: CompetitionDetailsViewModel by viewModels()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

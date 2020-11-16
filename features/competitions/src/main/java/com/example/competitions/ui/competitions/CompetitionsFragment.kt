@@ -1,15 +1,12 @@
 package com.example.competitions.ui.competitions
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,21 +17,13 @@ import com.example.competitions.databinding.CompetitionsFragmentBinding
 import com.example.presentation.models.Competitions
 import com.example.presentation.viewmodels.CompetitionsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class CompetitionsFragment : BaseFragment() {
 
     lateinit var binding: CompetitionsFragmentBinding
     private lateinit var adapter: CompetitionsAdapter
-
-//    @Inject
-//    lateinit var factory: ViewModelProvider.Factory
     private val viewModel: CompetitionsViewModel by viewModels()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

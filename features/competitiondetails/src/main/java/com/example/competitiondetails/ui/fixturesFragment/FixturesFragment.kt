@@ -1,6 +1,5 @@
 package com.example.competitiondetails.ui.fixturesFragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,21 +18,13 @@ import com.example.presentation.models.MatchResponse
 import com.example.presentation.utils.Utilities.getCurrentDate
 import com.example.presentation.viewmodels.CompetitionDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class FixturesFragment : BaseFragment() {
 
     lateinit var binding: FixturesFragmentBinding
     private lateinit var adapter: FixturesAdapter
-
-//    @Inject
-//    lateinit var factory: ViewModelProvider.Factory
     private val viewModel: CompetitionDetailsViewModel by viewModels()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
