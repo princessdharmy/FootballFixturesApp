@@ -14,8 +14,6 @@ dependencies {
     implementation project(Modules.domain)
     implementation project(Modules.presentation)
 
-    implementation Libraries.dagger2
-    kapt Libraries.daggerCompiler
     implementation AndroidLibraries.fragment
     implementation AndroidLibraries.fragmentKtx
 

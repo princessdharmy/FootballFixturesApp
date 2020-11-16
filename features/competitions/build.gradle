@@ -19,7 +19,4 @@ dependencies {
     implementation AndroidLibraries.navigation
     implementation AndroidLibraries.navigationFrag
 
-    implementation Libraries.dagger2
-    kapt Libraries.daggerCompiler
-
 }

@@ -1,6 +1,7 @@
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 androidExtensions {
     experimental = true
@@ -29,6 +30,8 @@ android {
             // Default is 100.
             option("-Xmaxerrs", 500)
         }
+        // Configure kapt to correct error types for Hilt
+        correctErrorTypes true
     }
 
     dataBinding {
@@ -55,6 +58,20 @@ dependencies {
 
     implementation KotlinLibraries.kotlin
     implementation AndroidLibraries.coreKtx
+
+    implementation Libraries.dagger2
+    kapt Libraries.daggerCompiler
+
+    implementation Libraries.hiltAndroid
+    kapt Libraries.hiltAndroidCompiler
+
+    // For instrumentation tests
+    androidTestImplementation Libraries.hiltAndroidTest
+    kaptAndroidTest Libraries.hiltAndroidTestCompiler
+
+    // For local unit tests
+    testImplementation Libraries.hiltAndroidUnitTest
+    kaptTest Libraries.hiltAndroidUnitTestCompiler
 
     implementation TestLibraries.androidTestRunner
     implementation TestLibraries.junit

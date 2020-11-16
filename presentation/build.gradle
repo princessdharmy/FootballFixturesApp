@@ -21,7 +21,4 @@ dependencies {
     kapt Libraries.glideCompiler
     implementation Libraries.svgDecoder
 
-    implementation Libraries.dagger2
-    kapt Libraries.daggerCompiler
-
 }

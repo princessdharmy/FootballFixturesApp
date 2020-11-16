@@ -41,6 +41,8 @@ object Versions {
     val fragment = "1.2.0"
     val glideVersion = "4.9.0"
     val gradle = "4.0.1"
+    val hiltGradlePluginVersion = "2.28-alpha"
+    val hiltVersion = "2.28-alpha"
     val junit = "4.12"
     val kotlinVersion = "1.4.10"
     val kotlinCoroutine = "1.3.5-native-mt"
@@ -71,10 +73,26 @@ object Libraries {
     val dagger2 = "com.google.dagger:dagger:${Versions.dagger}"
     val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
 
+    /**
+     * HILT
+      */
+    val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltVersion}"
+    val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}"
+
+    // For instrumentation tests
+    val hiltAndroidTest = "com.google.dagger:hilt-android-testing:${Versions.hiltVersion}"
+    val hiltAndroidTestCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}"
+
+    // For local unit tests
+    val hiltAndroidUnitTest = "com.google.dagger:hilt-android-testing:${Versions.hiltVersion}"
+    val hiltAndroidUnitTestCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}"
+
+
     // RETROFIT
     val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     val retrofitMoshiConverter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofitMoshi}"
-    val httpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.logginInterceptor}"
+    val httpLoggingInterceptor =
+        "com.squareup.okhttp3:logging-interceptor:${Versions.logginInterceptor}"
     val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
 
     // MOSHI
@@ -83,15 +101,17 @@ object Libraries {
 
     // VIEWS AND ANIMATIONS
     val shapeImage = "com.github.siyamed:android-shape-imageview:${Versions.shapeImageVersion}"
-    val glide =  "com.github.bumptech.glide:glide:${Versions.glideVersion}"
+    val glide = "com.github.bumptech.glide:glide:${Versions.glideVersion}"
     val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glideVersion}"
     val svgDecoder = "com.caverock:androidsvg:${Versions.svgDecoderVersion}"
 }
 
 object KotlinLibraries {
     val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlinVersion}"
-    val coreKotlinCoroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutine}"
-    val androidKotlinCoroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutine}"
+    val coreKotlinCoroutine =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutine}"
+    val androidKotlinCoroutine =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutine}"
 }
 
 object AndroidLibraries {
@@ -120,6 +140,7 @@ object AndroidLibraries {
     // ROOM
     val room = "androidx.room:room-runtime:${Versions.roomVersion}"
     val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
+
     // optional - Kotlin Extensions and Coroutines support for Room
     val roomKtx = "androidx.room:room-ktx:${Versions.roomVersion}"
 

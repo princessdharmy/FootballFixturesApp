@@ -26,9 +26,6 @@ dependencies {
     api Libraries.httpLoggingInterceptor
     implementation Libraries.okhttp
 
-    implementation Libraries.dagger2
-    kapt Libraries.daggerCompiler
-
     implementation AndroidLibraries.lifecycleViewModel
     implementation AndroidLibraries.lifecycleExtensions
     implementation AndroidLibraries.lifecycleLivedata
