@@ -39,7 +39,7 @@ object Versions {
     val espressoCore = "3.2.0"
     val fragment = "1.2.0"
     val glideVersion = "4.9.0"
-    val gradle = "4.0.1"
+    val gradle = "4.1.1"
     val hiltGradlePluginVersion = "2.28-alpha"
     val hiltJetpackVersion = "1.0.0-alpha02"
     val hiltVersion = "2.28-alpha"
